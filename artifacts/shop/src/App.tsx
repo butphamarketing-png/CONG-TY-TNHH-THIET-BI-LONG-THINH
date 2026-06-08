@@ -10,6 +10,9 @@ import { OrderLookupPage } from "@/pages/order-lookup";
 import { NewsListPage } from "@/pages/news-list";
 import { NewsDetailPage } from "@/pages/news-detail";
 import { WishlistPage } from "@/pages/wishlist";
+import { BrandPage } from "@/pages/brand";
+import { ShowroomPage } from "@/pages/showroom";
+import { PromotionPage } from "@/pages/promotion";
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -23,8 +26,11 @@ function Router() {
     <Layout>
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/khuyen-mai" component={PromotionPage} />
         <Route path="/danh-muc/:slug" component={CategoryPage} />
         <Route path="/san-pham/:slug" component={ProductDetailPage} />
+        <Route path="/thuong-hieu/:slug" component={BrandPage} />
+        <Route path="/showroom" component={ShowroomPage} />
         <Route path="/tim-kiem" component={SearchPage} />
         <Route path="/gio-hang" component={CartPage} />
         <Route path="/dat-hang" component={CheckoutPage} />

@@ -1,12 +1,29 @@
 import { Link } from "wouter";
-import { Product } from "@workspace/api-client-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart, BarChart2, Star } from "lucide-react";
-import { formatCurrency } from "@/lib/format";
 import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
+
+interface Product {
+  id: number;
+  name: string;
+  slug: string;
+  thumbnail: string;
+  price: number;
+  originalPrice?: number;
+  discount?: number;
+  isNew?: boolean;
+  isBestSeller?: boolean;
+  isFeatured?: boolean;
+  isOnSale?: boolean;
+  brandName?: string;
+  categoryName?: string;
+  rating?: number;
+  reviewCount?: number;
+  soldCount?: number;
+}
 
 interface ProductCardProps {
   product: Product;
@@ -26,7 +43,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
-    addItem(product);
+    addItem(product as any);
     toast({
       title: "Đã thêm vào giỏ hàng",
       description: `${product.name} đã được thêm vào giỏ hàng.`,
@@ -44,7 +61,7 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <Card className="group overflow-hidden flex flex-col h-full transition-all duration-300 border-border/50 hover:border-primary/30 hover:shadow-lg bg-white">
+    <Card className="group overflow-hidden flex flex-col h-full transition-all duration-300 border-gray-200 hover:border-red-600/30 hover:shadow-lg bg-white">
       <div className="relative aspect-square overflow-hidden bg-gray-50">
         <Link href={`/san-pham/${product.slug}`} className="block w-full h-full">
           <img
@@ -57,7 +74,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Badges */}
         <div className="absolute top-2 left-2 flex flex-col gap-1">
           {hasDiscount && discountPct && (
-            <Badge variant="destructive" className="font-bold text-[11px] px-1.5 py-0.5">
+            <Badge className="bg-red-600 hover:bg-red-700 font-bold text-[11px] px-1.5 py-0.5">
               -{discountPct}%
             </Badge>
           )}
@@ -72,14 +89,14 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Action Buttons */}
         <div className="absolute top-2 right-2 flex flex-col gap-1.5 translate-x-10 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
           <button
-            className={`w-8 h-8 rounded-full shadow-md flex items-center justify-center bg-white border border-border hover:border-primary transition-colors ${isWishlisted ? "text-red-500" : "text-gray-400 hover:text-red-500"}`}
+            className={`w-8 h-8 rounded-full shadow-md flex items-center justify-center bg-white border border-gray-200 hover:border-red-600 transition-colors ${isWishlisted ? "text-red-500" : "text-gray-400 hover:text-red-500"}`}
             onClick={handleWishlist}
             title="Yêu thích"
           >
             <Heart className={`w-3.5 h-3.5 ${isWishlisted ? "fill-current" : ""}`} />
           </button>
           <button
-            className={`w-8 h-8 rounded-full shadow-md flex items-center justify-center bg-white border border-border hover:border-primary transition-colors ${isCompared ? "text-primary" : "text-gray-400 hover:text-primary"}`}
+            className={`w-8 h-8 rounded-full shadow-md flex items-center justify-center bg-white border border-gray-200 hover:border-red-600 transition-colors ${isCompared ? "text-red-600" : "text-gray-400 hover:text-red-600"}`}
             onClick={handleCompare}
             title="So sánh"
           >
@@ -90,7 +107,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Quick Add to Cart (appears at bottom on hover) */}
         <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
           <Button
-            className="w-full rounded-none h-9 text-xs font-semibold bg-primary hover:bg-primary/90 text-white"
+            className="w-full rounded-none h-9 text-xs font-semibold bg-red-600 hover:bg-red-700 text-white"
             onClick={handleAddToCart}
           >
             <ShoppingCart className="w-3.5 h-3.5 mr-1.5" />
@@ -100,10 +117,10 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
 
       <CardContent className="p-3 flex flex-col flex-grow">
-        <div className="text-[11px] text-muted-foreground mb-1 font-medium uppercase tracking-wide">
+        <div className="text-[11px] text-gray-500 mb-1 font-medium uppercase tracking-wide">
           {product.brandName || "TDM Shop"}
         </div>
-        <Link href={`/san-pham/${product.slug}`} className="hover:text-primary transition-colors">
+        <Link href={`/san-pham/${product.slug}`} className="hover:text-red-600 transition-colors">
           <h3 className="font-medium text-sm line-clamp-2 mb-2 leading-snug min-h-[2.4rem]">
             {product.name}
           </h3>
@@ -124,23 +141,23 @@ export function ProductCard({ product }: ProductCardProps) {
                 />
               ))}
             </div>
-            <span className="text-[11px] text-muted-foreground">({product.reviewCount})</span>
+            <span className="text-[11px] text-gray-500">({product.reviewCount})</span>
           </div>
         )}
 
         <div className="mt-auto pt-1 flex flex-col gap-0.5">
-          <span className="text-base font-bold text-destructive">
-            {formatCurrency(currentPrice)}
+          <span className="text-base font-bold text-red-600">
+            {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(currentPrice)}
           </span>
           {hasDiscount && originalPrice != null && (
-            <span className="text-xs text-muted-foreground line-through">
-              {formatCurrency(originalPrice)}
+            <span className="text-xs text-gray-400 line-through">
+              {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(originalPrice)}
             </span>
           )}
         </div>
 
         {product.soldCount != null && product.soldCount > 0 && (
-          <div className="text-[11px] text-muted-foreground mt-1">
+          <div className="text-[11px] text-gray-500 mt-1">
             Đã bán: {product.soldCount.toLocaleString()}
           </div>
         )}

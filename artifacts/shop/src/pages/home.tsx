@@ -1,11 +1,3 @@
-import {
-  useListBanners,
-  useListPolicies,
-  useListCategories,
-  useListProducts,
-  useListBrands,
-  useListNews,
-} from "@workspace/api-client-react";
 import { Link } from "wouter";
 import { ProductCard } from "@/components/product-card";
 import { Button } from "@/components/ui/button";
@@ -17,21 +9,14 @@ import {
   Truck,
   RotateCcw,
   HeadphonesIcon,
-  Smartphone,
-  Laptop,
-  Tablet,
-  Headphones,
-  Watch,
-  Monitor,
-  Camera,
-  Gamepad2,
+  Bath,
   Flame,
+  Droplets,
+  Zap,
   Sparkles,
   Tag,
   Clock,
-  Zap,
 } from "lucide-react";
-import { formatDate } from "@/lib/format";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -41,16 +26,14 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import React from "react";
+import { CATEGORIES, BRANDS, PRODUCTS, NEWS, BANNERS, POLICIES } from "@/lib/tdm-data";
 
 const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  "dien-thoai": <Smartphone className="w-5 h-5" />,
-  "laptop": <Laptop className="w-5 h-5" />,
-  "may-tinh-bang": <Tablet className="w-5 h-5" />,
-  "tai-nghe": <Headphones className="w-5 h-5" />,
-  "dong-ho-thong-minh": <Watch className="w-5 h-5" />,
-  "man-hinh": <Monitor className="w-5 h-5" />,
-  "may-anh": <Camera className="w-5 h-5" />,
-  "gaming": <Gamepad2 className="w-5 h-5" />,
+  "thiet-bi-ve-sinh": <Bath className="w-5 h-5" />,
+  "thiet-bi-bep": <Flame className="w-5 h-5" />,
+  "thiet-bi-nuoc": <Droplets className="w-5 h-5" />,
+  "thiet-bi-dien": <Zap className="w-5 h-5" />,
+  "phu-kien-nha-tam": <Bath className="w-5 h-5" />,
 };
 
 function useCountdown(targetHour: number) {
@@ -86,28 +69,22 @@ function TimeBlock({ value, label }: { value: number; label: string }) {
 }
 
 export function Home() {
-  const { data: banners } = useListBanners();
-  const { data: policies } = useListPolicies();
-  const { data: categories } = useListCategories();
-  const { data: brands } = useListBrands();
-  const { data: news } = useListNews({ limit: 3 });
-
   const [activeTab, setActiveTab] = React.useState("newest");
-  const { data: productsData } = useListProducts({ tab: activeTab, limit: 10 });
-  const { data: featuredProducts } = useListProducts({ tab: "featured", limit: 4 });
-  const { data: saleProducts } = useListProducts({ tab: "sale", limit: 6 });
-
   const [hoveredCat, setHoveredCat] = React.useState<number | null>(null);
-
   const countdown = useCountdown(22);
+
+  const featuredProducts = PRODUCTS.filter(p => p.isFeatured).slice(0, 4);
+  const saleProducts = PRODUCTS.filter(p => p.isOnSale);
+  const bestsellerProducts = PRODUCTS.filter(p => p.isBestSeller);
+  const newestProducts = PRODUCTS;
 
   const getPolicyIcon = (iconName: string) => {
     switch (iconName) {
-      case "truck": return <Truck className="w-8 h-8 text-primary" />;
-      case "shield": return <ShieldCheck className="w-8 h-8 text-primary" />;
-      case "refresh": return <RotateCcw className="w-8 h-8 text-primary" />;
-      case "headset": return <HeadphonesIcon className="w-8 h-8 text-primary" />;
-      default: return <ShieldCheck className="w-8 h-8 text-primary" />;
+      case "truck": return <Truck className="w-8 h-8 text-red-600" />;
+      case "shield": return <ShieldCheck className="w-8 h-8 text-red-600" />;
+      case "refresh": return <RotateCcw className="w-8 h-8 text-red-600" />;
+      case "headset": return <HeadphonesIcon className="w-8 h-8 text-red-600" />;
+      default: return <ShieldCheck className="w-8 h-8 text-red-600" />;
     }
   };
 
@@ -129,15 +106,15 @@ export function Home() {
           <div className="flex gap-3">
             {/* Category Sidebar */}
             <div className="hidden lg:block w-[220px] shrink-0">
-              <div className="bg-white rounded-lg border border-border shadow-sm overflow-visible">
-                <div className="bg-primary text-primary-foreground px-4 py-2.5 rounded-t-lg font-semibold text-sm flex items-center gap-2">
+              <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-visible">
+                <div className="bg-red-600 text-white px-4 py-2.5 rounded-t-lg font-semibold text-sm flex items-center gap-2">
                   <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4" stroke="currentColor" strokeWidth={2}>
                     <path d="M3 6h18M3 12h18M3 18h18" />
                   </svg>
                   Danh mục sản phẩm
                 </div>
-                <div className="divide-y divide-border/50">
-                  {categories?.slice(0, 10).map((cat) => (
+                <div className="divide-y divide-gray-100">
+                  {CATEGORIES.slice(0, 10).map((cat) => (
                     <div
                       key={cat.id}
                       className="relative group/cat"
@@ -146,34 +123,42 @@ export function Home() {
                     >
                       <Link
                         href={`/danh-muc/${cat.slug}`}
-                        className="flex items-center justify-between px-3 py-2.5 hover:bg-primary/5 hover:text-primary transition-colors text-sm"
+                        className="flex items-center justify-between px-3 py-2.5 hover:bg-red-50 hover:text-red-600 transition-colors text-sm"
                       >
                         <div className="flex items-center gap-2.5">
-                          <span className="text-primary/70">
-                            {CATEGORY_ICONS[cat.slug] || <Smartphone className="w-4 h-4" />}
+                          <span className="text-red-500/70">
+                            {CATEGORY_ICONS[cat.slug] || <Bath className="w-4 h-4" />}
                           </span>
                           <span>{cat.name}</span>
                         </div>
                         {cat.children && cat.children.length > 0 && (
-                          <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
+                          <ChevronRight className="w-3.5 h-3.5 text-gray-500" />
                         )}
                       </Link>
 
                       {cat.children && cat.children.length > 0 && hoveredCat === cat.id && (
-                        <div className="absolute left-full top-0 w-[200px] bg-white border border-border shadow-xl z-50 rounded-r-lg overflow-hidden">
-                          <div className="bg-primary/5 px-3 py-2 text-xs font-semibold text-primary border-b border-border">
-                            {cat.name}
+                        <div className="absolute left-full top-0 w-[400px] bg-white border border-gray-200 shadow-xl z-50 rounded-r-lg overflow-hidden">
+                          <div className="grid grid-cols-2 gap-2 p-4">
+                            {cat.children.map((child) => (
+                              <div key={child.id}>
+                                <Link
+                                  href={`/danh-muc/${child.slug}`}
+                                  className="block px-3 py-2 font-semibold text-gray-800 hover:text-red-600 text-sm"
+                                >
+                                  {child.name}
+                                </Link>
+                                {child.children?.map((grandChild) => (
+                                  <Link
+                                    key={grandChild.id}
+                                    href={`/danh-muc/${grandChild.slug}`}
+                                    className="block px-3 py-1 text-xs text-gray-500 hover:text-red-600 transition-colors"
+                                  >
+                                    {grandChild.name}
+                                  </Link>
+                                ))}
+                              </div>
+                            ))}
                           </div>
-                          {cat.children.map((child) => (
-                            <Link
-                              key={child.id}
-                              href={`/danh-muc/${child.slug}`}
-                              className="flex items-center px-3 py-2 text-sm hover:bg-primary/5 hover:text-primary border-b border-border/50 last:border-0 transition-colors"
-                            >
-                              <ChevronRight className="w-3 h-3 mr-2 text-muted-foreground" />
-                              {child.name}
-                            </Link>
-                          ))}
                         </div>
                       )}
                     </div>
@@ -184,14 +169,14 @@ export function Home() {
 
             {/* Right: Banner Slider */}
             <div className="flex-grow flex flex-col gap-3 min-w-0">
-              {banners && banners.length > 0 && (
+              {BANNERS && BANNERS.length > 0 && (
                 <Carousel
                   plugins={[autoplayPlugin.current]}
                   className="w-full rounded-xl overflow-hidden shadow-sm"
                   opts={{ loop: true }}
                 >
                   <CarouselContent>
-                    {banners.map((banner) => (
+                    {BANNERS.map((banner) => (
                       <CarouselItem key={banner.id}>
                         <div className="relative w-full" style={{ aspectRatio: "16/6" }}>
                           <img
@@ -214,7 +199,7 @@ export function Home() {
                                   <Button
                                     asChild
                                     size="sm"
-                                    className="bg-destructive hover:bg-destructive/90 text-white rounded-full font-semibold md:text-base md:px-6"
+                                    className="bg-red-600 hover:bg-red-700 text-white rounded-full font-semibold md:text-base md:px-6"
                                   >
                                     <Link href={banner.link}>
                                       {banner.buttonText || "Khám phá ngay"}
@@ -234,25 +219,25 @@ export function Home() {
               )}
 
               {/* Mini featured products row */}
-              {featuredProducts?.data && featuredProducts.data.length >= 2 && (
+              {featuredProducts.length >= 2 && (
                 <div className="hidden lg:grid grid-cols-2 gap-3">
-                  {featuredProducts.data.slice(0, 2).map((p) => (
+                  {featuredProducts.slice(0, 2).map((p) => (
                     <Link
                       key={p.id}
                       href={`/san-pham/${p.slug}`}
-                      className="bg-white rounded-lg border border-border hover:border-primary/30 hover:shadow-md transition-all flex items-center gap-3 p-3 group"
+                      className="bg-white rounded-lg border border-gray-200 hover:border-red-500/30 hover:shadow-md transition-all flex items-center gap-3 p-3 group"
                     >
                       <div className="w-16 h-16 shrink-0 rounded overflow-hidden bg-gray-50">
                         <img
-                          src={p.thumbnail || ""}
+                          src={p.thumbnail}
                           alt={p.name}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                       </div>
                       <div className="min-w-0">
-                        <div className="text-[11px] text-muted-foreground">{p.brandName}</div>
+                        <div className="text-[11px] text-gray-500">{p.brandName}</div>
                         <div className="text-sm font-medium line-clamp-1">{p.name}</div>
-                        <div className="text-sm font-bold text-destructive">
+                        <div className="text-sm font-bold text-red-600">
                           {new Intl.NumberFormat("vi-VN").format(p.price)}đ
                         </div>
                       </div>
@@ -265,8 +250,49 @@ export function Home() {
         </div>
       </section>
 
+      {/* Policy Bar */}
+      <section className="bg-white border-y border-gray-200">
+        <div className="container mx-auto px-4 py-5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 divide-x divide-gray-200">
+            {POLICIES.map((policy) => (
+              <div key={policy.id} className="flex items-center gap-3 px-4">
+                <div className="shrink-0">{getPolicyIcon(policy.icon)}</div>
+                <div>
+                  <h3 className="font-semibold text-sm">{policy.title}</h3>
+                  {policy.description && (
+                    <p className="text-xs text-gray-500 hidden md:block">{policy.description}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Categories */}
+      <section className="container mx-auto px-4">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold flex items-center gap-2">
+            <span className="w-1 h-6 bg-red-600 rounded inline-block" />
+            Danh mục nổi bật
+          </h2>
+        </div>
+        <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
+          {CATEGORIES.slice(0, 8).map((cat) => (
+            <Link key={cat.id} href={`/danh-muc/${cat.slug}`}>
+              <div className="bg-white rounded-xl border border-gray-200 hover:border-red-500/30 hover:shadow-md transition-all text-center p-3 flex flex-col items-center gap-2 cursor-pointer group">
+                <div className="w-12 h-12 rounded-full bg-red-50 group-hover:bg-red-100 flex items-center justify-center text-red-600 transition-colors">
+                  {CATEGORY_ICONS[cat.slug] || <Bath className="w-6 h-6" />}
+                </div>
+                <span className="text-xs font-medium line-clamp-2 leading-tight">{cat.name}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Flash Sale Section */}
-      {saleProducts?.data && saleProducts.data.length > 0 && (
+      {saleProducts.length > 0 && (
         <section className="container mx-auto px-4">
           <div className="bg-gradient-to-r from-red-600 to-orange-500 rounded-2xl overflow-hidden shadow-lg">
             {/* Header */}
@@ -296,7 +322,7 @@ export function Home() {
             {/* Products */}
             <div className="bg-white/10 backdrop-blur-sm px-5 pb-5">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-                {saleProducts.data.map((product) => (
+                {saleProducts.map((product) => (
                   <Link
                     key={product.id}
                     href={`/san-pham/${product.slug}`}
@@ -304,7 +330,7 @@ export function Home() {
                   >
                     <div className="relative aspect-square bg-gray-50">
                       <img
-                        src={product.thumbnail || "https://placehold.co/200x200"}
+                        src={product.thumbnail}
                         alt={product.name}
                         className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
                       />
@@ -315,12 +341,12 @@ export function Home() {
                       )}
                     </div>
                     <div className="p-2.5">
-                      <div className="text-xs font-medium line-clamp-2 leading-tight mb-1 text-slate-700 min-h-[32px]">{product.name}</div>
+                      <div className="text-xs font-medium line-clamp-2 leading-tight mb-1 text-gray-700 min-h-[32px]">{product.name}</div>
                       <div className="text-red-600 font-bold text-sm">
                         {new Intl.NumberFormat("vi-VN").format(product.price)}đ
                       </div>
                       {product.originalPrice && product.originalPrice > product.price && (
-                        <div className="text-xs text-slate-400 line-through">
+                        <div className="text-xs text-gray-400 line-through">
                           {new Intl.NumberFormat("vi-VN").format(product.originalPrice)}đ
                         </div>
                       )}
@@ -332,7 +358,7 @@ export function Home() {
                             style={{ width: `${Math.floor(Math.random() * 40) + 30}%` }}
                           />
                         </div>
-                        <div className="text-[10px] text-slate-400 mt-0.5">Đã bán {Math.floor(Math.random() * 50) + 10}</div>
+                        <div className="text-[10px] text-gray-400 mt-0.5">Đã bán {Math.floor(Math.random() * 50) + 10}</div>
                       </div>
                     </div>
                   </Link>
@@ -350,62 +376,13 @@ export function Home() {
         </section>
       )}
 
-      {/* Policy Bar */}
-      {policies && policies.length > 0 && (
-        <section className="bg-white border-y border-border">
-          <div className="container mx-auto px-4 py-5">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 divide-x divide-border">
-              {policies.map((policy) => (
-                <div key={policy.id} className="flex items-center gap-3 px-4">
-                  <div className="shrink-0">{getPolicyIcon(policy.icon)}</div>
-                  <div>
-                    <h3 className="font-semibold text-sm">{policy.title}</h3>
-                    {policy.description && (
-                      <p className="text-xs text-muted-foreground hidden md:block">{policy.description}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Featured Categories */}
-      {categories && categories.length > 0 && (
-        <section className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold flex items-center gap-2">
-              <span className="w-1 h-6 bg-primary rounded inline-block" />
-              Danh mục nổi bật
-            </h2>
-          </div>
-          <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
-            {categories.slice(0, 8).map((cat) => (
-              <Link key={cat.id} href={`/danh-muc/${cat.slug}`}>
-                <div className="bg-white rounded-xl border border-border hover:border-primary/30 hover:shadow-md transition-all text-center p-3 flex flex-col items-center gap-2 cursor-pointer group">
-                  <div className="w-12 h-12 rounded-full bg-primary/5 group-hover:bg-primary/10 flex items-center justify-center text-primary transition-colors">
-                    {cat.image ? (
-                      <img src={cat.image} alt={cat.name} className="w-8 h-8 object-contain" />
-                    ) : (
-                      CATEGORY_ICONS[cat.slug] || <Smartphone className="w-6 h-6" />
-                    )}
-                  </div>
-                  <span className="text-xs font-medium line-clamp-2 leading-tight">{cat.name}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
       {/* Products Tabs Section */}
       <section className="container mx-auto px-4">
-        <div className="bg-white rounded-xl shadow-sm border border-border overflow-hidden">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <Tabs defaultValue="newest" onValueChange={setActiveTab} className="w-full">
-            <div className="flex flex-col sm:flex-row justify-between items-center px-4 md:px-6 pt-4 pb-0 gap-3 border-b border-border">
+            <div className="flex flex-col sm:flex-row justify-between items-center px-4 md:px-6 pt-4 pb-0 gap-3 border-b border-gray-200">
               <h2 className="text-xl font-bold flex items-center gap-2">
-                <span className="w-1 h-6 bg-primary rounded inline-block" />
+                <span className="w-1 h-6 bg-red-600 rounded inline-block" />
                 Sản phẩm nổi bật
               </h2>
               <TabsList className="bg-transparent h-auto p-0 flex flex-wrap gap-1 mb-0 pb-0">
@@ -413,7 +390,7 @@ export function Home() {
                   <TabsTrigger
                     key={tab}
                     value={tab}
-                    className="data-[state=active]:bg-primary data-[state=active]:text-white border border-border rounded-full px-4 py-1.5 text-sm flex items-center gap-1.5 mb-2"
+                    className="data-[state=active]:bg-red-600 data-[state=active]:text-white border border-gray-200 rounded-full px-4 py-1.5 text-sm flex items-center gap-1.5 mb-2"
                   >
                     {TAB_ICONS[tab]}
                     {tab === "newest" ? "Mới nhất" : tab === "bestseller" ? "Bán chạy" : "Khuyến mãi"}
@@ -424,13 +401,11 @@ export function Home() {
 
             <TabsContent value={activeTab} className="p-4 md:p-6 mt-0 outline-none">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                {productsData?.data.map((product) => (
-                  <ProductCard key={product.id} product={product} />
+                {(activeTab === "newest" ? newestProducts :
+                  activeTab === "bestseller" ? bestsellerProducts :
+                  saleProducts).map((product) => (
+                  <ProductCard key={product.id} product={{ ...product, images: [{ url: product.thumbnail, alt: product.name }] }} />
                 ))}
-                {(!productsData?.data || productsData.data.length === 0) &&
-                  Array.from({ length: 5 }).map((_, i) => (
-                    <div key={i} className="rounded-xl bg-gray-100 animate-pulse aspect-[3/4]" />
-                  ))}
               </div>
               <div className="mt-6 text-center">
                 <Button variant="outline" size="lg" className="rounded-full px-10 font-semibold" asChild>
@@ -445,79 +420,75 @@ export function Home() {
       </section>
 
       {/* Brands */}
-      {brands && brands.length > 0 && (
-        <section className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold flex items-center gap-2">
-              <span className="w-1 h-6 bg-primary rounded inline-block" />
-              Thương hiệu uy tín
-            </h2>
-          </div>
-          <div className="bg-white rounded-xl border border-border shadow-sm p-5">
-            <div className="flex flex-wrap justify-center gap-6 md:gap-10 items-center">
-              {brands.map((brand) => (
-                <Link
-                  key={brand.id}
-                  href={`/tim-kiem?brand=${brand.slug}`}
-                  className="block opacity-50 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300 group"
-                >
-                  {brand.logo ? (
-                    <img src={brand.logo} alt={brand.name} className="h-10 md:h-12 object-contain" />
-                  ) : (
-                    <div className="text-lg font-bold text-slate-400 group-hover:text-primary transition-colors px-3 py-2 border border-gray-200 rounded">
-                      {brand.name}
-                    </div>
-                  )}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Latest News */}
-      {news?.data && news.data.length > 0 && (
-        <section className="container mx-auto px-4">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold flex items-center gap-2">
-              <span className="w-1 h-6 bg-primary rounded inline-block" />
-              Tin tức công nghệ
-            </h2>
-            <Link href="/tin-tuc" className="text-primary font-medium hover:underline text-sm flex items-center gap-1">
-              Xem tất cả <ChevronRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {news.data.map((article, idx) => (
-              <Card
-                key={article.id}
-                className={`overflow-hidden border-border hover:shadow-md transition-all flex flex-col bg-white ${idx === 0 ? "md:col-span-1" : ""}`}
+      <section className="container mx-auto px-4">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold flex items-center gap-2">
+            <span className="w-1 h-6 bg-red-600 rounded inline-block" />
+            Thương hiệu uy tín
+          </h2>
+        </div>
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5">
+          <div className="flex flex-wrap justify-center gap-6 md:gap-10 items-center">
+            {BRANDS.map((brand) => (
+              <Link
+                key={brand.id}
+                href={`/thuong-hieu/${brand.slug}`}
+                className="block opacity-50 hover:opacity-100 grayscale hover:grayscale-0 transition-all duration-300 group"
               >
-                <Link href={`/tin-tuc/${article.slug}`} className="block relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
-                  <img
-                    src={article.thumbnail || "https://placehold.co/600x340/e2e8f0/64748b"}
-                    alt={article.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
-                  {article.category && (
-                    <span className="absolute top-2 left-2 bg-primary text-primary-foreground text-[11px] font-semibold px-2 py-0.5 rounded">
-                      {article.category}
-                    </span>
-                  )}
-                </Link>
-                <CardContent className="p-4 flex flex-col flex-grow">
-                  <p className="text-[11px] text-muted-foreground mb-2">{formatDate(article.createdAt)}</p>
-                  <Link href={`/tin-tuc/${article.slug}`} className="hover:text-primary transition-colors">
-                    <h3 className="font-bold text-sm md:text-base line-clamp-2 leading-snug mb-2">{article.title}</h3>
-                  </Link>
-                  <p className="text-sm text-muted-foreground line-clamp-2">{article.excerpt}</p>
-                </CardContent>
-              </Card>
+                {brand.logo ? (
+                  <img src={brand.logo} alt={brand.name} className="h-10 md:h-12 object-contain" />
+                ) : (
+                  <div className="text-lg font-bold text-gray-400 group-hover:text-red-600 transition-colors px-3 py-2 border border-gray-200 rounded">
+                    {brand.name}
+                  </div>
+                )}
+              </Link>
             ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
+
+      {/* Latest News */}
+      <section className="container mx-auto px-4">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold flex items-center gap-2">
+            <span className="w-1 h-6 bg-red-600 rounded inline-block" />
+            Tin tức thiết bị vệ sinh
+          </h2>
+          <Link href="/tin-tuc" className="text-red-600 font-medium hover:underline text-sm flex items-center gap-1">
+            Xem tất cả <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {NEWS.map((article, idx) => (
+            <Card
+              key={article.id}
+              className={`overflow-hidden border-gray-200 hover:shadow-md transition-all flex flex-col bg-white ${idx === 0 ? "md:col-span-1" : ""}`}
+            >
+              <Link href={`/tin-tuc/${article.slug}`} className="block relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                <img
+                  src={article.thumbnail}
+                  alt={article.title}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+                {article.category && (
+                  <span className="absolute top-2 left-2 bg-red-600 text-white text-[11px] font-semibold px-2 py-0.5 rounded">
+                    {article.category}
+                  </span>
+                )}
+              </Link>
+              <CardContent className="p-4 flex flex-col flex-grow">
+                <p className="text-[11px] text-gray-500 mb-2">{article.createdAt}</p>
+                <Link href={`/tin-tuc/${article.slug}`} className="hover:text-red-600 transition-colors">
+                  <h3 className="font-bold text-sm md:text-base line-clamp-2 leading-snug mb-2">{article.title}</h3>
+                </Link>
+                <p className="text-sm text-gray-500 line-clamp-2">{article.excerpt}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDM Shop - Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-red { background: linear-gradient(to right, #dc2626, #ea580c); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- TOP HEADER -->
+    <div class="bg-gray-800 text-white text-xs py-2 px-4 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <span class="flex items-center gap-1"><span class="text-red-500">📞</span> Hotline: 0933 322 232</span>
+            <span>Showroom</span>
+            <span>Tin tức</span>
+            <span>Tra cứu đơn hàng</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span>Tài khoản</span>
+            <span>VNĐ</span>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="bg-white shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center gap-8">
+            <div class="text-2xl font-black text-red-600">TDM SHOP</div>
+            <div class="flex-1">
+                <div class="relative">
+                    <input type="text" placeholder="Tìm kiếm sản phẩm, danh mục..." class="w-full border-2 border-red-600 rounded-lg py-3 px-4 pr-12 focus:outline-none focus:border-red-700">
+                    <button class="absolute right-0 top-0 bottom-0 bg-red-600 text-white px-6 rounded-r-lg font-semibold">Tìm kiếm</button>
+                </div>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="flex flex-col items-center cursor-pointer">
+                    <div class="text-red-600 text-2xl animate-pulse">📞</div>
+                    <span class="text-xs text-red-600 font-semibold">0933.322.232</span>
+                </div>
+                <div class="flex flex-col items-center cursor-pointer">
+                    <div class="text-2xl">❤️</div>
+                    <span class="text-xs text-gray-500">Yêu thích</span>
+                </div>
+                <div class="flex flex-col items-center cursor-pointer relative">
+                    <div class="text-2xl">🛒</div>
+                    <span class="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] rounded-full w-5 h-5 flex items-center justify-center">2</span>
+                    <span class="text-xs text-gray-500">Giỏ hàng</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MEGA MENU -->
+    <nav class="bg-blue-900 text-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <ul class="flex items-center gap-1">
+                <li class="relative group">
+                    <a href="#" class="flex items-center gap-2 px-4 py-3 hover:bg-red-600 font-semibold">
+                        🏠 Thiết bị vệ sinh
+                    </a>
+                    <!-- MEGA MENU DROP -->
+                    <div class="absolute top-full left-0 bg-white text-gray-800 shadow-xl rounded-b-lg w-[800px] p-6 hidden group-hover:block z-50">
+                        <div class="grid grid-cols-3 gap-6">
+                            <div>
+                                <h4 class="font-bold text-red-600 mb-3">Bồn cầu</h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><a href="#" class="hover:text-red-600">Bồn cầu một khối</a></li>
+                                    <li><a href="#" class="hover:text-red-600">Bồn cầu hai khối</a></li>
+                                    <li><a href="#" class="hover:text-red-600">Bồn cầu Treo tường</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-red-600 mb-3">Lavabo</h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><a href="#" class="hover:text-red-600">Lavabo đặt bàn</a></li>
+                                    <li><a href="#" class="hover:text-red-600">Lavabo treo tường</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-red-600 mb-3">Thương hiệu</h4>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <span class="border rounded p-2 text-center text-xs">TOTO</span>
+                                    <span class="border rounded p-2 text-center text-xs">INAX</span>
+                                    <span class="border rounded p-2 text-center text-xs">CAESAR</span>
+                                    <span class="border rounded p-2 text-center text-xs">VIGLACERA</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="#" class="px-4 py-3 hover:bg-red-600 font-semibold">🔥 Thiết bị bếp</a></li>
+                <li><a href="#" class="px-4 py-3 hover:bg-red-600 font-semibold">💧 Thiết bị nước</a></li>
+                <li><a href="#" class="px-4 py-3 hover:bg-red-600 font-semibold">⚡ Thiết bị điện</a></li>
+                <li><a href="#" class="px-4 py-3 hover:bg-red-600 font-semibold">🚿 Phụ kiện nhà tắm</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO + SIDEBAR -->
+    <div class="max-w-7xl mx-auto px-4 py-6">
+        <div class="flex gap-6">
+            <!-- SIDEBAR CATEGORIES -->
+            <div class="w-64 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden shrink-0">
+                <h3 class="bg-red-600 text-white font-bold px-4 py-3 flex items-center gap-2">📋 Danh mục sản phẩm</h3>
+                <ul class="divide-y divide-gray-100">
+                    <li class="flex items-center justify-between px-4 py-3 hover:bg-red-50 cursor-pointer"><span>🚽 Thiết bị vệ sinh</span><span>›</span></li>
+                    <li class="flex items-center justify-between px-4 py-3 hover:bg-red-50 cursor-pointer"><span>🍳 Thiết bị bếp</span><span>›</span></li>
+                    <li class="flex items-center justify-between px-4 py-3 hover:bg-red-50 cursor-pointer"><span>💧 Thiết bị nước</span><span>›</span></li>
+                    <li class="flex items-center justify-between px-4 py-3 hover:bg-red-50 cursor-pointer"><span>⚡ Thiết bị điện</span><span>›</span></li>
+                    <li class="flex items-center justify-between px-4 py-3 hover:bg-red-50 cursor-pointer"><span>🚿 Phụ kiện nhà tắm</span><span>›</span></li>
+                </ul>
+            </div>
+
+            <!-- HERO BANNER -->
+            <div class="flex-1">
+                <div class="rounded-xl overflow-hidden h-[380px] bg-gradient-to-r from-red-600 to-orange-500 flex items-center justify-center text-white">
+                    <div class="text-center">
+                        <h2 class="text-5xl font-black mb-4">KHUYẾN MẠI LỚN</h2>
+                        <p class="text-xl mb-6">Giảm giá lên đến 50% các sản phẩm TOTO</p>
+                        <button class="bg-white text-red-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100">Mua ngay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- POLICY BAR -->
+        <div class="grid grid-cols-4 gap-4 mt-8 bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <div class="flex items-center gap-3">
+                <div class="bg-red-100 text-red-600 p-3 rounded-full">🚚</div>
+                <div>
+                    <div class="font-bold text-sm">GIAO HÀNG NHANH</div>
+                    <div class="text-xs text-gray-500">Giao hàng nội thành 3h</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="bg-red-100 text-red-600 p-3 rounded-full">🛡️</div>
+                <div>
+                    <div class="font-bold text-sm">CHÍNH HÃNG 100%</div>
+                    <div class="text-xs text-gray-500">Đảm bảo chính hãng</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="bg-red-100 text-red-600 p-3 rounded-full">🎧</div>
+                <div>
+                    <div class="font-bold text-sm">LẤP ĐẶT CHUYÊN NGHIỆP</div>
+                    <div class="text-xs text-gray-500">Lắp đặt đúng tiêu chuẩn</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="bg-red-100 text-red-600 p-3 rounded-full">🔄</div>
+                <div>
+                    <div class="font-bold text-sm">BẢO HÀNH DÀI HẠN</div>
+                    <div class="text-xs text-gray-500">Bảo hành 2-5 năm</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FEATURED CATEGORIES -->
+        <div class="mt-8">
+            <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><span class="w-2 h-6 bg-red-600 rounded"></span> DANH MỤC NỔI BẬT</h3>
+            <div class="grid grid-cols-5 gap-4">
+                <div class="bg-white rounded-xl p-4 text-center border hover:border-red-600 hover:shadow-lg cursor-pointer">
+                    <div class="text-4xl mb-2">🚽</div>
+                    <div class="font-semibold text-sm">Bồn cầu</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 text-center border hover:border-red-600 hover:shadow-lg cursor-pointer">
+                    <div class="text-4xl mb-2">🚿</div>
+                    <div class="font-semibold text-sm">Vòi sen</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 text-center border hover:border-red-600 hover:shadow-lg cursor-pointer">
+                    <div class="text-4xl mb-2">🍳</div>
+                    <div class="font-semibold text-sm">Bếp từ</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 text-center border hover:border-red-600 hover:shadow-lg cursor-pointer">
+                    <div class="text-4xl mb-2">💨</div>
+                    <div class="font-semibold text-sm">Máy hút mùi</div>
+                </div>
+                <div class="bg-white rounded-xl p-4 text-center border hover:border-red-600 hover:shadow-lg cursor-pointer">
+                    <div class="text-4xl mb-2">🛁</div>
+                    <div class="font-semibold text-sm">Bồn tắm</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BRANDS -->
+        <div class="mt-8 bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><span class="w-2 h-6 bg-red-600 rounded"></span> THƯƠNG HIỆU NỔI BẬT</h3>
+            <div class="grid grid-cols-6 gap-6">
+                <div class="border rounded-xl p-4 flex items-center justify-center text-2xl font-black text-gray-300">TOTO</div>
+                <div class="border rounded-xl p-4 flex items-center justify-center text-2xl font-black text-gray-300">INAX</div>
+                <div class="border rounded-xl p-4 flex items-center justify-center text-2xl font-black text-gray-300">CAESAR</div>
+                <div class="border rounded-xl p-4 flex items-center justify-center text-2xl font-black text-gray-300">VIGLACERA</div>
+                <div class="border rounded-xl p-4 flex items-center justify-center text-2xl font-black text-gray-300">BOSCH</div>
+                <div class="border rounded-xl p-4 flex items-center justify-center text-2xl font-black text-gray-300">HAFELE</div>
+            </div>
+        </div>
+
+        <!-- PRODUCT GRID EXAMPLE -->
+        <div class="mt-8">
+            <h3 class="text-xl font-bold mb-4 flex items-center gap-2"><span class="w-2 h-6 bg-red-600 rounded"></span> SẢN PHẨM MỚI NHẤT</h3>
+            <div class="grid grid-cols-4 gap-4">
+                <div class="bg-white rounded-xl border hover:border-red-600 hover:shadow-xl overflow-hidden cursor-pointer">
+                    <div class="aspect-square bg-gray-100 flex items-center justify-center text-6xl relative">
+                        🚽
+                        <span class="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">-30%</span>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-xs text-gray-400 mb-1">TOTO</div>
+                        <div class="font-semibold text-sm line-clamp-2 mb-2">Bồn cầu một khối TOTO CW886</div>
+                        <div class="text-red-600 font-bold">3.500.000đ</div>
+                        <div class="text-xs text-gray-400 line-through">5.000.000đ</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl border hover:border-red-600 hover:shadow-xl overflow-hidden cursor-pointer">
+                    <div class="aspect-square bg-gray-100 flex items-center justify-center text-6xl">
+                        🍳
+                    </div>
+                    <div class="p-4">
+                        <div class="text-xs text-gray-400 mb-1">BOSCH</div>
+                        <div class="font-semibold text-sm line-clamp-2 mb-2">Bếp từ Bosch 2 vùng nấu</div>
+                        <div class="text-red-600 font-bold">8.900.000đ</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl border hover:border-red-600 hover:shadow-xl overflow-hidden cursor-pointer">
+                    <div class="aspect-square bg-gray-100 flex items-center justify-center text-6xl">
+                        🚿
+                    </div>
+                    <div class="p-4">
+                        <div class="text-xs text-gray-400 mb-1">INAX</div>
+                        <div class="font-semibold text-sm line-clamp-2 mb-2">Vòi sen INAX nóng lạnh</div>
+                        <div class="text-red-600 font-bold">2.200.000đ</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl border hover:border-red-600 hover:shadow-xl overflow-hidden cursor-pointer">
+                    <div class="aspect-square bg-gray-100 flex items-center justify-center text-6xl relative">
+                        💨
+                        <span class="absolute top-2 left-2 bg-orange-500 text-white text-xs px-2 py-1 rounded font-bold">HOT</span>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-xs text-gray-400 mb-1">HAFELE</div>
+                        <div class="font-semibold text-sm line-clamp-2 mb-2">Máy hút mùi Hafele 90cm</div>
+                        <div class="text-red-600 font-bold">6.500.000đ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOATING BUTTONS -->
+    <div class="fixed right-4 bottom-4 flex flex-col gap-3">
+        <a href="tel:0933322232" class="w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-green-700">
+            📞
+        </a>
+        <a href="#" class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700">
+            💬
+        </a>
+        <button class="w-12 h-12 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-red-700">
+            ↑
+        </button>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-100 mt-12 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <div class="grid grid-cols-4 gap-8">
+                <div>
+                    <div class="text-2xl font-black text-red-600 mb-4">TDM SHOP</div>
+                    <p class="text-sm text-gray-600 leading-relaxed">Công ty TNHH Thiết Bị Vệ Sinh TDM chuyên cung cấp các sản phẩm thiết bị vệ sinh, thiết bị bếp chính hãng từ các thương hiệu nổi tiếng.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">DANH MỤC</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-red-600">Thiết bị vệ sinh</a></li>
+                        <li><a href="#" class="hover:text-red-600">Thiết bị bếp</a></li>
+                        <li><a href="#" class="hover:text-red-600">Thiết bị nước</a></li>
+                        <li><a href="#" class="hover:text-red-600">Thiết bị điện</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">CHÍNH SÁCH</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-red-600">Chính sách bảo hành</a></li>
+                        <li><a href="#" class="hover:text-red-600">Chính sách đổi trả</a></li>
+                        <li><a href="#" class="hover:text-red-600">Chính sách vận chuyển</a></li>
+                        <li><a href="#" class="hover:text-red-600">Chính sách thanh toán</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">LIÊN HỆ</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li>📞 0933.322.232</li>
+                        <li>📧 info@tdm.vn</li>
+                        <li>📍 504 Nguyễn Văn Quá, Q.12, TP.HCM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-800 text-white text-center py-4 text-xs">
+            Copyright © 2026 TDM Shop. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>
