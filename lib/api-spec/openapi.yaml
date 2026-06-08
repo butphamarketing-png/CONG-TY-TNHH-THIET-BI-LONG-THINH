@@ -3,13 +3,32 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: API specification for TDM Shop e-commerce platform
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: products
+    description: Product operations
+  - name: categories
+    description: Category operations
+  - name: brands
+    description: Brand operations
+  - name: banners
+    description: Banner/slider operations
+  - name: news
+    description: News/blog operations
+  - name: orders
+    description: Order operations
+  - name: search
+    description: Search operations
+  - name: showrooms
+    description: Showroom operations
+  - name: policies
+    description: Policy bar operations
+
 paths:
   /healthz:
     get:
@@ -24,13 +43,584 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /products:
+    get:
+      operationId: listProducts
+      tags: [products]
+      summary: List products with filtering and pagination
+      parameters:
+        - name: page
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: limit
+          in: query
+          schema: { type: integer, default: 20 }
+        - name: category
+          in: query
+          schema: { type: string }
+        - name: brand
+          in: query
+          schema: { type: string }
+        - name: minPrice
+          in: query
+          schema: { type: number }
+        - name: maxPrice
+          in: query
+          schema: { type: number }
+        - name: tab
+          in: query
+          description: "featured | bestseller | sale | newest"
+          schema: { type: string }
+        - name: q
+          in: query
+          schema: { type: string }
+      responses:
+        "200":
+          description: Product list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductListResponse"
+
+  /products/{slug}:
+    get:
+      operationId: getProduct
+      tags: [products]
+      summary: Get product detail by slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Product detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDetail"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /categories:
+    get:
+      operationId: listCategories
+      tags: [categories]
+      summary: Get category tree
+      responses:
+        "200":
+          description: Category tree
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Category"
+
+  /brands:
+    get:
+      operationId: listBrands
+      tags: [brands]
+      summary: List all brands
+      responses:
+        "200":
+          description: Brand list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Brand"
+
+  /banners:
+    get:
+      operationId: listBanners
+      tags: [banners]
+      summary: Get hero slider banners
+      responses:
+        "200":
+          description: Banner list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Banner"
+
+  /news:
+    get:
+      operationId: listNews
+      tags: [news]
+      summary: List news articles
+      parameters:
+        - name: page
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: limit
+          in: query
+          schema: { type: integer, default: 10 }
+      responses:
+        "200":
+          description: News list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsListResponse"
+
+  /news/{slug}:
+    get:
+      operationId: getNewsArticle
+      tags: [news]
+      summary: Get news article by slug
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: News article
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/NewsArticle"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /showrooms:
+    get:
+      operationId: listShowrooms
+      tags: [showrooms]
+      summary: List showroom locations
+      responses:
+        "200":
+          description: Showroom list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Showroom"
+
+  /policies:
+    get:
+      operationId: listPolicies
+      tags: [policies]
+      summary: Get policy bar items
+      responses:
+        "200":
+          description: Policy list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Policy"
+
+  /orders:
+    post:
+      operationId: createOrder
+      tags: [orders]
+      summary: Place an order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderInput"
+      responses:
+        "201":
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /orders/{code}:
+    get:
+      operationId: getOrder
+      tags: [orders]
+      summary: Look up order by code
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Order detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /search:
+    get:
+      operationId: searchProducts
+      tags: [search]
+      summary: Search products
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema: { type: string }
+        - name: page
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: limit
+          in: query
+          schema: { type: integer, default: 20 }
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductListResponse"
+
+  /search/suggestions:
+    get:
+      operationId: getSearchSuggestions
+      tags: [search]
+      summary: Get realtime search suggestions
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Suggestions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SearchSuggestion"
+
 components:
   schemas:
     HealthStatus:
       type: object
+      required: [status]
       properties:
         status:
           type: string
-      required:
-        - status
 
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+
+    ProductImage:
+      type: object
+      required: [url, alt]
+      properties:
+        url: { type: string }
+        alt: { type: string }
+
+    ProductVariant:
+      type: object
+      required: [id, name, value]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        value: { type: string }
+        price: { type: ["number", "null"] }
+        inStock: { type: boolean }
+
+    ProductAttribute:
+      type: object
+      required: [name, value]
+      properties:
+        name: { type: string }
+        value: { type: string }
+
+    ProductReview:
+      type: object
+      required: [id, author, rating, content, createdAt]
+      properties:
+        id: { type: integer }
+        author: { type: string }
+        rating: { type: integer }
+        content: { type: string }
+        images: { type: array, items: { type: string } }
+        createdAt: { type: string }
+
+    Product:
+      type: object
+      required: [id, name, slug, price, categorySlug, brandSlug]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        slug: { type: string }
+        sku: { type: string }
+        price: { type: number }
+        originalPrice: { type: ["number", "null"] }
+        discount: { type: ["integer", "null"] }
+        thumbnail: { type: string }
+        images: { type: array, items: { $ref: "#/components/schemas/ProductImage" } }
+        categorySlug: { type: string }
+        categoryName: { type: string }
+        brandSlug: { type: string }
+        brandName: { type: string }
+        inStock: { type: boolean }
+        stockCount: { type: ["integer", "null"] }
+        soldCount: { type: integer }
+        viewCount: { type: integer }
+        rating: { type: number }
+        reviewCount: { type: integer }
+        tags: { type: array, items: { type: string } }
+        isFeatured: { type: boolean }
+        isBestSeller: { type: boolean }
+        isNew: { type: boolean }
+        isOnSale: { type: boolean }
+        shortDescription: { type: ["string", "null"] }
+        seoTitle: { type: ["string", "null"] }
+        seoDescription: { type: ["string", "null"] }
+
+    ProductDetail:
+      type: object
+      required: [id, name, slug, price, categorySlug, brandSlug]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        slug: { type: string }
+        sku: { type: string }
+        price: { type: number }
+        originalPrice: { type: ["number", "null"] }
+        discount: { type: ["integer", "null"] }
+        thumbnail: { type: string }
+        images: { type: array, items: { $ref: "#/components/schemas/ProductImage" } }
+        videoUrl: { type: ["string", "null"] }
+        categorySlug: { type: string }
+        categoryName: { type: string }
+        brandSlug: { type: string }
+        brandName: { type: string }
+        inStock: { type: boolean }
+        stockCount: { type: ["integer", "null"] }
+        soldCount: { type: integer }
+        viewCount: { type: integer }
+        rating: { type: number }
+        reviewCount: { type: integer }
+        tags: { type: array, items: { type: string } }
+        isFeatured: { type: boolean }
+        isBestSeller: { type: boolean }
+        isNew: { type: boolean }
+        isOnSale: { type: boolean }
+        shortDescription: { type: ["string", "null"] }
+        fullDescription: { type: ["string", "null"] }
+        attributes: { type: array, items: { $ref: "#/components/schemas/ProductAttribute" } }
+        variants: { type: array, items: { $ref: "#/components/schemas/ProductVariant" } }
+        reviews: { type: array, items: { $ref: "#/components/schemas/ProductReview" } }
+        relatedProducts: { type: array, items: { $ref: "#/components/schemas/Product" } }
+        seoTitle: { type: ["string", "null"] }
+        seoDescription: { type: ["string", "null"] }
+
+    ProductListResponse:
+      type: object
+      required: [data, total, page, limit, totalPages]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Product"
+        total: { type: integer }
+        page: { type: integer }
+        limit: { type: integer }
+        totalPages: { type: integer }
+
+    Category:
+      type: object
+      required: [id, name, slug]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        slug: { type: string }
+        icon: { type: ["string", "null"] }
+        image: { type: ["string", "null"] }
+        description: { type: ["string", "null"] }
+        productCount: { type: integer }
+        children:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryChild"
+
+    CategoryChild:
+      type: object
+      required: [id, name, slug]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        slug: { type: string }
+        icon: { type: ["string", "null"] }
+        children:
+          type: array
+          items:
+            $ref: "#/components/schemas/CategoryLeaf"
+
+    CategoryLeaf:
+      type: object
+      required: [id, name, slug]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        slug: { type: string }
+
+    Brand:
+      type: object
+      required: [id, name, slug]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        slug: { type: string }
+        logo: { type: ["string", "null"] }
+        description: { type: ["string", "null"] }
+        productCount: { type: integer }
+        isFeatured: { type: boolean }
+
+    Banner:
+      type: object
+      required: [id, title, image]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        subtitle: { type: ["string", "null"] }
+        image: { type: string }
+        mobileImage: { type: ["string", "null"] }
+        link: { type: ["string", "null"] }
+        buttonText: { type: ["string", "null"] }
+        isActive: { type: boolean }
+        sortOrder: { type: integer }
+
+    NewsArticle:
+      type: object
+      required: [id, title, slug, thumbnail, createdAt]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        slug: { type: string }
+        excerpt: { type: ["string", "null"] }
+        content: { type: ["string", "null"] }
+        thumbnail: { type: string }
+        author: { type: ["string", "null"] }
+        category: { type: ["string", "null"] }
+        tags: { type: array, items: { type: string } }
+        viewCount: { type: integer }
+        createdAt: { type: string }
+
+    NewsListResponse:
+      type: object
+      required: [data, total, page, limit, totalPages]
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/NewsArticle"
+        total: { type: integer }
+        page: { type: integer }
+        limit: { type: integer }
+        totalPages: { type: integer }
+
+    Showroom:
+      type: object
+      required: [id, name, address, phone]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        address: { type: string }
+        phone: { type: string }
+        email: { type: ["string", "null"] }
+        lat: { type: ["number", "null"] }
+        lng: { type: ["number", "null"] }
+        openHours: { type: ["string", "null"] }
+        image: { type: ["string", "null"] }
+
+    Policy:
+      type: object
+      required: [id, title, icon]
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        description: { type: ["string", "null"] }
+        icon: { type: string }
+
+    OrderItem:
+      type: object
+      required: [productId, productName, price, quantity]
+      properties:
+        productId: { type: integer }
+        productName: { type: string }
+        productSlug: { type: string }
+        thumbnail: { type: string }
+        price: { type: number }
+        quantity: { type: integer }
+        variant: { type: ["string", "null"] }
+
+    OrderInput:
+      type: object
+      required: [fullName, phone, address, items]
+      properties:
+        fullName: { type: string }
+        phone: { type: string }
+        address: { type: string }
+        email: { type: ["string", "null"] }
+        note: { type: ["string", "null"] }
+        paymentMethod: { type: string, enum: [cod, bank_transfer, momo] }
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderItem"
+
+    Order:
+      type: object
+      required: [id, code, fullName, phone, address, status, total, items, createdAt]
+      properties:
+        id: { type: integer }
+        code: { type: string }
+        fullName: { type: string }
+        phone: { type: string }
+        address: { type: string }
+        email: { type: ["string", "null"] }
+        note: { type: ["string", "null"] }
+        paymentMethod: { type: string }
+        status: { type: string }
+        total: { type: number }
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderItem"
+        createdAt: { type: string }
+
+    SearchSuggestion:
+      type: object
+      required: [type, label, slug]
+      properties:
+        type: { type: string, enum: [product, category, brand] }
+        label: { type: string }
+        slug: { type: string }
+        thumbnail: { type: ["string", "null"] }
+        price: { type: ["number", "null"] }

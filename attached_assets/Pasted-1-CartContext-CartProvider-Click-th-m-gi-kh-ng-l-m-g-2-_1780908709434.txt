@@ -1,0 +1,114 @@
+1	CartContext / CartProvider	Click "thêm giỏ" không làm gì
+2	Cart Drawer / Sidebar	Không có giỏ hàng mở ra
+3	Trang Giỏ hàng /gio-hang	Chưa có route
+4	Trang Đặt hàng /dat-hang	Chưa có route
+5	Form đặt hàng	Họ tên, SĐT, địa chỉ, ghi chú, thanh toán
+6	Xác nhận đơn hàng	Màn hình sau khi đặt thành công
+7	Tra cứu đơn hàng	Chưa có
+8	Wishlist / Yêu thích	Nút ♡ không hoạt động
+9	So sánh sản phẩm	Chưa có
+10	"Mua ngay" button	Chỉ có "Thêm giỏ"
+🔴 THIẾU — NHÓM 2: BỘ LỌC & TÌM KIẾM (Critical)
+#	Tính năng	Ghi chú
+11	Bộ lọc Brand thực sự	Checkbox có nhưng không lọc
+12	Bộ lọc Giá thực sự	Checkbox có nhưng không lọc
+13	Tìm kiếm có logic	Search bar nhập không tìm được gì
+14	Gợi ý tìm kiếm realtime	Dropdown gợi ý khi gõ
+15	Trang kết quả tìm kiếm /tim-kiem?q=	Chưa có route
+16	Phân trang	Toàn bộ sản phẩm load một lúc
+🟠 THIẾU — NHÓM 3: TRANG CHỦ (Sections)
+#	Tính năng	Ghi chú
+17	Policy Bar	4 ô: Giao hàng 3H / Chính hãng / Bảo hành / Đổi trả
+18	Danh mục nổi bật	Grid card có icon + ảnh
+19	Khối Giới thiệu Công ty	Ảnh + nội dung + CTA
+20	Khối Tin tức trên trang chủ	3 bài viết mới nhất
+21	Sản phẩm theo tab	Tab: Nổi bật / Bán chạy / Khuyến mãi / Mới nhất
+22	Brand Carousel	Hiện là brand cards tĩnh, nên là carousel scroll
+🟠 THIẾU — NHÓM 4: HEADER / NAVIGATION
+#	Tính năng	Ghi chú
+23	Top Header Bar	Hotline, email, địa chỉ, đăng nhập, tra cứu đơn
+24	Mega Menu 3 cấp	Cha → Con → Cháu với icon
+25	Icon danh mục	Mỗi category có icon (svg/emoji)
+26	Cart badge count	Số đỏ trên icon giỏ hàng
+27	Mobile menu	Hamburger → drawer menu trên điện thoại
+28	Sticky header	Header dính khi scroll
+🟠 THIẾU — NHÓM 5: TRANG CHI TIẾT SẢN PHẨM
+#	Tính năng	Ghi chú
+29	Gallery thực	Thumbnails click đổi ảnh chính
+30	Zoom ảnh	Hover/click phóng to
+31	Video tab	Nhúng YouTube/video sản phẩm
+32	Thông số kỹ thuật động	Từ data, không hardcode
+33	FAQ tab	Câu hỏi thường gặp
+34	Form gửi đánh giá	Cho phép khách gửi review
+35	Ảnh trong đánh giá	Upload ảnh kèm review
+36	Nút Zalo nhanh	Liên hệ Zalo từ trang sản phẩm
+37	Nút Messenger nhanh	Liên hệ Messenger
+38	Chia sẻ mạng xã hội	Facebook, Zalo, copy link
+39	"Đã xem gần đây"	Section sản phẩm vừa xem
+40	Related theo brand	Không chỉ cùng category
+🟡 THIẾU — NHÓM 6: DỮ LIỆU SẢN PHẨM
+#	Trường	Ghi chú
+41	sku	Mã SKU thực, không dùng slug
+42	inStock / stockCount	Tồn kho thực
+43	attributes	Xuất xứ, Chất liệu, Màu sắc, KT
+44	variants	Biến thể màu/size
+45	shortDescription	Mô tả ngắn
+46	fullDescription	Mô tả chi tiết HTML
+47	videoUrl	URL video sản phẩm
+48	tags	Tags phân loại
+49	soldCount / viewCount	Đã bán / lượt xem
+50	seoTitle / seoDescription	SEO per product
+51	Ảnh thực sự	images[] đang rỗng
+🟡 THIẾU — NHÓM 7: TRANG VÀ ROUTES
+#	Route	Ghi chú
+52	/tin-tuc	Trang tin tức (component có nhưng route chưa đăng ký)
+53	/tin-tuc/:slug	Chi tiết bài viết
+54	/thuong-hieu/:slug	Trang thương hiệu
+55	/tim-kiem	Trang kết quả tìm kiếm
+56	/gio-hang	Trang giỏ hàng
+57	/dat-hang	Trang đặt hàng
+58	/tai-khoan	Trang tài khoản
+🟡 THIẾU — NHÓM 8: FLOATING BUTTONS
+#	Button	Ghi chú
+59	Zalo float button	Góc dưới phải
+60	Hotline float button	Góc dưới phải
+61	Messenger float button	Góc dưới phải
+62	Scroll to top button	Xuất hiện khi scroll xuống
+🟡 THIẾU — NHÓM 9: API SERVER
+#	Endpoint	Ghi chú
+63	GET /api/products	List + filter + paginate
+64	GET /api/products/:slug	Chi tiết sản phẩm
+65	GET /api/categories	Cây danh mục
+66	GET /api/brands	Danh sách thương hiệu
+67	GET /api/banners	Hero slider data
+68	GET /api/showrooms	Danh sách showroom
+69	GET /api/news	Tin tức
+70	GET /api/news/:slug	Chi tiết bài viết
+71	GET /api/policies	Policy bar data
+72	POST /api/orders	Tạo đơn hàng
+73	GET /api/search?q=	Tìm kiếm
+🔵 THIẾU — NHÓM 10: SEO
+#	Tính năng	Ghi chú
+74	<title> động	Mỗi trang một title khác
+75	<meta description> động	
+76	OpenGraph tags	Facebook share
+77	Schema.org Product	Hiển thị giá trong Google
+78	Schema.org BreadcrumbList	
+79	Schema.org Organization	
+80	canonical URL	
+81	sitemap.xml	
+82	robots.txt	
+🔵 THIẾU — NHÓM 11: FOOTER
+#	Tính năng	Ghi chú
+83	Links thực	Hầu hết đang href="#"
+84	Chính sách column	CSBH, bảo mật, đổi trả
+85	Hỗ trợ KH column	FAQ, hướng dẫn mua
+86	Bản đồ Google Map embed	Trong footer
+87	TikTok / Zalo OA icons	Mạng xã hội đầy đủ
+88	Chứng nhận	ĐKKD, Bộ Công Thương
+🔵 THIẾU — NHÓM 12: RESPONSIVE / MOBILE
+#	Tính năng	Ghi chú
+89	Mobile menu drawer	Không có hamburger menu
+90	Touch swipe slider	HeroSlider chưa hỗ trợ touch
+91	Mobile product grid	1 cột trên mobile
+92	Mobile bottom navigation	Trang chủ / Danh mục / Giỏ / TK

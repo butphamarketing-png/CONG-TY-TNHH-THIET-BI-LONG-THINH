@@ -1,0 +1,21 @@
+import { pgTable, text, serial, integer, timestamp } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod/v4";
+
+export const newsTable = pgTable("news", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  excerpt: text("excerpt"),
+  content: text("content"),
+  thumbnail: text("thumbnail").notNull().default(""),
+  author: text("author"),
+  category: text("category"),
+  tags: text("tags").array().notNull().default([]),
+  viewCount: integer("view_count").notNull().default(0),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const insertNewsSchema = createInsertSchema(newsTable).omit({ id: true, createdAt: true });
+export type InsertNews = z.infer<typeof insertNewsSchema>;
+export type News = typeof newsTable.$inferSelect;
