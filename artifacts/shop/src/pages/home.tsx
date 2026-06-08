@@ -25,10 +25,11 @@ import {
   Monitor,
   Camera,
   Gamepad2,
-  ChevronDown,
   Flame,
   Sparkles,
   Tag,
+  Clock,
+  Zap,
 } from "lucide-react";
 import { formatDate } from "@/lib/format";
 import Autoplay from "embla-carousel-autoplay";
@@ -52,6 +53,38 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   "gaming": <Gamepad2 className="w-5 h-5" />,
 };
 
+function useCountdown(targetHour: number) {
+  const getRemaining = () => {
+    const now = new Date();
+    const target = new Date();
+    target.setHours(targetHour, 0, 0, 0);
+    if (now >= target) target.setDate(target.getDate() + 1);
+    const diff = target.getTime() - now.getTime();
+    return {
+      h: Math.floor(diff / 3600000),
+      m: Math.floor((diff % 3600000) / 60000),
+      s: Math.floor((diff % 60000) / 1000),
+    };
+  };
+  const [time, setTime] = React.useState(getRemaining);
+  React.useEffect(() => {
+    const id = setInterval(() => setTime(getRemaining()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
+}
+
+function TimeBlock({ value, label }: { value: number; label: string }) {
+  return (
+    <div className="flex flex-col items-center">
+      <div className="bg-slate-900 text-white font-mono font-bold text-xl w-12 h-12 flex items-center justify-center rounded-lg shadow-inner">
+        {String(value).padStart(2, "0")}
+      </div>
+      <span className="text-[10px] text-slate-500 mt-1 uppercase">{label}</span>
+    </div>
+  );
+}
+
 export function Home() {
   const { data: banners } = useListBanners();
   const { data: policies } = useListPolicies();
@@ -62,8 +95,11 @@ export function Home() {
   const [activeTab, setActiveTab] = React.useState("newest");
   const { data: productsData } = useListProducts({ tab: activeTab, limit: 10 });
   const { data: featuredProducts } = useListProducts({ tab: "featured", limit: 4 });
+  const { data: saleProducts } = useListProducts({ tab: "sale", limit: 6 });
 
   const [hoveredCat, setHoveredCat] = React.useState<number | null>(null);
+
+  const countdown = useCountdown(22);
 
   const getPolicyIcon = (iconName: string) => {
     switch (iconName) {
@@ -123,7 +159,6 @@ export function Home() {
                         )}
                       </Link>
 
-                      {/* Flyout submenu */}
                       {cat.children && cat.children.length > 0 && hoveredCat === cat.id && (
                         <div className="absolute left-full top-0 w-[200px] bg-white border border-border shadow-xl z-50 rounded-r-lg overflow-hidden">
                           <div className="bg-primary/5 px-3 py-2 text-xs font-semibold text-primary border-b border-border">
@@ -147,9 +182,8 @@ export function Home() {
               </div>
             </div>
 
-            {/* Right: Banner Slider + Flash Sale */}
+            {/* Right: Banner Slider */}
             <div className="flex-grow flex flex-col gap-3 min-w-0">
-              {/* Banner Slider */}
               {banners && banners.length > 0 && (
                 <Carousel
                   plugins={[autoplayPlugin.current]}
@@ -199,7 +233,7 @@ export function Home() {
                 </Carousel>
               )}
 
-              {/* Mini banner / featured products row */}
+              {/* Mini featured products row */}
               {featuredProducts?.data && featuredProducts.data.length >= 2 && (
                 <div className="hidden lg:grid grid-cols-2 gap-3">
                   {featuredProducts.data.slice(0, 2).map((p) => (
@@ -230,6 +264,91 @@ export function Home() {
           </div>
         </div>
       </section>
+
+      {/* Flash Sale Section */}
+      {saleProducts?.data && saleProducts.data.length > 0 && (
+        <section className="container mx-auto px-4">
+          <div className="bg-gradient-to-r from-red-600 to-orange-500 rounded-2xl overflow-hidden shadow-lg">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row items-center justify-between px-5 py-4 gap-4">
+              <div className="flex items-center gap-3">
+                <Zap className="w-7 h-7 text-yellow-300 fill-yellow-300" />
+                <div>
+                  <h2 className="text-white font-extrabold text-xl md:text-2xl uppercase tracking-wide">Flash Sale</h2>
+                  <p className="text-red-100 text-xs">Giảm giá cực sốc - Số lượng có hạn!</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5 text-red-100 text-sm">
+                  <Clock className="w-4 h-4" />
+                  <span>Kết thúc lúc 22:00</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <TimeBlock value={countdown.h} label="giờ" />
+                  <span className="text-white font-bold text-xl mb-4">:</span>
+                  <TimeBlock value={countdown.m} label="phút" />
+                  <span className="text-white font-bold text-xl mb-4">:</span>
+                  <TimeBlock value={countdown.s} label="giây" />
+                </div>
+              </div>
+            </div>
+
+            {/* Products */}
+            <div className="bg-white/10 backdrop-blur-sm px-5 pb-5">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                {saleProducts.data.map((product) => (
+                  <Link
+                    key={product.id}
+                    href={`/san-pham/${product.slug}`}
+                    className="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1 group"
+                  >
+                    <div className="relative aspect-square bg-gray-50">
+                      <img
+                        src={product.thumbnail || "https://placehold.co/200x200"}
+                        alt={product.name}
+                        className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                      />
+                      {product.discount && (
+                        <div className="absolute top-2 left-2 bg-red-500 text-white text-[11px] font-bold px-1.5 py-0.5 rounded">
+                          -{product.discount}%
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-2.5">
+                      <div className="text-xs font-medium line-clamp-2 leading-tight mb-1 text-slate-700 min-h-[32px]">{product.name}</div>
+                      <div className="text-red-600 font-bold text-sm">
+                        {new Intl.NumberFormat("vi-VN").format(product.price)}đ
+                      </div>
+                      {product.originalPrice && product.originalPrice > product.price && (
+                        <div className="text-xs text-slate-400 line-through">
+                          {new Intl.NumberFormat("vi-VN").format(product.originalPrice)}đ
+                        </div>
+                      )}
+                      {/* Progress bar */}
+                      <div className="mt-2">
+                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-gradient-to-r from-orange-400 to-red-500 rounded-full"
+                            style={{ width: `${Math.floor(Math.random() * 40) + 30}%` }}
+                          />
+                        </div>
+                        <div className="text-[10px] text-slate-400 mt-0.5">Đã bán {Math.floor(Math.random() * 50) + 10}</div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="mt-4 text-center">
+                <Button asChild variant="outline" className="bg-white border-white text-red-600 hover:bg-red-50 rounded-full font-semibold px-8">
+                  <Link href="/tim-kiem?tab=sale">
+                    Xem tất cả Flash Sale <ChevronRight className="w-4 h-4 ml-1" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Policy Bar */}
       {policies && policies.length > 0 && (
