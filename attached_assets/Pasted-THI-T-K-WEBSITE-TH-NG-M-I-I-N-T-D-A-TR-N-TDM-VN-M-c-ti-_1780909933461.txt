@@ -1,0 +1,255 @@
+THIẾT KẾ WEBSITE THƯƠNG MẠI ĐIỆN TỬ DỰA TRÊN TDM.VN
+
+Mục tiêu:
+
+Tạo giao diện, bố cục và toàn bộ tính năng frontend tương đương website TDM.vn.
+
+KHÔNG CẦN DATABASE.
+
+KHÔNG CẦN CMS.
+
+KHÔNG CẦN SUPABASE.
+
+KHÔNG CẦN R2.
+
+KHÔNG CẦN API.
+
+Chỉ tập trung:
+
+* UI
+* UX
+* Layout
+* Frontend Logic
+* Responsive
+
+---
+
+CÔNG NGHỆ
+
+* NextJS 15
+* App Router
+* TypeScript
+* TailwindCSS
+* Shadcn UI
+
+---
+
+YÊU CẦU
+
+Tất cả dữ liệu sử dụng mock data.
+
+Tuy nhiên phải thiết kế sẵn để sau này dễ kết nối CMS.
+
+---
+
+HEADER
+
+Bao gồm:
+
+* Top Header
+* Hotline
+* Địa chỉ
+* Email
+* Đăng nhập
+* Giỏ hàng
+* Tìm kiếm
+
+---
+
+MEGA MENU
+
+Hỗ trợ:
+
+* Danh mục cha
+* Danh mục con
+* Danh mục cháu
+
+Hiệu ứng hover giống website thương mại điện tử lớn.
+
+---
+
+HERO SLIDER
+
+* Slider tự động
+* Nút điều hướng
+* Responsive
+* CTA Button
+
+---
+
+CHÍNH SÁCH
+
+* Giao hàng
+* Chính hãng
+* Bảo hành
+* Đổi trả
+
+---
+
+DANH MỤC NỔI BẬT
+
+* Card đẹp
+* Responsive
+
+---
+
+THƯƠNG HIỆU
+
+* Carousel
+* Logo thương hiệu
+
+---
+
+SẢN PHẨM
+
+Mỗi sản phẩm gồm:
+
+* Hình ảnh
+* Tên
+* Giá
+* Giá khuyến mãi
+* Nhãn HOT
+* Nhãn SALE
+* Nhãn MỚI
+
+---
+
+TRANG DANH MỤC
+
+Bao gồm:
+
+* Breadcrumb
+* Bộ lọc
+* Sắp xếp
+* Grid/List View
+* Pagination
+
+---
+
+BỘ LỌC
+
+Thiết kế đầy đủ giao diện:
+
+* Theo giá
+* Theo thương hiệu
+* Theo danh mục
+* Theo thuộc tính
+
+Chưa cần kết nối dữ liệu thật.
+
+---
+
+TÌM KIẾM
+
+Thiết kế:
+
+* Search box
+* Search suggestion popup
+* Search history
+
+Dùng mock data.
+
+---
+
+TRANG CHI TIẾT SẢN PHẨM
+
+Bao gồm:
+
+* Gallery ảnh
+* Thumbnail
+* Zoom ảnh
+* Video sản phẩm
+* SKU
+* Thương hiệu
+* Giá
+* Tồn kho
+
+Tabs:
+
+* Mô tả
+* Thông số kỹ thuật
+* Đánh giá
+
+---
+
+GIỎ HÀNG
+
+Frontend đầy đủ:
+
+* Add to Cart
+* Remove Cart
+* Update Quantity
+* Cart Drawer
+* Cart Page
+
+Dùng local state.
+
+---
+
+ĐẶT HÀNG
+
+Thiết kế giao diện:
+
+* Thông tin khách hàng
+* Địa chỉ
+* Ghi chú
+* Tổng tiền
+
+---
+
+TIN TỨC
+
+* Danh mục tin
+* Danh sách bài viết
+* Chi tiết bài viết
+
+---
+
+SHOWROOM
+
+* Danh sách showroom
+* Bản đồ
+* Hotline
+
+---
+
+FOOTER
+
+* Thông tin công ty
+* Chính sách
+* Danh mục
+* Social
+
+---
+
+FLOATING BUTTONS
+
+* Zalo
+* Hotline
+* Messenger
+* Scroll To Top
+
+---
+
+QUAN TRỌNG
+
+Không làm CMS.
+
+Không làm API.
+
+Không làm Database.
+
+Không làm Authentication.
+
+Không làm Backend.
+
+Chỉ tập trung:
+
+1. Giao diện
+2. Trải nghiệm người dùng
+3. Bố cục
+4. Component hóa
+5. Responsive
+6. Frontend Logic
+
+Để sau này Cursor/Trae có thể dễ dàng kết nối CMS Core, Supabase và Cloudflare R2.

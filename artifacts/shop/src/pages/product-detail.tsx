@@ -42,7 +42,10 @@ export function ProductDetailPage({ params }: { params: { slug: string } }) {
   }
 
   const images = product.images?.map(img => img.url) || (product.thumbnail ? [product.thumbnail] : []);
-  const displayPrice = product.discount || product.price;
+  const currentPrice = product.price;
+  const originalPrice = product.originalPrice;
+  const hasDiscount = originalPrice != null && originalPrice > currentPrice;
+  const discountPct = product.discount;
 
   const handleAddToCart = () => {
     if (product.variants && product.variants.length > 0 && !selectedVariant) {
@@ -111,15 +114,22 @@ export function ProductDetailPage({ params }: { params: { slug: string } }) {
             </div>
 
             <div className="bg-slate-50 p-6 rounded-xl border border-border mb-6">
-              <div className="flex items-end gap-3 mb-2">
-                <span className="text-3xl font-bold text-destructive">{formatCurrency(displayPrice)}</span>
-                {product.discount && product.discount < product.price && (
-                  <span className="text-lg text-muted-foreground line-through mb-1">{formatCurrency(product.price)}</span>
+              <div className="flex items-baseline gap-3 mb-2 flex-wrap">
+                <span className="text-3xl font-bold text-destructive">{formatCurrency(currentPrice)}</span>
+                {hasDiscount && originalPrice != null && (
+                  <span className="text-lg text-muted-foreground line-through">{formatCurrency(originalPrice)}</span>
                 )}
               </div>
-              {product.discount && product.discount < product.price && (
-                <Badge variant="destructive">Giảm {Math.round((1 - product.discount / product.price) * 100)}%</Badge>
-              )}
+              <div className="flex gap-2 flex-wrap">
+                {hasDiscount && discountPct && (
+                  <Badge variant="destructive" className="text-sm px-2 py-1">Giảm {discountPct}%</Badge>
+                )}
+                {product.inStock ? (
+                  <Badge className="bg-green-100 text-green-700 border-green-200 text-sm px-2 py-1">Còn hàng</Badge>
+                ) : (
+                  <Badge variant="outline" className="text-sm px-2 py-1">Hết hàng</Badge>
+                )}
+              </div>
             </div>
 
             {product.variants && product.variants.length > 0 && (

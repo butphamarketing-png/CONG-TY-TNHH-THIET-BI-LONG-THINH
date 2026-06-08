@@ -1,0 +1,244 @@
+THIẾT KẾ WEBSITE CHUẨN CLOUDFLARE PAGES + SUPABASE + R2
+
+Mục tiêu:
+
+Xây dựng website NextJS chuyên nghiệp.
+
+Kiến trúc bắt buộc:
+
+Frontend:
+
+* NextJS 15
+* App Router
+* TypeScript
+* TailwindCSS
+
+Hosting:
+
+* Cloudflare Pages
+
+Database:
+
+* Supabase PostgreSQL
+
+Storage:
+
+* Cloudflare R2
+
+---
+
+NGUYÊN TẮC DỮ LIỆU
+
+KHÔNG lưu ảnh trong database.
+
+KHÔNG lưu file trong database.
+
+Database chỉ lưu:
+
+* Text
+* Số liệu
+* SEO
+* Metadata
+* URL ảnh
+
+---
+
+SUPABASE QUẢN LÝ
+
+Products
+Categories
+Brands
+Posts
+Pages
+Menus
+SEO
+Settings
+Users
+Orders
+Contacts
+
+Ví dụ:
+
+products
+
+id
+name
+slug
+price
+description
+thumbnail_url
+seo_title
+seo_description
+
+---
+
+R2 QUẢN LÝ
+
+Logo
+Favicon
+Banner
+Slideshow
+Product Images
+Post Images
+Gallery
+Videos
+PDF Files
+
+Ví dụ:
+
+r2 bucket
+
+/products
+/posts
+/banners
+/logo
+/files
+
+---
+
+UPLOAD FLOW
+
+Admin Upload Image
+
+↓
+
+Upload lên R2
+
+↓
+
+R2 trả URL
+
+↓
+
+Lưu URL vào Supabase
+
+↓
+
+Frontend hiển thị ảnh bằng URL
+
+---
+
+CMS
+
+Tạo CMS chuẩn quản lý:
+
+1. Dashboard
+
+2. Products
+
+* CRUD
+* Gallery
+* SEO
+
+3. Categories
+
+* CRUD
+* SEO
+
+4. Brands
+
+* CRUD
+
+5. Posts
+
+* CRUD
+* SEO
+
+6. Menus
+
+* Multi Level
+
+7. Banners
+
+* Slider
+* CTA
+
+8. Media Library
+
+* Upload R2
+* Chọn ảnh từ R2
+* Xóa ảnh
+* Xem trước ảnh
+
+9. SEO Settings
+
+10. Website Settings
+
+* Logo
+* Favicon
+* Hotline
+* Email
+* Address
+
+---
+
+MEDIA LIBRARY
+
+Yêu cầu:
+
+Giống WordPress Media.
+
+Hiển thị:
+
+* Thumbnail
+* URL
+* Ngày upload
+* Kích thước
+
+Cho phép:
+
+* Upload
+* Chọn ảnh
+* Copy URL
+* Xóa
+
+Tất cả thao tác với Cloudflare R2.
+
+---
+
+KHÔNG ĐƯỢC DÙNG
+
+* Local uploads
+* public/uploads
+* filesystem
+* fs
+* express
+
+---
+
+CLOUDFARE COMPATIBLE
+
+Toàn bộ code phải chạy được trên:
+
+* Cloudflare Pages
+* Cloudflare Workers Runtime
+
+---
+
+OUTPUT
+
+Trước khi code:
+
+1. Database Schema
+2. CMS Structure
+3. R2 Storage Structure
+4. Upload Flow
+5. API Structure
+
+Sau đó mới bắt đầu code.
+
+---
+
+KIỂM TRA CUỐI
+
+Xác nhận:
+
+✓ Tất cả text nằm trong Supabase
+
+✓ Tất cả ảnh nằm trong R2
+
+✓ Frontend không dùng dữ liệu hardcode
+
+✓ Build thành công
+
+✓ Deploy được lên Cloudflare Pages
