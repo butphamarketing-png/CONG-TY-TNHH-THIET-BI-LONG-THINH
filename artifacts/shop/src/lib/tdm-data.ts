@@ -35,8 +35,8 @@ export const PROMOTIONS = [
 ];
 
 export const POLICIES = [
-  { id: 1, title: "GIAO HÀNG NHANH", description: "Giao hàng nội thành 3h", icon: "truck" },
-  { id: 2, title: "CHÍNH HÃNG 100%", description: "Đảm bảo chính hãng", icon: "shield" },
-  { id: 3, title: "LẮP ĐẶT CHUYÊN NGHIỆP", description: "Lắp đặt đúng tiêu chuẩn", icon: "headset" },
-  { id: 4, title: "BẢO HÀNH DÀI HẠN", description: "Bảo hành từ 2-5 năm", icon: "refresh" },
+  { id: 1, title: "Giao hàng", description: "Giao hàng nội thành nhanh chóng trong ngày", icon: "truck" },
+  { id: 2, title: "Chính hãng", description: "Đảm bảo 100% chính hãng và bảo hành hãng", icon: "shield" },
+  { id: 3, title: "Lắp đặt", description: "Lắp đúng tiêu chuẩn, chính xác", icon: "headset" },
+  { id: 4, title: "Giá thành", description: "Luôn đảm bảo giá tốt, đúng giá", icon: "refresh" },
 ];

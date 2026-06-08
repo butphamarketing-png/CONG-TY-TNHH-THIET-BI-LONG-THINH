@@ -7,11 +7,17 @@ import {
   HeadphonesIcon,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { CATEGORIES, BRANDS, NEWS, POLICIES } from "@/lib/tdm-data";
+import { CATEGORIES, BRANDS, NEWS, POLICIES, PRODUCTS } from "@/lib/tdm-data";
 import { getMainGroups, getBrandsForGroup } from "@/lib/category-utils";
 import { HeroBanner } from "@/components/home/HeroBanner";
 import { IndustryBlock } from "@/components/home/IndustryBlock";
 import { ShowroomSection } from "@/components/home/ShowroomSection";
+import { FeaturedCategorySection } from "@/components/home/FeaturedCategorySection";
+import { BestSellingProductsSection } from "@/components/home/BestSellingProductsSection";
+import { NewProductsSection } from "@/components/home/NewProductsSection";
+import { CategoryProductBlock } from "@/components/home/CategoryProductBlock";
+import { WhyChooseUsSection } from "@/components/home/WhyChooseUsSection";
+import { FooterCTASection } from "@/components/home/FooterCTASection";
 
 /** Homepage industries shown like tdm.vn (5 main groups) */
 const HOMEPAGE_GROUPS = [
@@ -40,7 +46,53 @@ export function Home() {
 
   return (
     <div className="w-full flex flex-col gap-6 pb-24 bg-gray-50">
+      {/* 1. TOP HERO SECTION */}
       <HeroBanner />
+
+      {/* 2. FEATURED CATEGORY SECTION */}
+      <FeaturedCategorySection />
+
+      {/* 3. BRAND SHOWCASE - Industry blocks with category tiles + brand strip */}
+      <div className="container mx-auto px-4 flex flex-col gap-6">
+        {homepageIndustries.map((group) => (
+          <IndustryBlock
+            key={group.id}
+            group={group}
+            brands={getBrandsForGroup(BRANDS, group.groupSlug)}
+          />
+        ))}
+      </div>
+
+      {/* 4. BEST SELLING PRODUCTS */}
+      <BestSellingProductsSection />
+
+      {/* 5. NEW PRODUCTS */}
+      <NewProductsSection />
+
+      {/* 6. CATEGORY PRODUCT BLOCKS */}
+      <div className="container mx-auto px-4">
+        {homepageIndustries.slice(0, 3).map((group) => (
+          <CategoryProductBlock
+            key={`product-block-${group.id}`}
+            category={group}
+            products={PRODUCTS.filter((p) => p.categorySlug === group.slug || group.children?.some((c) => c.slug === p.categorySlug))}
+            limit={4}
+          />
+        ))}
+      </div>
+
+      {/* 7. PROMOTIONAL BANNERS - Already included in HeroBanner */}
+
+      {/* 8. SHOWROOM SECTION */}
+      <div className="container mx-auto px-4">
+        <ShowroomSection />
+      </div>
+
+      {/* 9. WHY CHOOSE US */}
+      <WhyChooseUsSection />
+
+      {/* 10. FOOTER CTA */}
+      <FooterCTASection />
 
       {/* Policy Bar — tdm.vn: Giao hàng / Chính hãng / Lắp đặt / Giá thành */}
       <section className="bg-white border-y border-gray-200">
@@ -60,22 +112,6 @@ export function Home() {
           </div>
         </div>
       </section>
-
-      {/* Industry blocks — each group: category tiles + brand strip */}
-      <div className="container mx-auto px-4 flex flex-col gap-6">
-        {homepageIndustries.map((group) => (
-          <IndustryBlock
-            key={group.id}
-            group={group}
-            brands={getBrandsForGroup(BRANDS, group.groupSlug)}
-          />
-        ))}
-      </div>
-
-      {/* Showroom */}
-      <div className="container mx-auto px-4">
-        <ShowroomSection />
-      </div>
 
       {/* Tin tức */}
       <section className="container mx-auto px-4">

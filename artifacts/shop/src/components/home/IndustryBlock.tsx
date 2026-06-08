@@ -4,6 +4,8 @@ import type { CategoryNode } from "@/types/catalog";
 import type { Brand } from "@/types/catalog";
 import { getCategoryIcon } from "@/lib/category-icons";
 import { brandUrl, categoryUrl } from "@/lib/urls";
+import { getHomepageTilesForGroup } from "@/lib/category-utils";
+import { CATEGORIES } from "@/lib/tdm-data";
 
 interface IndustryBlockProps {
   group: CategoryNode;
@@ -29,7 +31,7 @@ function CategoryTile({ cat }: { cat: CategoryNode }) {
 
 /** Industry section matching tdm.vn: L2 category tiles + brand strip */
 export function IndustryBlock({ group, brands }: IndustryBlockProps) {
-  const subcats = group.children ?? [];
+  const subcats = getHomepageTilesForGroup(CATEGORIES, group.groupSlug as any);
   if (subcats.length === 0) return null;
 
   return (
