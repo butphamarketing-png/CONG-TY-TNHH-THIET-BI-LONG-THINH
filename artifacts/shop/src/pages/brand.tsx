@@ -1,10 +1,12 @@
 import { Link } from "wouter";
 import { ChevronRight, Star, Flame } from "lucide-react";
-import { BRANDS, PRODUCTS, NEWS } from "@/lib/tdm-data";
+import { getBrandBySlug, getProducts } from "@/lib/catalog-service";
+import { NEWS } from "@/lib/tdm-data";
 import { ProductCard } from "@/components/product-card";
 
 export function BrandPage({ params }: { params: { slug: string } }) {
-  const brand = BRANDS.find((b) => b.slug === params.slug);
+  const brand = getBrandBySlug(params.slug);
+  const PRODUCTS = getProducts();
   const products = PRODUCTS.filter((p) => p.brandSlug === params.slug);
   const bestSellers = [...products].sort((a,b) => b.soldCount - a.soldCount).slice(0, 6);
   const featuredProductIds = brand?.featuredProducts || [];

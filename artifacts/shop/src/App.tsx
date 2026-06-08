@@ -1,7 +1,5 @@
 import { Layout } from "@/components/layout";
 import { Home } from "@/pages/home";
-import { CategoryPage } from "@/pages/category";
-import { ProductDetailPage } from "@/pages/product-detail";
 import { SearchPage } from "@/pages/search";
 import { CartPage } from "@/pages/cart";
 import { CheckoutPage } from "@/pages/checkout";
@@ -10,9 +8,14 @@ import { OrderLookupPage } from "@/pages/order-lookup";
 import { NewsListPage } from "@/pages/news-list";
 import { NewsDetailPage } from "@/pages/news-detail";
 import { WishlistPage } from "@/pages/wishlist";
-import { BrandPage } from "@/pages/brand";
 import { ShowroomPage } from "@/pages/showroom";
 import { PromotionPage } from "@/pages/promotion";
+import { CatalogSlugPage } from "@/pages/catalog-slug-page";
+import {
+  LegacyCategoryRedirect,
+  LegacyBrandRedirect,
+  LegacyProductRedirect,
+} from "@/pages/legacy-redirect";
 import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -27,9 +30,10 @@ function Router() {
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/khuyen-mai" component={PromotionPage} />
-        <Route path="/danh-muc/:slug" component={CategoryPage} />
-        <Route path="/san-pham/:slug" component={ProductDetailPage} />
-        <Route path="/thuong-hieu/:slug" component={BrandPage} />
+        <Route path="/danh-muc/:slug" component={LegacyCategoryRedirect} />
+        <Route path="/san-pham/:slug" component={LegacyProductRedirect} />
+        <Route path="/thuong-hieu/:slug" component={LegacyBrandRedirect} />
+        <Route path="/:slug" component={CatalogSlugPage} />
         <Route path="/showroom" component={ShowroomPage} />
         <Route path="/tim-kiem" component={SearchPage} />
         <Route path="/gio-hang" component={CartPage} />

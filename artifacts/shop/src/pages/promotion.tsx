@@ -1,5 +1,7 @@
 import { Link } from "wouter";
-import { PROMOTIONS, PRODUCTS } from "@/lib/tdm-data";
+import { PROMOTIONS } from "@/lib/tdm-data";
+import { getProducts } from "@/lib/catalog-service";
+import { categoryUrl } from "@/lib/urls";
 import { ProductCard } from "@/components/product-card";
 import { Flame, Clock, ArrowRight } from "lucide-react";
 
@@ -28,8 +30,8 @@ function CountdownTimer({ endDate }: { endDate: string }) {
 }
 
 export function PromotionPage() {
-  // Get all products on sale
-  const saleProducts = PRODUCTS.filter(p => p.isOnSale);
+  const PRODUCTS = getProducts();
+  const saleProducts = PRODUCTS.filter((p) => p.isOnSale);
   
   return (
     <div className="bg-gray-50 min-h-screen pb-10">
@@ -45,7 +47,7 @@ export function PromotionPage() {
               <p className="text-lg opacity-95 mb-4">Giảm giá tới 50% cho hàng ngàn sản phẩm thiết bị vệ sinh và nội thất!</p>
               <CountdownTimer endDate="2026-07-01" />
             </div>
-            <Link href="/danh-muc/thiet-bi-ve-sinh" className="bg-white text-red-600 px-8 py-3 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all shadow-lg flex items-center gap-2">
+            <Link href={categoryUrl("thiet-bi-ve-sinh")} className="bg-white text-red-600 px-8 py-3 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all shadow-lg flex items-center gap-2">
               Mua ngay <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
@@ -83,7 +85,7 @@ export function PromotionPage() {
                         </div>
                       </div>
                     )}
-                    <Link href="/danh-muc/thiet-bi-ve-sinh" className="text-red-600 font-semibold text-sm hover:underline">
+                    <Link href={categoryUrl("thiet-bi-ve-sinh")} className="text-red-600 font-semibold text-sm hover:underline">
                       Xem tất cả →
                     </Link>
                   </div>

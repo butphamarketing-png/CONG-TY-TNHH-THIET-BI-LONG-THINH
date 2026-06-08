@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Heart, ShoppingCart, BarChart2, Star } from "lucide-react";
 import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
+import { productUrl } from "@/lib/urls";
 
 interface Product {
   id: number;
@@ -63,7 +64,7 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <Card className="group overflow-hidden flex flex-col h-full transition-all duration-300 border-gray-200 hover:border-red-600/30 hover:shadow-lg bg-white">
       <div className="relative aspect-square overflow-hidden bg-gray-50">
-        <Link href={`/san-pham/${product.slug}`} className="block w-full h-full">
+        <Link href={productUrl(product.slug)} className="block w-full h-full">
           <img
             src={product.thumbnail || "https://placehold.co/400x400/e2e8f0/64748b?text=No+Image"}
             alt={product.name}
@@ -120,7 +121,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="text-[11px] text-gray-500 mb-1 font-medium uppercase tracking-wide">
           {product.brandName || "TDM Shop"}
         </div>
-        <Link href={`/san-pham/${product.slug}`} className="hover:text-red-600 transition-colors">
+        <Link href={productUrl(product.slug)} className="hover:text-red-600 transition-colors">
           <h3 className="font-medium text-sm line-clamp-2 mb-2 leading-snug min-h-[2.4rem]">
             {product.name}
           </h3>

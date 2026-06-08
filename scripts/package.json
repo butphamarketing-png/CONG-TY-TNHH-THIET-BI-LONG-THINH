@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "hello": "tsx ./src/hello.ts",
+    "import:products": "tsx ./src/import/import-products.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "csv-parser": "^3.2.1"
   },
   "devDependencies": {
     "@types/node": "catalog:",

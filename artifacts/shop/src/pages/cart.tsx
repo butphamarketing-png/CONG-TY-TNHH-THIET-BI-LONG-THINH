@@ -1,4 +1,5 @@
 import { Link, useLocation } from "wouter";
+import { productUrl } from "@/lib/urls";
 import { useCart } from "@/hooks/use-cart";
 import { formatCurrency } from "@/lib/format";
 import { Button } from "@/components/ui/button";
@@ -88,12 +89,12 @@ export function CartPage() {
         <div className="w-full lg:w-2/3 space-y-4">
           {items.map((item, idx) => (
             <div key={`${item.productId}-${item.variant || 'none'}-${idx}`} className="bg-white p-4 rounded-2xl border border-border shadow-sm flex flex-col sm:flex-row gap-4">
-              <Link href={`/san-pham/${item.productSlug}`} className="w-24 h-24 bg-gray-100 rounded-xl overflow-hidden shrink-0 border border-border hover:border-primary/40 transition-colors">
+              <Link href={productUrl(item.productSlug)} className="w-24 h-24 bg-gray-100 rounded-xl overflow-hidden shrink-0 border border-border hover:border-primary/40 transition-colors">
                 <img src={item.thumbnail || "https://placehold.co/100x100"} alt={item.productName} className="w-full h-full object-contain p-1" />
               </Link>
               <div className="flex-grow flex flex-col justify-between">
                 <div>
-                  <Link href={`/san-pham/${item.productSlug}`} className="font-bold text-base hover:text-primary transition-colors line-clamp-2 leading-snug">
+                  <Link href={productUrl(item.productSlug)} className="font-bold text-base hover:text-primary transition-colors line-clamp-2 leading-snug">
                     {item.productName}
                   </Link>
                   {item.variant && <div className="text-sm text-muted-foreground mt-1 bg-slate-50 inline-block px-2 py-0.5 rounded">Phân loại: {item.variant}</div>}

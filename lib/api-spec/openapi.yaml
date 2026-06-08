@@ -344,13 +344,37 @@ components:
 
     ProductVariant:
       type: object
-      required: [id, name, value]
+      required: [id, name, value, inStock]
       properties:
         id: { type: integer }
         name: { type: string }
         value: { type: string }
+        sku: { type: ["string", "null"] }
         price: { type: ["number", "null"] }
+        originalPrice: { type: ["number", "null"] }
         inStock: { type: boolean }
+        thumbnail: { type: ["string", "null"] }
+
+    ProductAttachment:
+      type: object
+      required: [id, name, url, type]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        url: { type: string }
+        type:
+          type: string
+          enum: [pdf, catalog, manual, spec, other]
+        sizeLabel: { type: ["string", "null"] }
+
+    ShowroomStock:
+      type: object
+      required: [showroomId, showroomName, inStock]
+      properties:
+        showroomId: { type: integer }
+        showroomName: { type: string }
+        inStock: { type: boolean }
+        quantity: { type: ["integer", "null"] }
 
     ProductAttribute:
       type: object
@@ -398,6 +422,14 @@ components:
         isBestSeller: { type: boolean }
         isNew: { type: boolean }
         isOnSale: { type: boolean }
+        isDiscontinued: { type: boolean }
+        contactForPrice: { type: boolean }
+        cashbackAmount: { type: ["number", "null"] }
+        badges:
+          type: array
+          items:
+            type: string
+            enum: [bestseller, new, sale, discontinued, featured]
         shortDescription: { type: ["string", "null"] }
         seoTitle: { type: ["string", "null"] }
         seoDescription: { type: ["string", "null"] }
@@ -431,10 +463,20 @@ components:
         isBestSeller: { type: boolean }
         isNew: { type: boolean }
         isOnSale: { type: boolean }
+        isDiscontinued: { type: boolean }
+        contactForPrice: { type: boolean }
+        cashbackAmount: { type: ["number", "null"] }
+        badges:
+          type: array
+          items:
+            type: string
+            enum: [bestseller, new, sale, discontinued, featured]
         shortDescription: { type: ["string", "null"] }
         fullDescription: { type: ["string", "null"] }
         attributes: { type: array, items: { $ref: "#/components/schemas/ProductAttribute" } }
         variants: { type: array, items: { $ref: "#/components/schemas/ProductVariant" } }
+        attachments: { type: array, items: { $ref: "#/components/schemas/ProductAttachment" } }
+        showroomStock: { type: array, items: { $ref: "#/components/schemas/ShowroomStock" } }
         reviews: { type: array, items: { $ref: "#/components/schemas/ProductReview" } }
         relatedProducts: { type: array, items: { $ref: "#/components/schemas/Product" } }
         seoTitle: { type: ["string", "null"] }

@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { productUrl } from "@/lib/urls";
 import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
 import { formatCurrency } from "@/lib/format";
@@ -117,7 +118,7 @@ export function WishlistPage() {
           const hasDiscount = item.originalPrice != null && item.originalPrice > item.price;
           return (
             <div key={item.id} className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden group hover:shadow-md transition-all">
-              <Link href={`/san-pham/${item.slug}`} className="block relative aspect-square bg-gray-50">
+              <Link href={productUrl(item.slug)} className="block relative aspect-square bg-gray-50">
                 <img
                   src={item.thumbnail || "https://placehold.co/300x300"}
                   alt={item.name}
@@ -140,7 +141,7 @@ export function WishlistPage() {
                 {item.brandName && (
                   <div className="text-xs text-muted-foreground mb-1">{item.brandName}</div>
                 )}
-                <Link href={`/san-pham/${item.slug}`}>
+                <Link href={productUrl(item.slug)}>
                   <h3 className="font-semibold text-sm line-clamp-2 leading-snug mb-3 hover:text-primary transition-colors">
                     {item.name}
                   </h3>
@@ -163,7 +164,7 @@ export function WishlistPage() {
                     {item.inStock ? "Thêm giỏ" : "Hết hàng"}
                   </Button>
                   <Button size="sm" className="flex-grow rounded-full text-xs bg-destructive hover:bg-destructive/90" asChild>
-                    <Link href={`/san-pham/${item.slug}`}>Mua ngay</Link>
+                    <Link href={productUrl(item.slug)}>Mua ngay</Link>
                   </Button>
                 </div>
               </div>
