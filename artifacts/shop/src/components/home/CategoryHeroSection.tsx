@@ -3,7 +3,8 @@ import { ChevronRight } from "lucide-react";
 import type { CategoryNode } from "@/types/catalog";
 import { getCategoryIcon } from "@/lib/category-icons";
 import { categoryUrl } from "@/lib/urls";
-import { CATEGORIES, PRODUCTS } from "@/lib/tdm-data";
+import { CATEGORIES } from "@/lib/tdm-data";
+import { useHomepageListings } from "@/hooks/use-catalog";
 import { getHomepageTilesForGroup } from "@/lib/category-utils";
 
 interface CategoryHeroSectionProps {
@@ -17,9 +18,9 @@ interface CategoryHeroSectionProps {
   }>;
 }
 
-function CategoryImageCard({ name, slug }: { name: string; slug: string }) {
+function CategoryImageCard({ name, slug, products }: { name: string; slug: string; products: any[] }) {
   // Find first product in this category to use as image
-  const categoryProduct = PRODUCTS.find((p) => p.categorySlug === slug);
+  const categoryProduct = products.find((p) => p.categorySlug === slug);
   const imageUrl = categoryProduct?.thumbnail;
   const Icon = getCategoryIcon(slug);
 
@@ -58,6 +59,8 @@ export function CategoryHeroSection({
   categoryIcons,
 }: CategoryHeroSectionProps) {
   const subcats = getHomepageTilesForGroup(CATEGORIES, groupSlug as any);
+  const childSlugs = subcats.map((c) => c.slug);
+  const { listings: products } = useHomepageListings(childSlugs.length > 0 ? childSlugs : [groupSlug], 100);
 
   return (
     <section className="bg-white mb-8">
@@ -75,7 +78,7 @@ export function CategoryHeroSection({
       <div className="px-4 md:px-8 pb-8">
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-4">
           {subcats.slice(0, 8).map((cat) => (
-            <CategoryImageCard key={cat.id} name={cat.name} slug={cat.slug} />
+            <CategoryImageCard key={cat.id} name={cat.name} slug={cat.slug} products={products} />
           ))}
         </div>
       </div>

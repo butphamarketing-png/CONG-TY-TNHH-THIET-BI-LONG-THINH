@@ -9,11 +9,11 @@ import {
   Zap, CheckCircle2, Phone, MessageSquare, XCircle,
 } from "lucide-react";
 import { Link, useLocation } from "wouter";
-import { getProductBySlug, getProducts, getBrands } from "@/lib/catalog-service";
+import { useProductDetail, useRelatedListings, useBrands } from "@/hooks/use-catalog";
+import { listingToProduct } from "@/lib/catalog-store";
 import { brandUrl, categoryUrl } from "@/lib/urls";
 import { formatCurrency } from "@/lib/format";
 import type { TdmProduct } from "@/types/product";
-import { getRelatedProducts } from "@/lib/product-related";
 import { useProductVariantSelection } from "@/components/product-detail/useProductVariantSelection";
 import { ProductVariantSelector } from "@/components/product-detail/ProductVariantSelector";
 import { ProductAttachments } from "@/components/product-detail/ProductAttachments";
@@ -45,7 +45,11 @@ function useViewedProducts() {
 }
 
 export function ProductDetailPage({ params }: { params: { slug: string } }) {
-  const product = getProductBySlug(params.slug);
+  const { product, loading } = useProductDetail(params.slug);
+
+  if (loading) {
+    return <div className="container mx-auto py-12 text-center">Đang tải sản phẩm...</div>;
+  }
 
   if (!product) {
     return <div className="container mx-auto py-12 text-center">Không tìm thấy sản phẩm.</div>;
@@ -55,10 +59,11 @@ export function ProductDetailPage({ params }: { params: { slug: string } }) {
 }
 
 function ProductDetailContent({ product }: { product: TdmProduct }) {
-  const allProducts = getProducts();
+  const relatedListings = useRelatedListings(product, 12);
+  const { brands } = useBrands();
   const brandLogoMap = useMemo(
-    () => new Map(getBrands().map((b) => [b.slug, b.logo])),
-    [],
+    () => new Map(brands.map((b) => [b.slug, b.logo])),
+    [brands],
   );
 
   const { viewed, addToViewed } = useViewedProducts();
@@ -96,10 +101,8 @@ function ProductDetailContent({ product }: { product: TdmProduct }) {
     ? Math.round(((displayOriginalPrice! - displayPrice) / displayOriginalPrice!) * 100)
     : product.discount;
 
-  const relatedProducts = getRelatedProducts(product, allProducts, 12);
-  const viewedProducts = allProducts.filter(
-    (p) => viewed.includes(p.id) && p.id !== product.id,
-  );
+  const relatedProducts = relatedListings.map(listingToProduct);
+  const viewedProducts: TdmProduct[] = [];
 
   const cartPayload = {
     ...product,

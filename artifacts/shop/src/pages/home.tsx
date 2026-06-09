@@ -1,6 +1,8 @@
-import { CATEGORIES, BRANDS, PRODUCTS } from "@/lib/tdm-data";
-import { getMainGroups, getBrandsForGroup, getDescendantSlugs, flattenCategories, findCategoryBySlug } from "@/lib/category-utils";
-import { getProducts } from "@/lib/catalog-service";
+import { CATEGORIES, BRANDS } from "@/lib/tdm-data";
+import { getMainGroups, getBrandsForGroup, getDescendantSlugs, findCategoryBySlug } from "@/lib/category-utils";
+import { useCategoryListings } from "@/hooks/use-catalog";
+import { listingToProduct } from "@/lib/catalog-store";
+import { HomeProductSection } from "@/components/home/HomeProductSection";
 import { HeroWithCategoryMenu } from "@/components/home/HeroWithCategoryMenu";
 import { ServiceBenefits } from "@/components/home/ServiceBenefits";
 import { CategoryHeroSection } from "@/components/home/CategoryHeroSection";
@@ -119,14 +121,16 @@ export function Home() {
   const homepageIndustries = mainGroups.filter((g) =>
     HOMEPAGE_GROUPS.includes(g.groupSlug as typeof HOMEPAGE_GROUPS[number])
   );
-  const products = getProducts();
 
   const vsCategory = findCategoryBySlug(CATEGORIES, "thiet-bi-ve-sinh")!;
   const vsDescendantSlugs = getDescendantSlugs(vsCategory);
-  const vsProducts = products.filter(p => vsDescendantSlugs.includes(p.categorySlug));
-  const featuredProducts = vsProducts.filter(p => p.isFeatured);
-  const newestProducts = vsProducts.filter(p => p.isNew);
-  const bestSellingProducts = vsProducts.filter(p => p.isBestSeller);
+  const { listings: vsListings } = useCategoryListings("thiet-bi-ve-sinh", true);
+  const vsProducts = vsListings
+    .filter((p) => vsDescendantSlugs.includes(p.categorySlug))
+    .map(listingToProduct);
+  const featuredProducts = vsProducts.filter((p) => p.isFeatured);
+  const newestProducts = vsProducts.filter((p) => p.isNew);
+  const bestSellingProducts = vsProducts.filter((p) => p.isBestSeller);
 
   return (
     <div className="w-full flex flex-col bg-white">
@@ -223,17 +227,13 @@ export function Home() {
       </div>
 
       {/* SECTION 9: SẢN PHẨM THIẾT BỊ BẾP */}
-      <div className="container mx-auto px-4 py-6">
-        <CategoryProductSection
-          category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-bep")!}
-          products={PRODUCTS.filter(
-            (p) =>
-              p.categorySlug === "thiet-bi-bep" ||
-              homepageIndustries.find((g) => g.groupSlug === "thiet-bi-bep")?.children?.some((c) => c.slug === p.categorySlug)
-          )}
-          limit={8}
-        />
-      </div>
+      <HomeProductSection
+        category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-bep")!}
+        categorySlugs={
+          homepageIndustries.find((g) => g.groupSlug === "thiet-bi-bep")?.children?.map((c) => c.slug) ?? ["thiet-bi-bep"]
+        }
+        limit={8}
+      />
 
       {/* SECTION 10: THIẾT BỊ NƯỚC */}
       <div className="container mx-auto px-4 py-6">
@@ -258,17 +258,13 @@ export function Home() {
       </div>
 
       {/* SECTION 12: SẢN PHẨM THIẾT BỊ NƯỚC */}
-      <div className="container mx-auto px-4 py-6">
-        <CategoryProductSection
-          category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-nuoc")!}
-          products={PRODUCTS.filter(
-            (p) =>
-              p.categorySlug === "thiet-bi-nuoc" ||
-              homepageIndustries.find((g) => g.groupSlug === "thiet-bi-nuoc")?.children?.some((c) => c.slug === p.categorySlug)
-          )}
-          limit={8}
-        />
-      </div>
+      <HomeProductSection
+        category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-nuoc")!}
+        categorySlugs={
+          homepageIndustries.find((g) => g.groupSlug === "thiet-bi-nuoc")?.children?.map((c) => c.slug) ?? ["thiet-bi-nuoc"]
+        }
+        limit={8}
+      />
 
       {/* SECTION 13: KHÓA CỬA & NHÀ THÔNG MINH */}
       <div className="container mx-auto px-4 py-6">
@@ -293,17 +289,13 @@ export function Home() {
       </div>
 
       {/* SECTION 15: SẢN PHẨM KHÓA CỬA */}
-      <div className="container mx-auto px-4 py-6">
-        <CategoryProductSection
-          category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-khoa")!}
-          products={PRODUCTS.filter(
-            (p) =>
-              p.categorySlug === "thiet-bi-khoa" ||
-              homepageIndustries.find((g) => g.groupSlug === "thiet-bi-khoa")?.children?.some((c) => c.slug === p.categorySlug)
-          )}
-          limit={8}
-        />
-      </div>
+      <HomeProductSection
+        category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-khoa")!}
+        categorySlugs={
+          homepageIndustries.find((g) => g.groupSlug === "thiet-bi-khoa")?.children?.map((c) => c.slug) ?? ["thiet-bi-khoa"]
+        }
+        limit={8}
+      />
 
       {/* SECTION 16: THIẾT BỊ ĐIỆN */}
       <div className="container mx-auto px-4 py-6">
@@ -328,17 +320,13 @@ export function Home() {
       </div>
 
       {/* SECTION 18: SẢN PHẨM THIẾT BỊ ĐIỆN */}
-      <div className="container mx-auto px-4 py-6">
-        <CategoryProductSection
-          category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-dien")!}
-          products={PRODUCTS.filter(
-            (p) =>
-              p.categorySlug === "thiet-bi-dien" ||
-              homepageIndustries.find((g) => g.groupSlug === "thiet-bi-dien")?.children?.some((c) => c.slug === p.categorySlug)
-          )}
-          limit={8}
-        />
-      </div>
+      <HomeProductSection
+        category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-dien")!}
+        categorySlugs={
+          homepageIndustries.find((g) => g.groupSlug === "thiet-bi-dien")?.children?.map((c) => c.slug) ?? ["thiet-bi-dien"]
+        }
+        limit={8}
+      />
 
       {/* SECTION 19: PROMOTION BANNERS */}
       <PromotionBanners />

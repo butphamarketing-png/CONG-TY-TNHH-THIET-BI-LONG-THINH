@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { ProductCard } from "@/components/product-card";
 import { Button } from "@/components/ui/button";
-import { useListProducts, useGetProduct } from "@workspace/api-client-react";
+import { useSearchListings } from "@/hooks/use-catalog";
+import { listingToProduct } from "@/lib/catalog-store";
 import { ChevronRight, Search as SearchIcon, AlertCircle } from "lucide-react";
 
 export function SearchPage() {
@@ -13,12 +14,8 @@ export function SearchPage() {
   
   const [page, setPage] = useState(1);
   
-  const { data: productsData, isLoading } = useListProducts({ 
-    q: q || undefined,
-    tab: tab || undefined,
-    page,
-    limit: 12,
-  });
+  const { data, total, totalPages, loading: isLoading } = useSearchListings(q, page, 12);
+  const productsData = { data: data.map(listingToProduct), total, totalPages };
 
   return (
     <div className="container mx-auto px-4 py-8">

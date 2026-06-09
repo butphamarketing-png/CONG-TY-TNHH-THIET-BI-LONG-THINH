@@ -1,6 +1,8 @@
 import { Link } from "wouter";
 import { PROMOTIONS } from "@/lib/tdm-data";
-import { getProducts } from "@/lib/catalog-service";
+import { useEffect, useState } from "react";
+import { loadSearchIndex, listingToProduct } from "@/lib/catalog-store";
+import type { TdmProduct } from "@/types/product";
 import { categoryUrl } from "@/lib/urls";
 import { ProductCard } from "@/components/product-card";
 import { Flame, Clock, ArrowRight } from "lucide-react";
@@ -30,8 +32,15 @@ function CountdownTimer({ endDate }: { endDate: string }) {
 }
 
 export function PromotionPage() {
-  const PRODUCTS = getProducts();
-  const saleProducts = PRODUCTS.filter((p) => p.isOnSale);
+  const [PRODUCTS, setProducts] = useState<TdmProduct[]>([]);
+
+  useEffect(() => {
+    loadSearchIndex().then((index) => {
+      setProducts(index.filter((p) => p.isOnSale).map(listingToProduct));
+    });
+  }, []);
+
+  const saleProducts = PRODUCTS;
   
   return (
     <div className="bg-gray-50 min-h-screen pb-10">

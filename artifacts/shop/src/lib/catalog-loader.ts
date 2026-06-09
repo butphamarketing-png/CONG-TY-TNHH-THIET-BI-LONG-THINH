@@ -1,14 +1,36 @@
-import productsIndex from '@/data/products-index.json';
-import brandsImported from '@/data/brands.imported.json';
-import { CATEGORIES } from '@/lib/tdm-data';
 import type { TdmProduct } from '@/types/product';
 import type { Brand } from '@/types/catalog';
 
 // Cache for loaded product chunks
 const productChunkCache = new Map<string, TdmProduct[]>();
+let productsIndex: any = null;
+let brandsImported: any = null;
+
+// Initialize data
+async function initializeLoader() {
+  if (productsIndex && brandsImported) return;
+  
+  try {
+    // Fetch products index
+    const indexRes = await fetch('/data/products-index.json');
+    if (indexRes.ok) {
+      productsIndex = await indexRes.json();
+    }
+    
+    // Fetch brands
+    const brandsRes = await fetch('/data/brands.imported.json');
+    if (brandsRes.ok) {
+      brandsImported = await brandsRes.json();
+    }
+  } catch (error) {
+    console.error('Failed to initialize catalog loader:', error);
+  }
+}
 
 // Load products by category slug (lazy loading)
 export async function loadProductsByCategory(categorySlug: string): Promise<TdmProduct[]> {
+  await initializeLoader();
+  
   // Check cache first
   if (productChunkCache.has(categorySlug)) {
     return productChunkCache.get(categorySlug)!;
@@ -16,16 +38,21 @@ export async function loadProductsByCategory(categorySlug: string): Promise<TdmP
 
   try {
     // Find the chunk file for this category
-    const categoryChunk = productsIndex.categories.find(c => c.slug === categorySlug);
+    const categoryChunk = productsIndex?.categories?.find((c: any) => c.slug === categorySlug);
     
     if (!categoryChunk) {
       console.warn(`No product chunk found for category: ${categorySlug}`);
       return [];
     }
 
-    // Dynamically import the chunk
-    const chunkModule = await import(`@/data/${categoryChunk.file}`);
-    const products = chunkModule.default || chunkModule;
+    // Fetch the chunk from public/data
+    const chunkRes = await fetch(`/data/${categoryChunk.file}`);
+    if (!chunkRes.ok) {
+      console.error(`Failed to load chunk file: ${categoryChunk.file}`);
+      return [];
+    }
+    
+    const products = await chunkRes.json();
     
     // Cache the result
     productChunkCache.set(categorySlug, products);
@@ -39,13 +66,14 @@ export async function loadProductsByCategory(categorySlug: string): Promise<TdmP
 
 // Load all products (for search/indexing)
 export async function loadAllProducts(): Promise<TdmProduct[]> {
+  await initializeLoader();
   const allProducts: TdmProduct[] = [];
   
   // Load all category chunks in parallel
-  const loadPromises = productsIndex.categories.map(async (category) => {
+  const loadPromises = productsIndex?.categories?.map(async (category: any) => {
     const products = await loadProductsByCategory(category.slug);
     return products;
-  });
+  }) || [];
   
   const results = await Promise.all(loadPromises);
   results.forEach(products => {
@@ -87,8 +115,9 @@ export async function searchProducts(query: string): Promise<TdmProduct[]> {
 }
 
 // Get imported brands
-export function getImportedBrands(): Brand[] {
-  return brandsImported.map(brand => ({
+export async function getImportedBrands(): Promise<Brand[]> {
+  await initializeLoader();
+  return (brandsImported || []).map((brand: any) => ({
     id: brand.id,
     name: brand.name,
     slug: brand.slug,
@@ -100,18 +129,20 @@ export function getImportedBrands(): Brand[] {
 }
 
 // Get brand by slug
-export function getBrandBySlug(slug: string): Brand | null {
-  const brands = getImportedBrands();
+export async function getBrandBySlug(slug: string): Promise<Brand | null> {
+  const brands = await getImportedBrands();
   return brands.find(b => b.slug === slug) || null;
 }
 
 // Get category product count
-export function getCategoryProductCount(categorySlug: string): number {
-  const categoryChunk = productsIndex.categories.find(c => c.slug === categorySlug);
+export async function getCategoryProductCount(categorySlug: string): Promise<number> {
+  await initializeLoader();
+  const categoryChunk = productsIndex?.categories?.find((c: any) => c.slug === categorySlug);
   return categoryChunk?.count || 0;
 }
 
 // Get total product count
-export function getTotalProductCount(): number {
-  return productsIndex.totalProducts;
+export async function getTotalProductCount(): Promise<number> {
+  await initializeLoader();
+  return productsIndex?.totalProducts || 0;
 }

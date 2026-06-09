@@ -1,17 +1,22 @@
 import { Link } from "wouter";
 import { ChevronRight, Star, Flame } from "lucide-react";
-import { getBrandBySlug, getProducts } from "@/lib/catalog-service";
 import { NEWS } from "@/lib/tdm-data";
 import { ProductCard } from "@/components/product-card";
+import { useBrand, useBrandListings } from "@/hooks/use-catalog";
+import { listingToProduct } from "@/lib/catalog-store";
 
 export function BrandPage({ params }: { params: { slug: string } }) {
-  const brand = getBrandBySlug(params.slug);
-  const PRODUCTS = getProducts();
-  const products = PRODUCTS.filter((p) => p.brandSlug === params.slug);
-  const bestSellers = [...products].sort((a,b) => b.soldCount - a.soldCount).slice(0, 6);
+  const { brand, loading: brandLoading } = useBrand(params.slug);
+  const { listings, loading: productsLoading } = useBrandListings(params.slug);
+  const products = listings.map(listingToProduct);
+  const bestSellers = [...products].sort((a, b) => b.soldCount - a.soldCount).slice(0, 6);
   const featuredProductIds = brand?.featuredProducts || [];
-  const featuredProducts = PRODUCTS.filter(p => featuredProductIds.includes(p.id));
-  const brandNews = NEWS.filter(n => n.brandSlug === params.slug);
+  const featuredProducts = products.filter((p) => featuredProductIds.includes(p.id));
+  const brandNews = NEWS.filter((n) => n.brandSlug === params.slug);
+
+  if (brandLoading) {
+    return <div className="container mx-auto py-12 text-center">Đang tải...</div>;
+  }
 
   if (!brand) {
     return (
@@ -27,7 +32,6 @@ export function BrandPage({ params }: { params: { slug: string } }) {
   return (
     <div className="bg-gray-50 min-h-screen pb-10">
       <div className="container mx-auto px-4 py-5">
-        {/* Breadcrumb */}
         <div className="flex items-center text-sm text-gray-500 mb-5 flex-wrap gap-1">
           <Link href="/" className="hover:text-red-600 transition-colors">
             Trang chủ
@@ -36,7 +40,6 @@ export function BrandPage({ params }: { params: { slug: string } }) {
           <span className="text-gray-800 font-medium">{brand.name}</span>
         </div>
 
-        {/* Brand Banner */}
         {brand.banner && (
           <div className="mb-6 rounded-xl overflow-hidden h-52 md:h-64 flex items-center justify-center bg-blue-900">
             <div className="text-white text-center p-6">
@@ -46,7 +49,6 @@ export function BrandPage({ params }: { params: { slug: string } }) {
           </div>
         )}
 
-        {/* Brand Header Info */}
         <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
           <div className="flex flex-col md:flex-row items-center gap-6">
             <div className="w-28 h-28 bg-gray-100 rounded-2xl flex items-center justify-center text-5xl shrink-0">
@@ -68,7 +70,6 @@ export function BrandPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
 
-        {/* Featured Products */}
         {featuredProducts.length > 0 && (
           <section className="mb-8">
             <h2 className="text-xl font-bold mb-5 flex items-center gap-2">
@@ -77,19 +78,12 @@ export function BrandPage({ params }: { params: { slug: string } }) {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {featuredProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={{
-                    ...product,
-                    images: [{ url: product.thumbnail, alt: product.name }],
-                  }}
-                />
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
           </section>
         )}
 
-        {/* Best Sellers */}
         {bestSellers.length > 0 && (
           <section className="mb-8">
             <div className="flex items-center gap-2 mb-5">
@@ -98,19 +92,12 @@ export function BrandPage({ params }: { params: { slug: string } }) {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {bestSellers.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={{
-                    ...product,
-                    images: [{ url: product.thumbnail, alt: product.name }],
-                  }}
-                />
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
           </section>
         )}
 
-        {/* Brand News */}
         {brandNews.length > 0 && (
           <section className="mb-8 bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
             <h2 className="text-xl font-bold mb-5 flex items-center gap-2">
@@ -140,22 +127,17 @@ export function BrandPage({ params }: { params: { slug: string } }) {
           </section>
         )}
 
-        {/* All Brand Products */}
         <section>
           <h2 className="text-xl font-bold mb-5 flex items-center gap-2">
             <span className="w-1.5 h-6 bg-red-600 inline-block rounded" />
             Tất cả sản phẩm {brand.name}
           </h2>
-          {products.length > 0 ? (
+          {productsLoading ? (
+            <div className="text-center py-12">Đang tải sản phẩm...</div>
+          ) : products.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
               {products.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={{
-                    ...product,
-                    images: [{ url: product.thumbnail, alt: product.name }],
-                  }}
-                />
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
           ) : (

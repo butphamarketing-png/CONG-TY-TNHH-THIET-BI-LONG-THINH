@@ -2,20 +2,10 @@ import { Link } from "wouter";
 import { ShoppingCart, Star, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { PRODUCTS } from "@/lib/tdm-data";
-import { useEffect, useState } from "react";
-import type { TdmProduct } from "@/types/product";
+import { useProductList } from "@/hooks/use-catalog";
 
 export function NewProductsSection() {
-  const [newProducts, setNewProducts] = useState<TdmProduct[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Use imported products for new arrivals
-    const importedNewProducts = PRODUCTS.filter((p) => p.isNew).slice(0, 8);
-    setNewProducts(importedNewProducts);
-    setLoading(false);
-  }, []);
+  const { data: newProducts, loading } = useProductList({ sort: "newest", limit: 8, page: 1 });
 
   return (
     <section className="container mx-auto px-4 py-8 bg-gray-50 rounded-xl">

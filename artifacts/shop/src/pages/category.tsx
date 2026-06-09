@@ -3,11 +3,10 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import {
-  getBrands,
   getCategoryBySlug,
   getCategoryBreadcrumb,
-  listProducts,
 } from "@/lib/catalog-service";
+import { useBrands, useProductList } from "@/hooks/use-catalog";
 import { getBrandsForGroup } from "@/lib/category-utils";
 import { categoryUrl } from "@/lib/urls";
 import type { ProductListParams } from "@/types/product";
@@ -42,7 +41,7 @@ export function CategoryPage({ params }: { params: { slug: string } }) {
   const [sortBy, setSortBy] = useState<ProductListParams["sort"]>("bestseller");
   const [pricePreset, setPricePreset] = useState<number | null>(null);
 
-  const BRANDS = getBrands();
+  const { brands: BRANDS } = useBrands();
   const brandLogoMap = useMemo(
     () => new Map(BRANDS.map((b) => [b.slug, b.logo])),
     [BRANDS],
@@ -60,7 +59,7 @@ export function CategoryPage({ params }: { params: { slug: string } }) {
     ? getBrandsForGroup(BRANDS, rootCategory.groupSlug)
     : [];
 
-  const { data: paginatedProducts, total, totalPages } = listProducts({
+  const { data: paginatedProducts, total, totalPages, loading } = useProductList({
     categorySlug: selectedProductTypes.length > 0 ? undefined : slug,
     categorySlugs: selectedProductTypes.length > 0 ? selectedProductTypes : undefined,
     brandSlugs: selectedBrands.length > 0 ? selectedBrands : undefined,
@@ -214,7 +213,13 @@ export function CategoryPage({ params }: { params: { slug: string } }) {
               total={total}
             />
 
-            {paginatedProducts.length > 0 ? (
+            {loading ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <div key={i} className="animate-pulse bg-gray-100 aspect-[3/4] rounded-xl" />
+                ))}
+              </div>
+            ) : paginatedProducts.length > 0 ? (
               <>
                 <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
                   {paginatedProducts.map((product) => (

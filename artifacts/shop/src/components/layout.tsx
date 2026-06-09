@@ -9,7 +9,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
-import { CATEGORIES, BRANDS, PRODUCTS } from "@/lib/tdm-data";
+import { CATEGORIES } from "@/lib/tdm-data";
+import { getBrands } from "@/lib/catalog-service";
+import { searchListings, listingToProduct } from "@/lib/catalog-store";
 import { getMainGroups } from "@/lib/category-utils";
 import { brandUrl, categoryUrl, productUrl } from "@/lib/urls";
 import { TopPromoBar } from "@/components/layout/TopPromoBar";
@@ -24,21 +26,29 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  const [filteredBrands, setFilteredBrands] = useState<any[]>([]);
+  const [brands, setBrands] = useState<any[]>([]);
   const searchRef = useRef<HTMLDivElement>(null);
 
   const mainGroups = getMainGroups(CATEGORIES);
 
-  const filteredProducts = searchQuery.trim().length >= 2
-    ? PRODUCTS.filter(p =>
-        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.brandName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.categoryName.toLowerCase().includes(searchQuery.toLowerCase())
-      ).slice(0, 8)
-    : [];
+  useEffect(() => {
+    getBrands().then(setBrands);
+  }, []);
 
-  const filteredBrands = searchQuery.trim().length >= 2
-    ? BRANDS.filter(b => b.name.toLowerCase().includes(searchQuery.toLowerCase())).slice(0, 4)
-    : [];
+  useEffect(() => {
+    if (searchQuery.trim().length >= 2) {
+      searchListings(searchQuery, 1, 8).then((result) => {
+        setFilteredProducts(result.data.map(listingToProduct));
+      });
+      const brandList = brands.filter((b) => b.name.toLowerCase().includes(searchQuery.toLowerCase())).slice(0, 4);
+      setFilteredBrands(brandList);
+    } else {
+      setFilteredProducts([]);
+      setFilteredBrands([]);
+    }
+  }, [searchQuery, brands]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {

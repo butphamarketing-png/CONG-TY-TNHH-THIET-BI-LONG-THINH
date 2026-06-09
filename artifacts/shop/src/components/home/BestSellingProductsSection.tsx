@@ -2,20 +2,10 @@ import { Link } from "wouter";
 import { ShoppingCart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { PRODUCTS } from "@/lib/tdm-data";
-import { useEffect, useState } from "react";
-import type { TdmProduct } from "@/types/product";
+import { useProductList } from "@/hooks/use-catalog";
 
 export function BestSellingProductsSection() {
-  const [bestSellers, setBestSellers] = useState<TdmProduct[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Use imported products for best sellers
-    const importedBestSellers = PRODUCTS.filter((p) => p.isBestSeller).slice(0, 8);
-    setBestSellers(importedBestSellers);
-    setLoading(false);
-  }, []);
+  const { data: bestSellers, loading } = useProductList({ sort: "bestseller", limit: 8, page: 1 });
 
   return (
     <section className="container mx-auto px-4 py-8">

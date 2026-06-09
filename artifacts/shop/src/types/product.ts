@@ -39,6 +39,34 @@ export interface ShowroomStock {
 /** Listing + detail badges aligned with tdm.vn */
 export type ProductBadge = "bestseller" | "new" | "sale" | "discontinued" | "featured";
 
+/** Slim card/listing shape — no fullDescription, specs, or image gallery */
+export interface ProductListing {
+  id: number;
+  name: string;
+  slug: string;
+  sku: string;
+  price: number;
+  originalPrice?: number;
+  discount?: number;
+  thumbnail: string;
+  categoryId: number;
+  categorySlug: string;
+  categoryName: string;
+  brandId: number;
+  brandSlug: string;
+  brandName: string;
+  inStock: boolean;
+  soldCount: number;
+  rating?: number;
+  reviewCount?: number;
+  badges: ProductBadge[];
+  isFeatured: boolean;
+  isBestSeller: boolean;
+  isNew: boolean;
+  isOnSale: boolean;
+  shortDescription?: string;
+}
+
 export interface TdmProduct {
   id: number;
   name: string;
