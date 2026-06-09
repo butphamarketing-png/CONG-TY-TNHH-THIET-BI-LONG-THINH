@@ -84,7 +84,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </SheetTrigger>
             <SheetContent side="left" className="w-[320px] p-0 flex flex-col">
               <div className="bg-orange-600 text-white px-4 py-4 flex items-center justify-between">
-                <span className="font-bold text-xl">TDM Tuấn Đức</span>
+                <span className="font-bold text-xl">LONG THỊNH</span>
                 <SheetClose asChild>
                   <button type="button" className="text-white/80 hover:text-white">
                     <X className="w-5 h-5" />
@@ -97,11 +97,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Logo */}
           <Link href="/" className="shrink-0 flex items-center gap-2">
-            <div className="bg-orange-600 text-white px-3 py-2 rounded">
-              <span className="text-xl md:text-2xl font-extrabold tracking-tight">TDM</span>
+            <div className="bg-orange-600 text-white px-4 py-2 rounded">
+              <span className="text-xl md:text-2xl font-extrabold tracking-tight">LONG THỊNH</span>
             </div>
             <span className="hidden lg:block text-xs text-gray-500 leading-tight">
-              TUẤN ĐỨC
+              THIẾT BỊ
             </span>
           </Link>
 
@@ -217,7 +217,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="text-2xl font-extrabold text-white mb-2">TDM</div>
+              <div className="text-2xl font-extrabold text-white mb-2">LONG THỊNH</div>
               <div className="text-xs text-gray-500 mb-4 uppercase tracking-wider">CÔNG TY TNHH THIẾT BỊ LONG THỊNH</div>
               <p className="text-sm mb-5 leading-relaxed">
                 Hệ thống phân phối thiết bị vệ sinh, bếp, nước, điện chính hãng.
@@ -225,15 +225,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <div className="space-y-2 text-sm">
                 <div className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 text-orange-500 shrink-0 mt-0.5" />
-                  <span>Số 203 Xuyên Á, P. Dĩ An, TPHCM</span>
+                  <span>504 Nguyễn Văn Quá, P. Đông Hưng Thuận, TP Hồ Chí Minh</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-orange-500 shrink-0" />
-                  <a href="tel:0933322232" className="hover:text-white transition-colors">0933.322.232</a>
+                  <a href="tel:0906752821" className="hover:text-white transition-colors">0906 752 821</a>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="w-4 h-4 text-orange-500 shrink-0" />
-                  <a href="mailto:info@tdm.vn" className="hover:text-white transition-colors">info@tdm.vn</a>
+                  <a href="mailto:info@longthinh.vn" className="hover:text-white transition-colors">info@longthinh.vn</a>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-xs text-gray-500">MST:</span>
+                  <span className="text-xs">0311528071-001</span>
                 </div>
               </div>
             </div>
@@ -274,11 +278,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <div className="space-y-3">
                 <div className="bg-[#2a2a2a] p-4 rounded">
                   <div className="text-xs text-gray-500 mb-1">Hotline tư vấn mua hàng</div>
-                  <a href="tel:0933322232" className="text-xl font-bold text-orange-500">0933.322.232</a>
+                  <a href="tel:0906752821" className="text-xl font-bold text-orange-500">0906 752 821</a>
                 </div>
                 <div className="bg-[#2a2a2a] p-4 rounded">
-                  <div className="text-xs text-gray-500 mb-1">Tổng đài</div>
-                  <a href="tel:02822448333" className="text-xl font-bold text-orange-500">028.2244.8333</a>
+                  <div className="text-xs text-gray-500 mb-1">Mã số thuế</div>
+                  <div className="text-sm text-gray-300">0311528071-001</div>
                 </div>
               </div>
             </div>
@@ -286,7 +290,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           <div className="border-t border-[#333] pt-6 text-center">
             <p className="text-xs text-gray-500">
-              © {new Date().getFullYear()} TDM Tuấn Đức — Thiết bị vệ sinh, bếp, nước, điện hàng đầu Việt Nam.
+              © {new Date().getFullYear()} CÔNG TY TNHH THIẾT BỊ LONG THỊNH — MST: 0311528071-001
             </p>
           </div>
         </div>
@@ -332,7 +336,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </a>
         <a
-          href="https://zalo.me/0933322232"
+          href="https://zalo.me/0906752821"
           target="_blank"
           rel="noreferrer"
           className="group flex items-center gap-2"
@@ -345,9 +349,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
             Zalo
           </div>
         </a>
-        <a href="tel:0933322232" className="group flex items-center gap-2" title="Gọi điện">
+        <a href="tel:0906752821" className="group flex items-center gap-2" title="Gọi điện">
           <span className="hidden group-hover:block bg-white text-gray-700 text-xs font-medium px-3 py-1.5 rounded-full shadow-lg border border-gray-200 whitespace-nowrap">
-            0933.322.232
+            0906 752 821
           </span>
           <div className="w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-transform hover:scale-110 bg-orange-600">
             <Phone className="w-5 h-5 text-white" />

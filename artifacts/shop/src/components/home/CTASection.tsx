@@ -10,15 +10,15 @@ export function CTASection() {
             Cần tư vấn mua hàng?
           </h2>
           <p className="text-orange-100 text-lg mb-8">
-            Đội ngũ chuyên viên của chúng tôi sẵn sàng hỗ trợ bạn 24/7
+            Đội ngũ chuyên viên của LONG THỊNH sẵn sàng hỗ trợ bạn 24/7
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
-              href="tel:0933322232"
+              href="tel:0906752821"
               className="inline-flex items-center gap-2 bg-white text-orange-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-orange-50 transition-colors"
             >
               <Phone className="w-6 h-6" />
-              0933.322.232
+              0906 752 821
             </a>
             <Button
               size="lg"
@@ -30,7 +30,7 @@ export function CTASection() {
             </Button>
           </div>
           <p className="text-orange-200 text-sm mt-6">
-            Hoặc gọi tổng đài: 028.2244.8333
+            CÔNG TY TNHH THIẾT BỊ LONG THỊNH — MST: 0311528071-001
           </p>
         </div>
       </div>
