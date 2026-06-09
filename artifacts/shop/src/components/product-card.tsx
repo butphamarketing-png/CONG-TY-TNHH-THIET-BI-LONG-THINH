@@ -69,6 +69,9 @@ export function ProductCard({ product }: ProductCardProps) {
             src={product.thumbnail || "https://placehold.co/400x400/e2e8f0/64748b?text=No+Image"}
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = "https://placehold.co/400x400/e2e8f0/64748b?text=No+Image";
+            }}
           />
         </Link>
 

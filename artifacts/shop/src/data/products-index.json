@@ -1,51 +1,76 @@
 {
   "categories": [
     {
-      "slug": "vòi-cảm-ứng",
-      "count": 9,
-      "file": "products-vòi-cảm-ứng.json"
+      "slug": "voi-cam-ung",
+      "count": 14,
+      "file": "products-voi-cam-ung.json"
     },
     {
-      "slug": "bồn-cầu",
-      "count": 1,
-      "file": "products-bồn-cầu.json"
+      "slug": "bon-cau",
+      "count": 30,
+      "file": "products-bon-cau.json"
     },
     {
-      "slug": "chậu-lavabo",
-      "count": 32,
-      "file": "products-chậu-lavabo.json"
+      "slug": "chau-lavabo",
+      "count": 99,
+      "file": "products-chau-lavabo.json"
     },
     {
-      "slug": "bồn-tiểu",
-      "count": 7,
-      "file": "products-bồn-tiểu.json"
+      "slug": "bon-tieu",
+      "count": 14,
+      "file": "products-bon-tieu.json"
     },
     {
       "slug": "",
-      "count": 5,
+      "count": 194,
       "file": "products-.json"
     },
     {
-      "slug": "bồn-tắm",
-      "count": 8,
-      "file": "products-bồn-tắm.json"
+      "slug": "bon-tam",
+      "count": 65,
+      "file": "products-bon-tam.json"
     },
     {
-      "slug": "vòi-sen",
-      "count": 24,
-      "file": "products-vòi-sen.json"
+      "slug": "voi-sen",
+      "count": 33,
+      "file": "products-voi-sen.json"
     },
     {
-      "slug": "sen-cây",
-      "count": 4,
-      "file": "products-sen-cây.json"
+      "slug": "sen-cay",
+      "count": 7,
+      "file": "products-sen-cay.json"
     },
     {
-      "slug": "vòi-chậu",
-      "count": 10,
-      "file": "products-vòi-chậu.json"
+      "slug": "voi-chau",
+      "count": 11,
+      "file": "products-voi-chau.json"
+    },
+    {
+      "slug": "voi-rua-chen",
+      "count": 14,
+      "file": "products-voi-rua-chen.json"
+    },
+    {
+      "slug": "phu-kien",
+      "count": 2,
+      "file": "products-phu-kien.json"
+    },
+    {
+      "slug": "bon-inox",
+      "count": 27,
+      "file": "products-bon-inox.json"
+    },
+    {
+      "slug": "voi-nuoc",
+      "count": 28,
+      "file": "products-voi-nuoc.json"
+    },
+    {
+      "slug": "bon-nhua",
+      "count": 34,
+      "file": "products-bon-nhua.json"
     }
   ],
-  "totalProducts": 100,
-  "totalCategories": 9
+  "totalProducts": 572,
+  "totalCategories": 14
 }

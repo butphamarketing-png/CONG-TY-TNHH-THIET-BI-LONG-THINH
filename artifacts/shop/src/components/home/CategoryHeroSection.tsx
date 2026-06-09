@@ -20,19 +20,28 @@ interface CategoryHeroSectionProps {
 function CategoryImageCard({ name, slug }: { name: string; slug: string }) {
   // Find first product in this category to use as image
   const categoryProduct = PRODUCTS.find((p) => p.categorySlug === slug);
-  const imageUrl = categoryProduct?.thumbnail || "/placeholder.jpg";
+  const imageUrl = categoryProduct?.thumbnail;
+  const Icon = getCategoryIcon(slug);
 
   return (
     <Link href={categoryUrl(slug)} className="group block">
-      <div className="relative h-36 md:h-44 bg-gradient-to-br from-gray-100 via-gray-50 to-gray-100 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 hover:border-orange-300">
-        <img
-          src={imageUrl}
-          alt={name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = "/placeholder.jpg";
-          }}
-        />
+      <div className="relative h-36 md:h-44 bg-gradient-to-br from-orange-50 via-orange-100 to-orange-50 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-orange-200 hover:border-orange-400">
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={name}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+            onError={(e) => {
+              (e.target as HTMLImageElement).style.display = "none";
+            }}
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="text-orange-500 opacity-50">
+              {Icon && <Icon className="w-16 h-16" />}
+            </div>
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent opacity-90" />
         <div className="absolute bottom-0 left-0 right-0 p-3">
           <span className="text-sm font-semibold text-white line-clamp-1 drop-shadow-md">{name}</span>
