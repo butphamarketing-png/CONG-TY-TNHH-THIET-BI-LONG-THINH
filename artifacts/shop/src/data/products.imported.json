@@ -47,7 +47,7 @@
     "badges": [
       "sale"
     ],
-    "isFeatured": false,
+    "isFeatured": true,
     "isBestSeller": false,
     "isNew": false,
     "isOnSale": true,
@@ -185,7 +185,7 @@
     "badges": [
       "sale"
     ],
-    "isFeatured": false,
+    "isFeatured": true,
     "isBestSeller": false,
     "isNew": false,
     "isOnSale": true,
@@ -291,7 +291,7 @@
     "reviewCount": 0,
     "tags": [],
     "badges": [],
-    "isFeatured": false,
+    "isFeatured": true,
     "isBestSeller": false,
     "isNew": false,
     "isOnSale": false,
@@ -414,7 +414,7 @@
     "badges": [
       "sale"
     ],
-    "isFeatured": false,
+    "isFeatured": true,
     "isBestSeller": false,
     "isNew": false,
     "isOnSale": true,
@@ -532,7 +532,7 @@
     "badges": [
       "sale"
     ],
-    "isFeatured": false,
+    "isFeatured": true,
     "isBestSeller": false,
     "isNew": false,
     "isOnSale": true,
@@ -665,7 +665,7 @@
     "badges": [
       "sale"
     ],
-    "isFeatured": false,
+    "isFeatured": true,
     "isBestSeller": false,
     "isNew": false,
     "isOnSale": true,
@@ -783,7 +783,7 @@
     "badges": [
       "sale"
     ],
-    "isFeatured": false,
+    "isFeatured": true,
     "isBestSeller": false,
     "isNew": false,
     "isOnSale": true,
@@ -896,7 +896,7 @@
     "badges": [
       "sale"
     ],
-    "isFeatured": false,
+    "isFeatured": true,
     "isBestSeller": false,
     "isNew": false,
     "isOnSale": true,
@@ -1002,7 +1002,7 @@
     "reviewCount": 0,
     "tags": [],
     "badges": [],
-    "isFeatured": false,
+    "isFeatured": true,
     "isBestSeller": false,
     "isNew": false,
     "isOnSale": false,
@@ -1115,7 +1115,7 @@
     "badges": [
       "sale"
     ],
-    "isFeatured": false,
+    "isFeatured": true,
     "isBestSeller": false,
     "isNew": false,
     "isOnSale": true,
@@ -1228,7 +1228,7 @@
     "badges": [
       "sale"
     ],
-    "isFeatured": false,
+    "isFeatured": true,
     "isBestSeller": false,
     "isNew": false,
     "isOnSale": true,
@@ -1351,7 +1351,7 @@
     "badges": [
       "sale"
     ],
-    "isFeatured": false,
+    "isFeatured": true,
     "isBestSeller": false,
     "isNew": false,
     "isOnSale": true,
@@ -1454,7 +1454,7 @@
     "badges": [],
     "isFeatured": false,
     "isBestSeller": false,
-    "isNew": false,
+    "isNew": true,
     "isOnSale": false,
     "isDiscontinued": false,
     "shortDescription": "Chậu Rửa Lavabo Inax L-2396V Âm Bàn Dương Vành\n                                                              \n                    \n                    \n          \n          \n        \n                 ",
@@ -1570,7 +1570,7 @@
     "badges": [],
     "isFeatured": false,
     "isBestSeller": false,
-    "isNew": false,
+    "isNew": true,
     "isOnSale": false,
     "isDiscontinued": false,
     "shortDescription": "Lavabo Treo Tường Inax L-297V/L-297VC\n                                                              \n                    \n                    \n          \n          \n        \n                          ",
@@ -1671,7 +1671,7 @@
     "badges": [],
     "isFeatured": false,
     "isBestSeller": false,
-    "isNew": false,
+    "isNew": true,
     "isOnSale": false,
     "isDiscontinued": false,
     "shortDescription": "Chậu Rửa Lavabo Inax S-17V (S17V) Đa Năng Treo Tường\n                                                              \n                    \n                    \n          \n          \n        \n           ",
@@ -1789,7 +1789,7 @@
     ],
     "isFeatured": false,
     "isBestSeller": false,
-    "isNew": false,
+    "isNew": true,
     "isOnSale": true,
     "isDiscontinued": false,
     "shortDescription": "Lavabo Treo Tường Inax L-288V/L-288VC (L288V+L288VC) Chân Ngắn\n                                                              \n                    \n                    \n          \n          \n        \n ",
@@ -1912,7 +1912,7 @@
     ],
     "isFeatured": false,
     "isBestSeller": false,
-    "isNew": false,
+    "isNew": true,
     "isOnSale": true,
     "isDiscontinued": false,
     "shortDescription": "Chậu Lavabo Inax L-288V/L-288VD (L288V+L288VD) Treo Tường Kèm Chân Dài\n                                                              \n                    \n                    \n          \n          \n  ",
@@ -2040,7 +2040,7 @@
     ],
     "isFeatured": false,
     "isBestSeller": false,
-    "isNew": false,
+    "isNew": true,
     "isOnSale": true,
     "isDiscontinued": false,
     "shortDescription": "Lavabo Treo Tường Inax L-285V/L-288VC (L285V+L288VC) Chân Ngắn\n                                                              \n                    \n                    \n          \n          \n        \n ",
@@ -2163,7 +2163,7 @@
     ],
     "isFeatured": false,
     "isBestSeller": false,
-    "isNew": false,
+    "isNew": true,
     "isOnSale": true,
     "isDiscontinued": false,
     "shortDescription": "Lavabo Treo Tường Inax L-285V/L-288VD (L285V+L288VD) Kèm Chân Đứng\n                                                              \n                    \n                    \n          \n          \n     ",
@@ -2292,7 +2292,7 @@
     ],
     "isFeatured": false,
     "isBestSeller": false,
-    "isNew": false,
+    "isNew": true,
     "isOnSale": true,
     "isDiscontinued": false,
     "shortDescription": "Lavabo Treo Tường Inax L-284V/L-284VC (L284V+L284VC) Chân Ngắn\n                                                              \n                    \n                    \n          \n          \n        \n ",
@@ -2405,7 +2405,7 @@
     ],
     "isFeatured": false,
     "isBestSeller": false,
-    "isNew": false,
+    "isNew": true,
     "isOnSale": true,
     "isDiscontinued": false,
     "shortDescription": "Lavabo Treo Tường Inax L-284V/L-284VD (L284V+L284VD) Kèm Chân Dài\n                                                              \n                    \n                    \n          \n          \n       ",
@@ -2529,7 +2529,7 @@
     ],
     "isFeatured": false,
     "isBestSeller": false,
-    "isNew": false,
+    "isNew": true,
     "isOnSale": true,
     "isDiscontinued": false,
     "shortDescription": "Lavabo Treo Tường Inax L-282V/L-284VD (L282V+L284VD) Kèm Chân Đứng\n                                                              \n                    \n                    \n          \n          \n     ",
@@ -2647,7 +2647,7 @@
     ],
     "isFeatured": false,
     "isBestSeller": false,
-    "isNew": false,
+    "isNew": true,
     "isOnSale": true,
     "isDiscontinued": false,
     "shortDescription": "Chậu Rửa Lavabo Inax L-282V (L282V) Treo Tường Cở Nhỏ\n                                                              \n                    \n                    \n          \n          \n        \n          ",
@@ -2755,7 +2755,7 @@
     ],
     "isFeatured": false,
     "isBestSeller": false,
-    "isNew": false,
+    "isNew": true,
     "isOnSale": true,
     "isDiscontinued": false,
     "shortDescription": "Chậu Rửa Lavabo Inax L-280V (L280V) Treo Tường Cỡ Nhỏ\n                                                              \n                    \n                    \n          \n          \n        \n          ",
@@ -2882,7 +2882,7 @@
       "sale"
     ],
     "isFeatured": false,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "isNew": false,
     "isOnSale": true,
     "isDiscontinued": false,
@@ -2983,7 +2983,7 @@
     "tags": [],
     "badges": [],
     "isFeatured": false,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "isNew": false,
     "isOnSale": false,
     "isDiscontinued": false,
@@ -3096,7 +3096,7 @@
       "sale"
     ],
     "isFeatured": false,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "isNew": false,
     "isOnSale": true,
     "isDiscontinued": false,
@@ -3224,7 +3224,7 @@
       "sale"
     ],
     "isFeatured": false,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "isNew": false,
     "isOnSale": true,
     "isDiscontinued": false,
@@ -3357,7 +3357,7 @@
       "sale"
     ],
     "isFeatured": false,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "isNew": false,
     "isOnSale": true,
     "isDiscontinued": false,
@@ -3465,7 +3465,7 @@
       "sale"
     ],
     "isFeatured": false,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "isNew": false,
     "isOnSale": true,
     "isDiscontinued": false,
@@ -3583,7 +3583,7 @@
       "sale"
     ],
     "isFeatured": false,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "isNew": false,
     "isOnSale": true,
     "isDiscontinued": false,
@@ -3691,7 +3691,7 @@
       "sale"
     ],
     "isFeatured": false,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "isNew": false,
     "isOnSale": true,
     "isDiscontinued": false,
@@ -3804,7 +3804,7 @@
       "sale"
     ],
     "isFeatured": false,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "isNew": false,
     "isOnSale": true,
     "isDiscontinued": false,
@@ -3910,7 +3910,7 @@
     "tags": [],
     "badges": [],
     "isFeatured": false,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "isNew": false,
     "isOnSale": false,
     "isDiscontinued": false,
@@ -4013,7 +4013,7 @@
       "sale"
     ],
     "isFeatured": false,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "isNew": false,
     "isOnSale": true,
     "isDiscontinued": false,
@@ -4121,7 +4121,7 @@
       "sale"
     ],
     "isFeatured": false,
-    "isBestSeller": false,
+    "isBestSeller": true,
     "isNew": false,
     "isOnSale": true,
     "isDiscontinued": false,

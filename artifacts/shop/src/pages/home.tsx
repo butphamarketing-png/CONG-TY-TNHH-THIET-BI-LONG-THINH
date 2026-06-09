@@ -1,5 +1,6 @@
 import { CATEGORIES, BRANDS, PRODUCTS } from "@/lib/tdm-data";
-import { getMainGroups, getBrandsForGroup } from "@/lib/category-utils";
+import { getMainGroups, getBrandsForGroup, getDescendantSlugs, flattenCategories } from "@/lib/category-utils";
+import { getProducts } from "@/lib/catalog-service";
 import { HeroWithCategoryMenu } from "@/components/home/HeroWithCategoryMenu";
 import { ServiceBenefits } from "@/components/home/ServiceBenefits";
 import { CategoryHeroSection } from "@/components/home/CategoryHeroSection";
@@ -9,6 +10,11 @@ import { PromotionBanners } from "@/components/home/PromotionBanners";
 import { EnhancedShowroomSection } from "@/components/home/EnhancedShowroomSection";
 import { NewsSection } from "@/components/home/NewsSection";
 import { CTASection } from "@/components/home/CTASection";
+import { Link } from "wouter";
+import { ChevronRight, ShoppingCart, Star, Sparkles, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { categoryUrl, productUrl } from "@/lib/urls";
 
 /** Homepage industries shown like tdm.vn (5 main groups) */
 const HOMEPAGE_GROUPS = [
@@ -19,11 +25,108 @@ const HOMEPAGE_GROUPS = [
   "thiet-bi-dien",
 ] as const;
 
+function ProductGrid({
+  title,
+  icon,
+  products,
+  limit = 12,
+}: {
+  title: string;
+  icon?: React.ReactNode;
+  products: any[];
+  limit?: number;
+}) {
+  const displayProducts = products.slice(0, limit);
+  if (!displayProducts.length) return null;
+
+  return (
+    <section className="container mx-auto px-4 py-8">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          {icon}
+          <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 md:gap-6">
+        {displayProducts.map((product) => (
+          <Card
+            key={product.id}
+            className="overflow-hidden border border-gray-200 hover:shadow-2xl hover:border-orange-400 transition-all duration-500 group bg-white"
+          >
+            <Link href={productUrl(product.slug)} className="block">
+              <div className="relative aspect-[4/5] bg-gradient-to-br from-gray-50 to-gray-100">
+                <img
+                  src={product.thumbnail}
+                  alt={product.name}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                />
+                {(product.discount ?? 0) > 0 && (
+                  <span className="absolute top-3 left-3 bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg">
+                    -{product.discount}%
+                  </span>
+                )}
+                {product.isBestSeller && (
+                  <span className="absolute top-3 right-3 bg-orange-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg">
+                    HOT
+                  </span>
+                )}
+                {product.isNew && (
+                  <span className="absolute top-3 right-3 bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg">
+                    NEW
+                  </span>
+                )}
+              </div>
+            </Link>
+            <CardContent className="p-4">
+              <div className="text-xs text-gray-500 mb-1.5 font-medium">{product.brandName}</div>
+              <Link href={productUrl(product.slug)} className="block">
+                <h3 className="font-semibold text-sm text-gray-800 line-clamp-2 mb-2 group-hover:text-orange-600 transition-colors leading-snug">
+                  {product.name}
+                </h3>
+              </Link>
+              <div className="flex items-center gap-1 mb-3">
+                <Star className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+                <span className="text-xs text-gray-600 font-medium">{product.rating}</span>
+                <span className="text-xs text-gray-400">({product.reviewCount})</span>
+              </div>
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-lg font-bold text-orange-600">
+                  {new Intl.NumberFormat("vi-VN").format(product.price)}đ
+                </span>
+                {product.originalPrice && product.originalPrice > product.price && (
+                  <span className="text-sm text-gray-400 line-through">
+                    {new Intl.NumberFormat("vi-VN").format(product.originalPrice)}đ
+                  </span>
+                )}
+              </div>
+              <Button
+                size="sm"
+                className="w-full bg-orange-600 hover:bg-orange-700 text-xs py-2.5 font-semibold shadow-md hover:shadow-lg transition-all"
+              >
+                <ShoppingCart className="w-3.5 h-3.5 mr-1.5" />
+                Mua ngay
+              </Button>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function Home() {
   const mainGroups = getMainGroups(CATEGORIES);
   const homepageIndustries = mainGroups.filter((g) =>
     HOMEPAGE_GROUPS.includes(g.groupSlug as typeof HOMEPAGE_GROUPS[number])
   );
+  const products = getProducts();
+
+  const vsCategory = homepageIndustries.find((g) => g.groupSlug === "thiet-bi-ve-sinh")!;
+  const vsDescendantSlugs = [vsCategory.slug, ...getDescendantSlugs(vsCategory)];
+  const vsProducts = products.filter(p => vsDescendantSlugs.includes(p.categorySlug));
+  const featuredProducts = vsProducts.filter(p => p.isFeatured);
+  const newestProducts = vsProducts.filter(p => p.isNew);
+  const bestSellingProducts = vsProducts.filter(p => p.isBestSeller);
 
   return (
     <div className="w-full flex flex-col bg-white">
@@ -33,7 +136,7 @@ export function Home() {
       {/* SECTION 3: SERVICE BENEFITS */}
       <ServiceBenefits />
 
-      {/* SECTION 4: THIẾT BỊ VỆ SINH */}
+      {/* SECTION 4: THIẾT BỊ VỆ SINH - Category Hero */}
       <div className="container mx-auto px-4 py-6">
         <CategoryHeroSection
           groupSlug="thiet-bi-ve-sinh"
@@ -50,7 +153,7 @@ export function Home() {
         />
       </div>
 
-      {/* SECTION 5: THƯƠNG HIỆU THIẾT BỊ VỆ SINH */}
+      {/* SECTION 5: THIẾT BỊ VỆ SINH - Brand Showcase */}
       <div className="container mx-auto px-4 py-2">
         <BrandShowcase
           brands={getBrandsForGroup(BRANDS, "thiet-bi-ve-sinh")}
@@ -58,17 +161,41 @@ export function Home() {
         />
       </div>
 
-      {/* SECTION 6: SẢN PHẨM THIẾT BỊ VỆ SINH */}
-      <div className="container mx-auto px-4 py-6">
-        <CategoryProductSection
-          category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-ve-sinh")!}
-          products={PRODUCTS.filter(
-            (p) =>
-              p.categorySlug === "thiet-bi-ve-sinh" ||
-              homepageIndustries.find((g) => g.groupSlug === "thiet-bi-ve-sinh")?.children?.some((c) => c.slug === p.categorySlug)
-          )}
-          limit={8}
-        />
+      {/* SECTION 6: THIẾT BỊ VỆ SINH - Featured Products */}
+      <ProductGrid
+        title="Sản phẩm nổi bật"
+        products={featuredProducts}
+        limit={12}
+      />
+
+      {/* SECTION 7: THIẾT BỊ VỆ SINH - Newest Products */}
+      <ProductGrid
+        title="Sản phẩm mới"
+        icon={<Sparkles className="w-6 h-6 text-orange-600" />}
+        products={newestProducts}
+        limit={12}
+      />
+
+      {/* SECTION 8: THIẾT BỊ VỆ SINH - Best Selling Products */}
+      <ProductGrid
+        title="Sản phẩm bán chạy"
+        icon={<TrendingUp className="w-6 h-6 text-orange-600" />}
+        products={bestSellingProducts}
+        limit={12}
+      />
+
+      {/* SECTION 9: THIẾT BỊ VỆ SINH - Promotion Banner (using PromotionBanners) */}
+      <PromotionBanners />
+
+      {/* SECTION 10: THIẾT BỊ VỆ SINH - View All Button */}
+      <div className="container mx-auto px-4 pb-12 text-center">
+        <Link
+          href={categoryUrl("thiet-bi-ve-sinh")}
+          className="inline-flex items-center gap-2 px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white font-semibold text-lg rounded-lg transition-colors duration-300 shadow-md hover:shadow-lg"
+        >
+          Xem tất cả sản phẩm thiết bị vệ sinh
+          <ChevronRight className="w-5 h-5" />
+        </Link>
       </div>
 
       {/* SECTION 7: THIẾT BỊ BẾP */}
