@@ -68,7 +68,7 @@ export function HeroWithCategoryMenu() {
                     <Link
                       href={banner.link || "#"}
                       className="block relative w-full"
-                      style={{ aspectRatio: "16/6" }}
+                      style={{ aspectRatio: "16/7" }}
                     >
                       <img
                         src={banner.image}

@@ -26,7 +26,7 @@ export const SHOWROOMS = [
 ];
 
 export const BANNERS = [
-  { id: 1, title: "KHUYẾN MÃI MÙA HÈ 2026", subtitle: "GIẢM SỐC LÊN ĐẾN 50%", image: "https://placehold.co/1600x500/FF4444/white?text=FLASH+SALE+50%25", link: "/khuyen-mai", buttonText: "Xem ngay", isActive: true, sortOrder: 1 },
+  { id: 1, title: "LONG THỊNH", subtitle: "", image: "/long-thinh-banner.png", link: "/", buttonText: "", isActive: true, sortOrder: 1 },
   { id: 2, title: "TẤT TẤT SẢN PHẨM TOTO", subtitle: "Bảo hành 5 năm - Giá tốt nhất thị trường", image: "https://placehold.co/1600x500/0066CC/white?text=TOTO+PROMO", link: brandUrl("toto"), buttonText: "Khám phá", isActive: true, sortOrder: 2 },
   { id: 3, title: "BẾP TỪ BOSCH - GIẢM 20%", subtitle: "Sản phẩm chính hãng - Bảo hành 2 năm", image: "https://placehold.co/1600x500/CC0000/white?text=BOSCH+DEAL", link: categoryUrl("bep-dien-tu"), buttonText: "Mua ngay", isActive: true, sortOrder: 3 },
 ];
