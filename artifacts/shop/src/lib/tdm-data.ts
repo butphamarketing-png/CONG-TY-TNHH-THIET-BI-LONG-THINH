@@ -5,8 +5,10 @@
 export { CATEGORIES } from "./categories-tree";
 export { BRANDS } from "./brands-tree";
 export { PRODUCTS_SEED as PRODUCTS } from "@/data/products.seed";
+export { getImportedBrands, getBrandBySlug } from "./catalog-loader";
 
 import { brandUrl, categoryUrl } from "@/lib/urls";
+import brandsImported from "@/data/brands.imported.json";
 
 export const NEWS = [
   { id: 1, title: "Top 10 bồn cầu TOTO tốt nhất năm 2026", slug: "top-10-bon-cau-toto-tot-nhat-2026", excerpt: "Tổng hợp top 10 bồn cầu TOTO chất lượng, phổ biến nhất năm 2026", thumbnail: "https://placehold.co/800x450/f0f0f0/666666?text=TIN+TUC+TOTO", category: "Tin tức sản phẩm", brandSlug: "toto", viewCount: 3450, createdAt: "2026-06-01", content: "<p>Nội dung bài viết...</p>" },
@@ -40,3 +42,6 @@ export const POLICIES = [
   { id: 3, title: "Lắp đặt", description: "Lắp đúng tiêu chuẩn, chính xác", icon: "headset" },
   { id: 4, title: "Giá thành", description: "Luôn đảm bảo giá tốt, đúng giá", icon: "refresh" },
 ];
+
+// Export imported brands for use throughout the app
+export const IMPORTED_BRANDS = brandsImported;

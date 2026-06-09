@@ -1,0 +1,51 @@
+{
+  "categories": [
+    {
+      "slug": "vòi-cảm-ứng",
+      "count": 9,
+      "file": "products-vòi-cảm-ứng.json"
+    },
+    {
+      "slug": "bồn-cầu",
+      "count": 1,
+      "file": "products-bồn-cầu.json"
+    },
+    {
+      "slug": "chậu-lavabo",
+      "count": 32,
+      "file": "products-chậu-lavabo.json"
+    },
+    {
+      "slug": "bồn-tiểu",
+      "count": 7,
+      "file": "products-bồn-tiểu.json"
+    },
+    {
+      "slug": "",
+      "count": 5,
+      "file": "products-.json"
+    },
+    {
+      "slug": "bồn-tắm",
+      "count": 8,
+      "file": "products-bồn-tắm.json"
+    },
+    {
+      "slug": "vòi-sen",
+      "count": 24,
+      "file": "products-vòi-sen.json"
+    },
+    {
+      "slug": "sen-cây",
+      "count": 4,
+      "file": "products-sen-cây.json"
+    },
+    {
+      "slug": "vòi-chậu",
+      "count": 10,
+      "file": "products-vòi-chậu.json"
+    }
+  ],
+  "totalProducts": 100,
+  "totalCategories": 9
+}

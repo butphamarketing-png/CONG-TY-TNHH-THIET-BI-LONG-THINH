@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-06-09T03:59:54.178Z",
+  "totalProducts": 100,
+  "totalBrands": 6,
+  "totalCategories": 36,
+  "totalImages": 362,
+  "totalSpecifications": 1590,
+  "errors": [],
+  "warnings": [
+    "Created category on-the-fly: Vòi cảm ứng",
+    "Created category on-the-fly: Bồn cầu",
+    "Created category on-the-fly: Chậu Lavabo",
+    "Created category on-the-fly: Bồn tiểu",
+    "Created category on-the-fly: Vòi sen",
+    "Created category on-the-fly: Sen cây",
+    "Created category on-the-fly: Vòi chậu"
+  ],
+  "unmappedProducts": [
+    "UF-4VS",
+    "BFV-71SEW",
+    "BFV-71SEC",
+    "BFV-313S",
+    "BFV-3003S-3C"
+  ],
+  "unmappedBrands": []
+}

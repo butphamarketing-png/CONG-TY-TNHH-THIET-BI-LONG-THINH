@@ -1,0 +1,254 @@
+[
+  {
+    "id": 1,
+    "name": "Thiết bị vệ sinh",
+    "slug": "thiet-bi-ve-sinh",
+    "parentSlug": null,
+    "description": "Danh mục thiết bị vệ sinh chính hãng"
+  },
+  {
+    "id": 2,
+    "name": "Thiết bị bếp",
+    "slug": "thiet-bi-bep",
+    "parentSlug": null,
+    "description": "Thiết bị bếp cao cấp"
+  },
+  {
+    "id": 3,
+    "name": "Thiết bị nước",
+    "slug": "thiet-bi-nuoc",
+    "parentSlug": null,
+    "description": "Bồn nước, bồn inox chất lượng"
+  },
+  {
+    "id": 4,
+    "name": "Thiết bị điện",
+    "slug": "thiet-bi-dien",
+    "parentSlug": null,
+    "description": "Thiết bị điện gia dụng"
+  },
+  {
+    "id": 5,
+    "name": "Phụ kiện nhà tắm",
+    "slug": "phu-kien-nha-tam",
+    "parentSlug": null,
+    "description": "Phụ kiện phòng tắm đẹp, tiện dụng"
+  },
+  {
+    "id": 6,
+    "name": "Bồn cầu",
+    "slug": "bon-cau-bet-ve-sinh",
+    "parentSlug": "thiet-bi-ve-sinh",
+    "description": ""
+  },
+  {
+    "id": 7,
+    "name": "Bồn cầu thông minh",
+    "slug": "bon-cau-thong-minh",
+    "parentSlug": "thiet-bi-ve-sinh",
+    "description": ""
+  },
+  {
+    "id": 8,
+    "name": "Nắp Bồn Cầu",
+    "slug": "ban-nap-bon-cau",
+    "parentSlug": "thiet-bi-ve-sinh",
+    "description": ""
+  },
+  {
+    "id": 9,
+    "name": "Chậu Lavabo",
+    "slug": "chau-rua-lavabo",
+    "parentSlug": "thiet-bi-ve-sinh",
+    "description": ""
+  },
+  {
+    "id": 10,
+    "name": "Vòi chậu",
+    "slug": "voi-lavabo",
+    "parentSlug": "thiet-bi-ve-sinh",
+    "description": ""
+  },
+  {
+    "id": 11,
+    "name": "Vòi cảm ứng",
+    "slug": "voi-rua-cam-ung",
+    "parentSlug": "thiet-bi-ve-sinh",
+    "description": ""
+  },
+  {
+    "id": 12,
+    "name": "Bồn tiểu",
+    "slug": "bon-tieu-nam-nu",
+    "parentSlug": "thiet-bi-ve-sinh",
+    "description": ""
+  },
+  {
+    "id": 13,
+    "name": "Vòi sen",
+    "slug": "voi-sen-tam",
+    "parentSlug": "thiet-bi-ve-sinh",
+    "description": ""
+  },
+  {
+    "id": 14,
+    "name": "Sen cây",
+    "slug": "voi-sen-cay",
+    "parentSlug": "thiet-bi-ve-sinh",
+    "description": ""
+  },
+  {
+    "id": 15,
+    "name": "Sen âm tường",
+    "slug": "voi-sen-tam-am-tuong",
+    "parentSlug": "thiet-bi-ve-sinh",
+    "description": ""
+  },
+  {
+    "id": 16,
+    "name": "Bồn tắm",
+    "slug": "bon-tam",
+    "parentSlug": "thiet-bi-ve-sinh",
+    "description": ""
+  },
+  {
+    "id": 17,
+    "name": "Phụ kiện",
+    "slug": "phu-kien-phong-tam",
+    "parentSlug": "thiet-bi-ve-sinh",
+    "description": ""
+  },
+  {
+    "id": 18,
+    "name": "Vòi xịt",
+    "slug": "voi-xit-ve-sinh",
+    "parentSlug": "thiet-bi-ve-sinh",
+    "description": ""
+  },
+  {
+    "id": 19,
+    "name": "Bếp điện từ",
+    "slug": "bep-dien-tu",
+    "parentSlug": "thiet-bi-bep",
+    "description": ""
+  },
+  {
+    "id": 20,
+    "name": "Bếp gas",
+    "slug": "bep-gas",
+    "parentSlug": "thiet-bi-bep",
+    "description": ""
+  },
+  {
+    "id": 21,
+    "name": "Máy hút mùi",
+    "slug": "may-hut-mui",
+    "parentSlug": "thiet-bi-bep",
+    "description": ""
+  },
+  {
+    "id": 22,
+    "name": "Lò nướng",
+    "slug": "lo-nuong-da-nang",
+    "parentSlug": "thiet-bi-bep",
+    "description": ""
+  },
+  {
+    "id": 23,
+    "name": "Lò vi sóng",
+    "slug": "lo-vi-song",
+    "parentSlug": "thiet-bi-bep",
+    "description": ""
+  },
+  {
+    "id": 24,
+    "name": "Máy rửa chén",
+    "slug": "may-rua-chen-bat",
+    "parentSlug": "thiet-bi-bep",
+    "description": ""
+  },
+  {
+    "id": 25,
+    "name": "Tủ lạnh",
+    "slug": "tu-lanh",
+    "parentSlug": "thiet-bi-bep",
+    "description": ""
+  },
+  {
+    "id": 26,
+    "name": "Vòi rửa chén",
+    "slug": "voi-bep-voi-rua-chen",
+    "parentSlug": "thiet-bi-bep",
+    "description": ""
+  },
+  {
+    "id": 27,
+    "name": "Bồn inox",
+    "slug": "bon-nuoc-inox",
+    "parentSlug": "thiet-bi-nuoc",
+    "description": ""
+  },
+  {
+    "id": 28,
+    "name": "Bồn nhựa",
+    "slug": "bon-nuoc-nhua",
+    "parentSlug": "thiet-bi-nuoc",
+    "description": ""
+  },
+  {
+    "id": 29,
+    "name": "Bồn tự hoại",
+    "slug": "bon-tu-hoai",
+    "parentSlug": "thiet-bi-nuoc",
+    "description": ""
+  },
+  {
+    "id": 30,
+    "name": "Vòi cảm ứng",
+    "slug": "voi-cam-ung",
+    "parentSlug": null,
+    "description": ""
+  },
+  {
+    "id": 31,
+    "name": "Bồn cầu",
+    "slug": "bon-cau",
+    "parentSlug": null,
+    "description": ""
+  },
+  {
+    "id": 32,
+    "name": "Chậu Lavabo",
+    "slug": "chau-lavabo",
+    "parentSlug": null,
+    "description": ""
+  },
+  {
+    "id": 33,
+    "name": "Bồn tiểu",
+    "slug": "bon-tieu",
+    "parentSlug": null,
+    "description": ""
+  },
+  {
+    "id": 34,
+    "name": "Vòi sen",
+    "slug": "voi-sen",
+    "parentSlug": null,
+    "description": ""
+  },
+  {
+    "id": 35,
+    "name": "Sen cây",
+    "slug": "sen-cay",
+    "parentSlug": null,
+    "description": ""
+  },
+  {
+    "id": 36,
+    "name": "Vòi chậu",
+    "slug": "voi-chau",
+    "parentSlug": null,
+    "description": ""
+  }
+]

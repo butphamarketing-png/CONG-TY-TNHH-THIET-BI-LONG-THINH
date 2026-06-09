@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "TOTO",
+    "slug": "toto",
+    "description": "Thương hiệu TOTO chính hãng",
+    "logo": "https://www.tdm.vnimage/catalog/global/logo.svg",
+    "industryGroups": [],
+    "sortOrder": 1,
+    "productCount": 0
+  },
+  {
+    "id": 2,
+    "name": "INAX",
+    "slug": "inax",
+    "description": "Thương hiệu INAX chính hãng",
+    "logo": "https://www.tdm.vnimage/catalog/global/logo.svg",
+    "industryGroups": [],
+    "sortOrder": 2,
+    "productCount": 100
+  },
+  {
+    "id": 3,
+    "name": "CAESAR",
+    "slug": "caesar",
+    "description": "Thương hiệu CAESAR chính hãng",
+    "logo": "https://www.tdm.vnimage/catalog/global/logo.svg",
+    "industryGroups": [],
+    "sortOrder": 3,
+    "productCount": 0
+  },
+  {
+    "id": 4,
+    "name": "VIGLACERA",
+    "slug": "viglacera",
+    "description": "Thương hiệu VIGLACERA chính hãng",
+    "logo": "https://www.tdm.vnimage/catalog/global/logo.svg",
+    "industryGroups": [],
+    "sortOrder": 4,
+    "productCount": 0
+  },
+  {
+    "id": 5,
+    "name": "BOSCH",
+    "slug": "bosch",
+    "description": "Thương hiệu BOSCH chính hãng",
+    "logo": "https://www.tdm.vnimage/catalog/global/logo.svg",
+    "industryGroups": [],
+    "sortOrder": 5,
+    "productCount": 0
+  },
+  {
+    "id": 6,
+    "name": "HAFELE",
+    "slug": "hafele",
+    "description": "Thương hiệu HAFELE chính hãng",
+    "logo": "https://www.tdm.vnimage/catalog/global/logo.svg",
+    "industryGroups": [],
+    "sortOrder": 6,
+    "productCount": 0
+  }
+]

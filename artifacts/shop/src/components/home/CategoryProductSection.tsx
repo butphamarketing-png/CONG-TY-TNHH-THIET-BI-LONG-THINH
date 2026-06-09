@@ -1,44 +1,56 @@
 import { Link } from "wouter";
-import { ShoppingCart, Star } from "lucide-react";
+import { ChevronRight, ShoppingCart, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { PRODUCTS } from "@/lib/tdm-data";
-import { useEffect, useState } from "react";
+import type { CategoryNode } from "@/types/catalog";
 import type { TdmProduct } from "@/types/product";
+import { categoryUrl, productUrl } from "@/lib/urls";
+import { getCategoryIcon } from "@/lib/category-icons";
 
-export function BestSellingProductsSection() {
-  const [bestSellers, setBestSellers] = useState<TdmProduct[]>([]);
-  const [loading, setLoading] = useState(true);
+interface CategoryProductSectionProps {
+  category: CategoryNode;
+  products: TdmProduct[];
+  limit?: number;
+}
 
-  useEffect(() => {
-    // Use imported products for best sellers
-    const importedBestSellers = PRODUCTS.filter((p) => p.isBestSeller).slice(0, 8);
-    setBestSellers(importedBestSellers);
-    setLoading(false);
-  }, []);
+export function CategoryProductSection({
+  category,
+  products,
+  limit = 4,
+}: CategoryProductSectionProps) {
+  const categoryProducts = products
+    .filter(
+      (p) =>
+        p.categorySlug === category.slug ||
+        category.children?.some((c) => c.slug === p.categorySlug)
+    )
+    .slice(0, limit);
+
+  if (categoryProducts.length === 0) return null;
 
   return (
-    <section className="container mx-auto px-4 py-8">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">
-          Sản phẩm bán chạy
+    <section className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm mb-6">
+      <div className="flex items-center justify-between px-4 md:px-6 py-4 border-b border-gray-100">
+        <h2 className="text-lg md:text-xl font-bold text-gray-800 flex items-center gap-2">
+          <span className="text-orange-600">{getCategoryIcon(category.groupSlug)}</span>
+          {category.name}
         </h2>
-        <Link href="/san-pham?sort=bestseller" className="text-orange-600 font-medium hover:underline">
-          Xem tất cả
+        <Link
+          href={categoryUrl(category.slug)}
+          className="text-sm text-orange-600 hover:underline flex items-center gap-1 font-medium"
+        >
+          Xem tất cả <ChevronRight className="w-4 h-4" />
         </Link>
       </div>
 
-      {loading ? (
+      <div className="p-4 md:p-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[...Array(8)].map((_, i) => (
-            <div key={i} className="bg-gray-100 rounded-lg h-80 animate-pulse" />
-          ))}
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {bestSellers.map((product) => (
-            <Card key={product.id} className="overflow-hidden border-gray-200 hover:shadow-lg transition-all group">
-              <Link href={`/san-pham/${product.slug}`} className="block">
+          {categoryProducts.map((product) => (
+            <Card
+              key={product.id}
+              className="overflow-hidden border-gray-200 hover:shadow-lg transition-all group"
+            >
+              <Link href={productUrl(product.slug)} className="block">
                 <div className="relative aspect-square bg-gray-50">
                   <img
                     src={product.thumbnail}
@@ -58,7 +70,8 @@ export function BestSellingProductsSection() {
                 </div>
               </Link>
               <CardContent className="p-4">
-                <Link href={`/san-pham/${product.slug}`} className="block">
+                <div className="text-xs text-gray-500 mb-1">{product.brandName}</div>
+                <Link href={productUrl(product.slug)} className="block">
                   <h3 className="font-semibold text-sm text-gray-800 line-clamp-2 mb-2 group-hover:text-orange-600 transition-colors">
                     {product.name}
                   </h3>
@@ -86,7 +99,7 @@ export function BestSellingProductsSection() {
             </Card>
           ))}
         </div>
-      )}
+      </div>
     </section>
   );
 }
