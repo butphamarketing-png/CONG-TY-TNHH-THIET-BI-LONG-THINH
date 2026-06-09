@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { ChevronRight } from "lucide-react";
 import type { CategoryNode } from "@/types/catalog";
-import { getCategoryIcon } from "@/lib/category-icons";
+import { getCategoryIconComponent } from "@/lib/category-icons";
 import { categoryUrl } from "@/lib/urls";
 import { CATEGORIES } from "@/lib/tdm-data";
 import { useHomepageListings } from "@/hooks/use-catalog";
@@ -22,7 +22,7 @@ function CategoryImageCard({ name, slug, products }: { name: string; slug: strin
   // Find first product in this category to use as image
   const categoryProduct = products.find((p) => p.categorySlug === slug);
   const imageUrl = categoryProduct?.thumbnail;
-  const Icon = getCategoryIcon(slug);
+  const Icon = getCategoryIconComponent(slug);
 
   return (
     <Link href={categoryUrl(slug)} className="group block">
