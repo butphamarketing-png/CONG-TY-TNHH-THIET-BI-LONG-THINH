@@ -92,6 +92,7 @@ async function importBrands() {
         description: row.description || `Thương hiệu ${row.name} chính hãng`,
         logo: row.logo_url || '',
         industryGroups: [],
+        isFeatured: index < 3, // First 3 brands are featured
         sortOrder: index + 1,
         productCount: 0
       };
@@ -232,6 +233,7 @@ async function importProducts() {
           description: `Thương hiệu ${brandName} chính hãng`,
           logo: '',
           industryGroups: [],
+          isFeatured: false,
           sortOrder: brands.size + 1,
           productCount: 1
         };

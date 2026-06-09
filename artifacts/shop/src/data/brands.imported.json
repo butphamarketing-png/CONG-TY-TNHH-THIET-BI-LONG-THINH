@@ -6,6 +6,7 @@
     "description": "Thương hiệu TOTO chính hãng",
     "logo": "https://www.tdm.vnimage/catalog/global/logo.svg",
     "industryGroups": [],
+    "isFeatured": true,
     "sortOrder": 1,
     "productCount": 0
   },
@@ -16,6 +17,7 @@
     "description": "Thương hiệu INAX chính hãng",
     "logo": "https://www.tdm.vnimage/catalog/global/logo.svg",
     "industryGroups": [],
+    "isFeatured": true,
     "sortOrder": 2,
     "productCount": 100
   },
@@ -26,6 +28,7 @@
     "description": "Thương hiệu CAESAR chính hãng",
     "logo": "https://www.tdm.vnimage/catalog/global/logo.svg",
     "industryGroups": [],
+    "isFeatured": true,
     "sortOrder": 3,
     "productCount": 0
   },
@@ -36,6 +39,7 @@
     "description": "Thương hiệu VIGLACERA chính hãng",
     "logo": "https://www.tdm.vnimage/catalog/global/logo.svg",
     "industryGroups": [],
+    "isFeatured": false,
     "sortOrder": 4,
     "productCount": 0
   },
@@ -46,6 +50,7 @@
     "description": "Thương hiệu BOSCH chính hãng",
     "logo": "https://www.tdm.vnimage/catalog/global/logo.svg",
     "industryGroups": [],
+    "isFeatured": false,
     "sortOrder": 5,
     "productCount": 0
   },
@@ -56,6 +61,7 @@
     "description": "Thương hiệu HAFELE chính hãng",
     "logo": "https://www.tdm.vnimage/catalog/global/logo.svg",
     "industryGroups": [],
+    "isFeatured": false,
     "sortOrder": 6,
     "productCount": 0
   }

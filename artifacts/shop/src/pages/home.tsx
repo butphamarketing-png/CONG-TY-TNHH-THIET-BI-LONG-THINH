@@ -5,8 +5,6 @@ import { ServiceBenefits } from "@/components/home/ServiceBenefits";
 import { CategoryHeroSection } from "@/components/home/CategoryHeroSection";
 import { BrandShowcase } from "@/components/home/BrandShowcase";
 import { CategoryProductSection } from "@/components/home/CategoryProductSection";
-import { BestSellingProductsSection } from "@/components/home/BestSellingProductsSection";
-import { NewProductsSection } from "@/components/home/NewProductsSection";
 import { PromotionBanners } from "@/components/home/PromotionBanners";
 import { EnhancedShowroomSection } from "@/components/home/EnhancedShowroomSection";
 import { NewsSection } from "@/components/home/NewsSection";
@@ -112,13 +110,7 @@ export function Home() {
         />
       </div>
 
-      {/* SECTION 10: SẢN PHẨM BÁN CHẠY */}
-      <BestSellingProductsSection />
-
-      {/* SECTION 11: SẢN PHẨM MỚI */}
-      <NewProductsSection />
-
-      {/* SECTION 12: PROMOTION BANNERS */}
+      {/* SECTION 10: PROMOTION BANNERS */}
       <PromotionBanners />
 
       {/* CATEGORY PRODUCT BLOCKS */}

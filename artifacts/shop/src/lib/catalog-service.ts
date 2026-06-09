@@ -5,6 +5,7 @@
 import { CATEGORY_TREE } from "@/lib/categories-tree";
 import { BRANDS } from "@/lib/brands-tree";
 import productsImported from "@/data/products.imported.json";
+import brandsImported from "@/data/brands.imported.json";
 import { getCategorySeo } from "@/lib/category-seo";
 import { getBrandFiltersForCategory } from "@/lib/brand-filters";
 import { TDM_HOMEPAGE_TILES } from "@/lib/homepage-tiles";
@@ -23,7 +24,7 @@ import type { TdmProduct, ProductListParams, ProductListResult } from "@/types/p
 
 // ─── Singleton catalog state ─────────────────────────────────────────
 const categories = CATEGORY_TREE;
-const brands = BRANDS;
+const brands = brandsImported as unknown as Brand[];
 let products: TdmProduct[] = productsImported as TdmProduct[];
 
 const slugRegistry = buildSlugRegistry(categories, brands, products);
