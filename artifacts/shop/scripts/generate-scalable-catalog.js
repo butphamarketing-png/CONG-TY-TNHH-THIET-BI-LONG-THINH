@@ -122,17 +122,23 @@ export function generateScalableCatalog(products) {
   return { categories, totalProducts: products.length };
 }
 
-function removeLegacyChunks(dir) {
+const IMPORT_ONLY = new Set(["products.imported.json", "website-data-audit.json"]);
+
+function isLegacyFullChunk(filename) {
+  return (
+    filename.startsWith("products-") &&
+    !filename.startsWith("products-listing-") &&
+    filename !== "products-index.json" &&
+    filename.endsWith(".json")
+  );
+}
+
+function removeNonDeployFiles(dir) {
   if (!fs.existsSync(dir)) return;
   for (const file of fs.readdirSync(dir)) {
-    if (
-      file.startsWith("products-") &&
-      !file.startsWith("products-listing-") &&
-      !file.startsWith("products-index") &&
-      file.endsWith(".json")
-    ) {
+    if (IMPORT_ONLY.has(file) || isLegacyFullChunk(file)) {
       fs.unlinkSync(path.join(dir, file));
-      console.log(`  Removed legacy chunk: ${file}`);
+      console.log(`  Removed non-deploy file: ${file}`);
     }
   }
 }
@@ -143,7 +149,7 @@ export function syncToPublic() {
   removeLegacyChunks(PUBLIC_DIR);
 
   for (const file of fs.readdirSync(DATA_DIR)) {
-    if (file.endsWith(".json")) {
+    if (file.endsWith(".json") && !IMPORT_ONLY.has(file) && !isLegacyFullChunk(file)) {
       fs.copyFileSync(path.join(DATA_DIR, file), path.join(PUBLIC_DIR, file));
     }
   }
