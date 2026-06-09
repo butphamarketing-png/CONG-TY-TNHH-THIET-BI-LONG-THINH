@@ -15,6 +15,13 @@ const __dirname = path.dirname(__filename);
 const CRAWLER_DIR = path.resolve(__dirname, '../../../../tdm-crawler');
 const DATA_DIR = path.resolve(__dirname, '../src/data');
 
+// CSV file names (updated for full crawl)
+const PRODUCTS_CSV = 'products.csv';
+const BRANDS_CSV = 'brands.csv';
+const CATEGORIES_CSV = 'categories.csv';
+const IMAGES_CSV = 'images.csv';
+const SPECIFICATIONS_CSV = 'specifications.csv';
+
 // Data storage
 const products = new Map();
 const brands = new Map();
@@ -140,7 +147,7 @@ async function importCategories() {
 async function importImages() {
   console.log('Importing images...');
   try {
-    const imagesData = await parseCSV(path.join(CRAWLER_DIR, 'images_100.csv'));
+    const imagesData = await parseCSV(path.join(CRAWLER_DIR, IMAGES_CSV));
     
     imagesData.forEach((row) => {
       if (!row.sku || !row.image_url) return;
@@ -173,7 +180,7 @@ async function importImages() {
 async function importSpecifications() {
   console.log('Importing specifications...');
   try {
-    const specsData = await parseCSV(path.join(CRAWLER_DIR, 'specifications_100.csv'));
+    const specsData = await parseCSV(path.join(CRAWLER_DIR, SPECIFICATIONS_CSV));
     
     specsData.forEach((row) => {
       if (!row.sku || !row.attribute_name) return;
@@ -205,7 +212,7 @@ async function importSpecifications() {
 async function importProducts() {
   console.log('Importing products...');
   try {
-    const productsData = await parseCSV(path.join(CRAWLER_DIR, 'products_100.csv'));
+    const productsData = await parseCSV(path.join(CRAWLER_DIR, PRODUCTS_CSV));
     
     let productIdCounter = 1;
     

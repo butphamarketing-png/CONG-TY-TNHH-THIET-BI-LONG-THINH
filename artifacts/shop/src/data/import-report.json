@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-09T04:04:30.424Z",
+  "timestamp": "2026-06-09T04:44:51.344Z",
   "totalProducts": 100,
   "totalBrands": 6,
   "totalCategories": 36,
@@ -22,18 +22,5 @@
     "BFV-313S",
     "BFV-3003S-3C"
   ],
-  "unmappedBrands": [],
-  "summary": {
-    "importStatus": "SUCCESS",
-    "dataSource": "tdm-crawler CSV files",
-    "productsImported": 100,
-    "brandsImported": 6,
-    "categoriesImported": 29,
-    "imagesImported": 362,
-    "specificationsImported": 1590,
-    "dataQuality": "HIGH",
-    "integrationStatus": "COMPLETE",
-    "buildStatus": "SUCCESS",
-    "notes": "All available products from crawler have been imported. Mock data has been replaced with real imported data in products.seed.ts and brands-tree.ts. Catalog service updated to use imported data. Build completed successfully."
-  }
+  "unmappedBrands": []
 }
