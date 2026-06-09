@@ -1,5 +1,5 @@
 import { CATEGORIES, BRANDS, PRODUCTS } from "@/lib/tdm-data";
-import { getMainGroups, getBrandsForGroup, getDescendantSlugs, flattenCategories } from "@/lib/category-utils";
+import { getMainGroups, getBrandsForGroup, getDescendantSlugs, flattenCategories, findCategoryBySlug } from "@/lib/category-utils";
 import { getProducts } from "@/lib/catalog-service";
 import { HeroWithCategoryMenu } from "@/components/home/HeroWithCategoryMenu";
 import { ServiceBenefits } from "@/components/home/ServiceBenefits";
@@ -121,8 +121,8 @@ export function Home() {
   );
   const products = getProducts();
 
-  const vsCategory = homepageIndustries.find((g) => g.groupSlug === "thiet-bi-ve-sinh")!;
-  const vsDescendantSlugs = [vsCategory.slug, ...getDescendantSlugs(vsCategory)];
+  const vsCategory = findCategoryBySlug(CATEGORIES, "thiet-bi-ve-sinh")!;
+  const vsDescendantSlugs = getDescendantSlugs(vsCategory);
   const vsProducts = products.filter(p => vsDescendantSlugs.includes(p.categorySlug));
   const featuredProducts = vsProducts.filter(p => p.isFeatured);
   const newestProducts = vsProducts.filter(p => p.isNew);

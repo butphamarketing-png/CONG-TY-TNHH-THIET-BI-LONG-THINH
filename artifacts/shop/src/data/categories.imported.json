@@ -250,5 +250,40 @@
     "slug": "voi-chau",
     "parentSlug": null,
     "description": ""
+  },
+  {
+    "id": 37,
+    "name": "Vòi rửa chén",
+    "slug": "voi-rua-chen",
+    "parentSlug": null,
+    "description": ""
+  },
+  {
+    "id": 38,
+    "name": "Phụ kiện",
+    "slug": "phu-kien",
+    "parentSlug": null,
+    "description": ""
+  },
+  {
+    "id": 39,
+    "name": "Bồn inox",
+    "slug": "bon-inox",
+    "parentSlug": null,
+    "description": ""
+  },
+  {
+    "id": 40,
+    "name": "Vòi nước",
+    "slug": "voi-nuoc",
+    "parentSlug": null,
+    "description": ""
+  },
+  {
+    "id": 41,
+    "name": "Bồn nhựa",
+    "slug": "bon-nhua",
+    "parentSlug": null,
+    "description": ""
   }
 ]
