@@ -2,95 +2,117 @@
   "categories": [
     {
       "slug": "voi-cam-ung",
-      "count": 15,
-      "file": "products-voi-cam-ung.json"
+      "count": 28,
+      "file": "products-listing-voi-cam-ung.json"
     },
     {
       "slug": "bon-cau",
-      "count": 61,
-      "file": "products-bon-cau.json"
+      "count": 359,
+      "file": "products-listing-bon-cau.json"
     },
     {
       "slug": "chau-lavabo",
-      "count": 150,
-      "file": "products-chau-lavabo.json"
+      "count": 643,
+      "file": "products-listing-chau-lavabo.json"
     },
     {
       "slug": "bon-tieu",
-      "count": 25,
-      "file": "products-bon-tieu.json"
+      "count": 84,
+      "file": "products-listing-bon-tieu.json"
     },
     {
       "slug": "",
       "count": 194,
-      "file": "products-uncategorized.json"
+      "file": "products-listing-uncategorized.json"
     },
     {
       "slug": "bon-tam",
-      "count": 68,
-      "file": "products-bon-tam.json"
+      "count": 136,
+      "file": "products-listing-bon-tam.json"
     },
     {
       "slug": "voi-sen",
-      "count": 49,
-      "file": "products-voi-sen.json"
+      "count": 269,
+      "file": "products-listing-voi-sen.json"
     },
     {
       "slug": "sen-cay",
-      "count": 9,
-      "file": "products-sen-cay.json"
+      "count": 41,
+      "file": "products-listing-sen-cay.json"
     },
     {
       "slug": "voi-chau",
       "count": 11,
-      "file": "products-voi-chau.json"
+      "file": "products-listing-voi-chau.json"
     },
     {
       "slug": "voi-rua-chen",
-      "count": 18,
-      "file": "products-voi-rua-chen.json"
+      "count": 61,
+      "file": "products-listing-voi-rua-chen.json"
     },
     {
       "slug": "phu-kien",
       "count": 2,
-      "file": "products-phu-kien.json"
+      "file": "products-listing-phu-kien.json"
     },
     {
       "slug": "bon-inox",
-      "count": 41,
-      "file": "products-bon-inox.json"
+      "count": 87,
+      "file": "products-listing-bon-inox.json"
     },
     {
       "slug": "voi-nuoc",
-      "count": 28,
-      "file": "products-voi-nuoc.json"
+      "count": 38,
+      "file": "products-listing-voi-nuoc.json"
     },
     {
       "slug": "bon-nhua",
       "count": 36,
-      "file": "products-bon-nhua.json"
+      "file": "products-listing-bon-nhua.json"
     },
     {
       "slug": "thiet-bi-ve-sinh",
-      "count": 44,
-      "file": "products-thiet-bi-ve-sinh.json"
+      "count": 381,
+      "file": "products-listing-thiet-bi-ve-sinh.json"
     },
     {
       "slug": "voi-lavabo",
-      "count": 16,
-      "file": "products-voi-lavabo.json"
+      "count": 168,
+      "file": "products-listing-voi-lavabo.json"
     },
     {
       "slug": "phu-kien-phong-tam",
-      "count": 7,
-      "file": "products-phu-kien-phong-tam.json"
+      "count": 155,
+      "file": "products-listing-phu-kien-phong-tam.json"
     },
     {
       "slug": "voi-xit-ve-sinh",
-      "count": 1,
-      "file": "products-voi-xit-ve-sinh.json"
+      "count": 19,
+      "file": "products-listing-voi-xit-ve-sinh.json"
+    },
+    {
+      "slug": "bon-cau-thong-minh",
+      "count": 77,
+      "file": "products-listing-bon-cau-thong-minh.json"
+    },
+    {
+      "slug": "may-nuoc-nong",
+      "count": 68,
+      "file": "products-listing-may-nuoc-nong.json"
+    },
+    {
+      "slug": "sen-am-tuong",
+      "count": 2,
+      "file": "products-listing-sen-am-tuong.json"
+    },
+    {
+      "slug": "khoa-cua",
+      "count": 7,
+      "file": "products-listing-khoa-cua.json"
     }
   ],
-  "totalProducts": 775,
-  "totalCategories": 18
+  "totalProducts": 2866,
+  "totalCategories": 22,
+  "listingPrefix": "products-listing-",
+  "detailPrefix": "products/detail/"
 }

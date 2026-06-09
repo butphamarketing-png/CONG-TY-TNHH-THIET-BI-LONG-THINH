@@ -1,0 +1,153 @@
+{
+  "timestamp": "2026-06-09T17:52:26.312Z",
+  "productsImported": 2866,
+  "totalImages": 9144,
+  "totalSpecifications": 86669,
+  "totalBrands": 10,
+  "totalCategories": 22,
+  "productsMissingImages": 0,
+  "productsMissingSpecifications": 0,
+  "missingImagesSample": [],
+  "missingSpecsSample": [],
+  "duplicateSkus": 995,
+  "duplicateSlugs": 1013,
+  "duplicateUrls": 0,
+  "duplicateSkuDetails": [
+    {
+      "field": "sku",
+      "value": "UT508TXW",
+      "ids": [
+        854,
+        855
+      ]
+    },
+    {
+      "field": "sku",
+      "value": "UT570TXW",
+      "ids": [
+        856,
+        857
+      ]
+    },
+    {
+      "field": "sku",
+      "value": "UT557TXW",
+      "ids": [
+        858,
+        859
+      ]
+    },
+    {
+      "field": "sku",
+      "value": "UT560TXW",
+      "ids": [
+        860,
+        861
+      ]
+    },
+    {
+      "field": "sku",
+      "value": "UT447HRW",
+      "ids": [
+        862,
+        863
+      ]
+    },
+    {
+      "field": "sku",
+      "value": "UT447S",
+      "ids": [
+        864,
+        865
+      ]
+    },
+    {
+      "field": "sku",
+      "value": "UT57SW",
+      "ids": [
+        866,
+        867
+      ]
+    },
+    {
+      "field": "sku",
+      "value": "DUE137PBK",
+      "ids": [
+        868,
+        869
+      ]
+    },
+    {
+      "field": "sku",
+      "value": "TS402S",
+      "ids": [
+        870,
+        871
+      ]
+    },
+    {
+      "field": "sku",
+      "value": "TS402P",
+      "ids": [
+        872,
+        873
+      ]
+    }
+  ],
+  "categoryCounts": {
+    "voi-cam-ung": 28,
+    "bon-cau": 359,
+    "chau-lavabo": 643,
+    "bon-tieu": 84,
+    "uncategorized": 194,
+    "bon-tam": 136,
+    "voi-sen": 269,
+    "sen-cay": 41,
+    "voi-chau": 11,
+    "voi-rua-chen": 61,
+    "phu-kien": 2,
+    "bon-inox": 87,
+    "voi-nuoc": 38,
+    "bon-nhua": 36,
+    "thiet-bi-ve-sinh": 381,
+    "voi-lavabo": 168,
+    "phu-kien-phong-tam": 155,
+    "voi-xit-ve-sinh": 19,
+    "bon-cau-thong-minh": 77,
+    "may-nuoc-nong": 68,
+    "sen-am-tuong": 2,
+    "khoa-cua": 7
+  },
+  "categoryCoverage": {
+    "thiet-bi-ve-sinh": {
+      "productCount": 381,
+      "hasProducts": true
+    },
+    "thiet-bi-bep": {
+      "productCount": 0,
+      "hasProducts": false
+    },
+    "thiet-bi-nuoc": {
+      "productCount": 0,
+      "hasProducts": false
+    },
+    "khoa-cua-nha-thong-minh": {
+      "productCount": 0,
+      "hasProducts": false
+    },
+    "thiet-bi-dien": {
+      "productCount": 0,
+      "hasProducts": false
+    },
+    "phu-kien": {
+      "productCount": 2,
+      "hasProducts": true
+    },
+    "gach-op-lat": {
+      "productCount": 0,
+      "hasProducts": false
+    }
+  },
+  "priorityCategoriesFilled": 2,
+  "priorityCategoriesTotal": 7
+}
