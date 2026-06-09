@@ -26,7 +26,7 @@ export function Home() {
   );
 
   return (
-    <div className="w-full flex flex-col bg-gray-50">
+    <div className="w-full flex flex-col bg-white">
       {/* SECTION 1-2: HERO AREA WITH CATEGORY MENU */}
       <HeroWithCategoryMenu />
 

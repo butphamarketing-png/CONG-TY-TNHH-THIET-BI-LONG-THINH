@@ -30,22 +30,22 @@ const BENEFITS = [
 
 export function ServiceBenefits() {
   return (
-    <section className="bg-white border-y border-gray-200">
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <section className="bg-gray-50 border-y border-gray-200">
+      <div className="container mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {BENEFITS.map((benefit) => (
             <Card
               key={benefit.id}
-              className="border-0 shadow-sm hover:shadow-md transition-all duration-300 group"
+              className="border-0 shadow-sm hover:shadow-md transition-all duration-300 group bg-white"
             >
-              <CardContent className="p-6 flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-full bg-orange-50 flex items-center justify-center mb-4 group-hover:bg-orange-100 transition-colors">
-                  <benefit.icon className="w-8 h-8 text-orange-600" />
+              <CardContent className="p-4 flex flex-col items-center text-center">
+                <div className="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center mb-3 group-hover:bg-orange-100 transition-colors">
+                  <benefit.icon className="w-6 h-6 text-orange-600" />
                 </div>
-                <h3 className="font-bold text-lg text-gray-800 mb-2">
+                <h3 className="font-bold text-base text-gray-800 mb-1">
                   {benefit.title}
                 </h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-xs text-gray-600 leading-relaxed">
                   {benefit.description}
                 </p>
               </CardContent>
