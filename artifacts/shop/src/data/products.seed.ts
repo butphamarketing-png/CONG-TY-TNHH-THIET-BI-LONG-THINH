@@ -1,5 +1,5 @@
-import type { TdmProduct } from "@/types/product";
-import productsImported from "@/data/products.imported.json";
-
-/** Use imported products from crawler instead of mock data */
-export const PRODUCTS_SEED: TdmProduct[] = productsImported as TdmProduct[];
+/**
+ * @deprecated Products are loaded on demand via catalog-store.
+ * Do not import JSON product data here — it bundles into the JS build.
+ */
+export {};
