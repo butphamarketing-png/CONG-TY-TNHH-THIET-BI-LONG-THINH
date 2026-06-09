@@ -58,7 +58,20 @@ export function Home() {
         />
       </div>
 
-      {/* SECTION 6: THIẾT BỊ BẾP */}
+      {/* SECTION 6: SẢN PHẨM THIẾT BỊ VỆ SINH */}
+      <div className="container mx-auto px-4 py-6">
+        <CategoryProductSection
+          category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-ve-sinh")!}
+          products={PRODUCTS.filter(
+            (p) =>
+              p.categorySlug === "thiet-bi-ve-sinh" ||
+              homepageIndustries.find((g) => g.groupSlug === "thiet-bi-ve-sinh")?.children?.some((c) => c.slug === p.categorySlug)
+          )}
+          limit={8}
+        />
+      </div>
+
+      {/* SECTION 7: THIẾT BỊ BẾP */}
       <div className="container mx-auto px-4 py-6">
         <CategoryHeroSection
           groupSlug="thiet-bi-bep"
@@ -74,7 +87,7 @@ export function Home() {
         />
       </div>
 
-      {/* SECTION 7: THƯƠNG HIỆU THIẾT BỊ BẾP */}
+      {/* SECTION 8: THƯƠNG HIỆU THIẾT BỊ BẾP */}
       <div className="container mx-auto px-4 py-2">
         <BrandShowcase
           brands={getBrandsForGroup(BRANDS, "thiet-bi-bep")}
@@ -82,7 +95,20 @@ export function Home() {
         />
       </div>
 
-      {/* SECTION 8: THIẾT BỊ NƯỚC */}
+      {/* SECTION 9: SẢN PHẨM THIẾT BỊ BẾP */}
+      <div className="container mx-auto px-4 py-6">
+        <CategoryProductSection
+          category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-bep")!}
+          products={PRODUCTS.filter(
+            (p) =>
+              p.categorySlug === "thiet-bi-bep" ||
+              homepageIndustries.find((g) => g.groupSlug === "thiet-bi-bep")?.children?.some((c) => c.slug === p.categorySlug)
+          )}
+          limit={8}
+        />
+      </div>
+
+      {/* SECTION 10: THIẾT BỊ NƯỚC */}
       <div className="container mx-auto px-4 py-6">
         <CategoryHeroSection
           groupSlug="thiet-bi-nuoc"
@@ -96,7 +122,28 @@ export function Home() {
         />
       </div>
 
-      {/* SECTION 9: KHÓA CỬA & NHÀ THÔNG MINH */}
+      {/* SECTION 11: THƯƠNG HIỆU THIẾT BỊ NƯỚC */}
+      <div className="container mx-auto px-4 py-2">
+        <BrandShowcase
+          brands={getBrandsForGroup(BRANDS, "thiet-bi-nuoc")}
+          title="Thương hiệu thiết bị nước"
+        />
+      </div>
+
+      {/* SECTION 12: SẢN PHẨM THIẾT BỊ NƯỚC */}
+      <div className="container mx-auto px-4 py-6">
+        <CategoryProductSection
+          category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-nuoc")!}
+          products={PRODUCTS.filter(
+            (p) =>
+              p.categorySlug === "thiet-bi-nuoc" ||
+              homepageIndustries.find((g) => g.groupSlug === "thiet-bi-nuoc")?.children?.some((c) => c.slug === p.categorySlug)
+          )}
+          limit={8}
+        />
+      </div>
+
+      {/* SECTION 13: KHÓA CỬA & NHÀ THÔNG MINH */}
       <div className="container mx-auto px-4 py-6">
         <CategoryHeroSection
           groupSlug="thiet-bi-khoa"
@@ -110,26 +157,66 @@ export function Home() {
         />
       </div>
 
-      {/* SECTION 10: PROMOTION BANNERS */}
-      <PromotionBanners />
-
-      {/* CATEGORY PRODUCT BLOCKS */}
-      <div className="container mx-auto px-4 py-6">
-        {homepageIndustries.slice(0, 3).map((group) => (
-          <CategoryProductSection
-            key={`product-block-${group.id}`}
-            category={group}
-            products={PRODUCTS.filter(
-              (p) =>
-                p.categorySlug === group.slug ||
-                group.children?.some((c) => c.slug === p.categorySlug)
-            )}
-            limit={4}
-          />
-        ))}
+      {/* SECTION 14: THƯƠNG HIỆU KHÓA CỬA */}
+      <div className="container mx-auto px-4 py-2">
+        <BrandShowcase
+          brands={getBrandsForGroup(BRANDS, "thiet-bi-khoa")}
+          title="Thương hiệu khóa cửa"
+        />
       </div>
 
-      {/* SECTION 13: HỆ THỐNG SHOWROOM */}
+      {/* SECTION 15: SẢN PHẨM KHÓA CỬA */}
+      <div className="container mx-auto px-4 py-6">
+        <CategoryProductSection
+          category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-khoa")!}
+          products={PRODUCTS.filter(
+            (p) =>
+              p.categorySlug === "thiet-bi-khoa" ||
+              homepageIndustries.find((g) => g.groupSlug === "thiet-bi-khoa")?.children?.some((c) => c.slug === p.categorySlug)
+          )}
+          limit={8}
+        />
+      </div>
+
+      {/* SECTION 16: THIẾT BỊ ĐIỆN */}
+      <div className="container mx-auto px-4 py-6">
+        <CategoryHeroSection
+          groupSlug="thiet-bi-dien"
+          title="Thiết bị điện"
+          description="Công tắc, đèn LED, quạt điện, dây cáp"
+          categoryIcons={[
+            { name: "Công tắc", slug: "cong-tac", icon: "switch" },
+            { name: "Đèn LED", slug: "den-led", icon: "lightbulb" },
+            { name: "Quạt điện", slug: "quat-dien", icon: "fan" },
+          ]}
+        />
+      </div>
+
+      {/* SECTION 17: THƯƠNG HIỆU THIẾT BỊ ĐIỆN */}
+      <div className="container mx-auto px-4 py-2">
+        <BrandShowcase
+          brands={getBrandsForGroup(BRANDS, "thiet-bi-dien")}
+          title="Thương hiệu thiết bị điện"
+        />
+      </div>
+
+      {/* SECTION 18: SẢN PHẨM THIẾT BỊ ĐIỆN */}
+      <div className="container mx-auto px-4 py-6">
+        <CategoryProductSection
+          category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-dien")!}
+          products={PRODUCTS.filter(
+            (p) =>
+              p.categorySlug === "thiet-bi-dien" ||
+              homepageIndustries.find((g) => g.groupSlug === "thiet-bi-dien")?.children?.some((c) => c.slug === p.categorySlug)
+          )}
+          limit={8}
+        />
+      </div>
+
+      {/* SECTION 19: PROMOTION BANNERS */}
+      <PromotionBanners />
+
+      {/* SECTION 20: HỆ THỐNG SHOWROOM */}
       <div className="container mx-auto px-4 py-6">
         <EnhancedShowroomSection />
       </div>
