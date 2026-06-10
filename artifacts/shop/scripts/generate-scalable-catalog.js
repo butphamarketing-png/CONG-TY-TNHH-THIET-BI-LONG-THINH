@@ -146,7 +146,6 @@ function removeNonDeployFiles(dir) {
 
 export function syncToPublic() {
   fs.mkdirSync(PUBLIC_DIR, { recursive: true });
-  removeNonDeployFiles(DATA_DIR);
   removeNonDeployFiles(PUBLIC_DIR);
 
   for (const file of fs.readdirSync(DATA_DIR)) {
