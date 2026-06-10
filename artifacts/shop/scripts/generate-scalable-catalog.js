@@ -91,6 +91,7 @@ export function generateScalableCatalog(products) {
       categoryName: product.categoryName,
       price: product.price,
       thumbnail: product.thumbnail,
+      isOnSale: product.isOnSale ?? false,
     });
   }
 
@@ -145,8 +146,8 @@ function removeNonDeployFiles(dir) {
 
 export function syncToPublic() {
   fs.mkdirSync(PUBLIC_DIR, { recursive: true });
-  removeLegacyChunks(DATA_DIR);
-  removeLegacyChunks(PUBLIC_DIR);
+  removeNonDeployFiles(DATA_DIR);
+  removeNonDeployFiles(PUBLIC_DIR);
 
   for (const file of fs.readdirSync(DATA_DIR)) {
     if (file.endsWith(".json") && !IMPORT_ONLY.has(file) && !isLegacyFullChunk(file)) {

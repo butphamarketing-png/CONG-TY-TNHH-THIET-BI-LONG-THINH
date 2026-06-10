@@ -7,6 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import csv from 'csv-parser';
 import { fileURLToPath } from 'url';
+import { resolveBrand } from './brand-inference.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,6 +15,19 @@ const __dirname = path.dirname(__filename);
 // Configuration
 const CRAWLER_DIR = path.resolve(__dirname, '../../../../tdm-crawler');
 const DATA_DIR = path.resolve(__dirname, '../src/data');
+const CATEGORY_MAP_PATH = path.resolve(__dirname, '../../../scripts/import/category-map.json');
+const BRAND_MAP_PATH = path.resolve(__dirname, '../../../scripts/import/brand-map.json');
+
+let categoryMap = {};
+let brandMap = {};
+if (fs.existsSync(CATEGORY_MAP_PATH)) {
+  categoryMap = JSON.parse(fs.readFileSync(CATEGORY_MAP_PATH, 'utf8'));
+  delete categoryMap._comment;
+}
+if (fs.existsSync(BRAND_MAP_PATH)) {
+  brandMap = JSON.parse(fs.readFileSync(BRAND_MAP_PATH, 'utf8'));
+  delete brandMap._comment;
+}
 
 // CSV file names (updated for full crawl)
 const PRODUCTS_CSV = 'products.csv';
@@ -220,13 +234,15 @@ async function importProducts() {
       if (!row.sku || !row.name) return;
       
       const sku = row.sku.trim();
+      if (products.has(sku)) return;
       const name = row.name.trim();
       const slug = row.slug ? row.slug.trim() : slugify(name);
       
-      // Find or create brand
-      let brandSlug = slugify(row.brand || '');
-      let brandName = row.brand ? row.brand.trim() : '';
-      let brandId = 1;
+      // Find or create brand (CSV field → brand-map → infer from product name)
+      const resolved = resolveBrand(row.brand, name, brandMap);
+      let brandName = resolved?.brandName ?? (row.brand ? row.brand.trim() : '');
+      let brandSlug = resolved?.brandSlug || slugify(brandName);
+      let brandId = resolved?.brandId || 1;
       
       if (brands.has(brandSlug)) {
         brandId = brands.get(brandSlug).id;
@@ -252,9 +268,9 @@ async function importProducts() {
         stats.unmappedBrands.add(sku);
       }
       
-      // Find or create category
-      let categorySlug = slugify(row.category || '');
+      // Find or create category (use category-map for TDM tree alignment)
       let categoryName = row.category ? row.category.trim() : '';
+      let categorySlug = categoryMap[categoryName] || slugify(categoryName);
       let categoryId = 1;
       
       if (categories.has(categorySlug)) {
@@ -332,7 +348,7 @@ async function importProducts() {
           { showroomId: 1, showroomName: "Showroom", inStock: true, quantity: 5 }
         ],
         cashbackAmount: undefined,
-        contactForPrice: false,
+        contactForPrice: row.contact_for_price === 'true' || price === 0,
         seoTitle: row.seo_title || name,
         seoDescription: row.seo_description || row.short_description || '',
         seoKeywords: row.seo_keywords || '',
@@ -379,6 +395,26 @@ async function saveData() {
     fs.writeFileSync(
       path.join(DATA_DIR, 'categories.imported.json'),
       JSON.stringify(categoriesArray, null, 2)
+    );
+
+    // Save images index (sku -> images[])
+    const imagesIndex = {};
+    for (const [sku, imgs] of images.entries()) {
+      imagesIndex[sku] = imgs;
+    }
+    fs.writeFileSync(
+      path.join(DATA_DIR, 'images.imported.json'),
+      JSON.stringify(imagesIndex, null, 2)
+    );
+
+    // Save specifications index (sku -> specs[])
+    const specsIndex = {};
+    for (const [sku, specs] of specifications.entries()) {
+      specsIndex[sku] = specs;
+    }
+    fs.writeFileSync(
+      path.join(DATA_DIR, 'specifications.imported.json'),
+      JSON.stringify(specsIndex, null, 2)
     );
     
     console.log('✓ Data saved successfully');
@@ -432,6 +468,15 @@ async function main() {
   await importProducts();
   await saveData();
   generateReport();
+
+  // Generate scalable catalog chunks for lazy-loading
+  console.log('\n--- Generating scalable catalog ---');
+  const { execSync } = await import('child_process');
+  try {
+    execSync('node scripts/generate-scalable-catalog.js', { cwd: path.resolve(__dirname, '..'), stdio: 'inherit' });
+  } catch (e) {
+    stats.errors.push(`Scalable catalog generation failed: ${e.message}`);
+  }
   
   console.log('\n=== IMPORT COMPLETE ===');
 }

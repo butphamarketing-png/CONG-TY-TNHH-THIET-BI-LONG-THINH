@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { loadSiteContent } from "@/lib/site-content";
 import { Layout } from "@/components/layout";
 import { LogoSplash } from "@/components/LogoSplash";
 import { Home } from "@/pages/home";
@@ -54,6 +55,10 @@ function Router() {
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    loadSiteContent();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

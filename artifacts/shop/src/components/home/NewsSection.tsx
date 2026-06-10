@@ -2,8 +2,12 @@ import { Link } from "wouter";
 import { ChevronRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { NEWS } from "@/lib/tdm-data";
+import { useSiteContent } from "@/hooks/use-site-content";
 
 export function NewsSection() {
+  const cms = useSiteContent();
+  const news = cms?.news ?? NEWS;
+
   return (
     <section className="container mx-auto px-4 py-8 md:py-10">
       <div className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 md:p-6">
@@ -20,7 +24,7 @@ export function NewsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-          {NEWS.map((article) => (
+          {news.map((article) => (
             <Card
               key={article.id}
               className="overflow-hidden border border-gray-100 hover:shadow-md hover:border-orange-100 transition-all duration-300 group flex flex-col bg-white rounded-xl"

@@ -24,7 +24,11 @@ function isLegacyFullChunk(filename) {
 }
 
 function shouldExclude(filename) {
-  return IMPORT_ONLY.has(filename) || isLegacyFullChunk(filename);
+  return (
+    IMPORT_ONLY.has(filename) ||
+    isLegacyFullChunk(filename) ||
+    /\.backup-\d+\.json$/i.test(filename)
+  );
 }
 
 function stripDir(dir) {

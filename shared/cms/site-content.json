@@ -1,0 +1,94 @@
+{
+  "company": {
+    "name": "LONG THỊNH",
+    "legalName": "CÔNG TY TNHH THIẾT BỊ LONG THỊNH",
+    "taxCode": "0311528071-001",
+    "phone": "0906752821",
+    "phoneDisplay": "0906 752 821",
+    "hotline": "0933.322.232 - 028.2244.8333",
+    "email": "info@longthinh.vn",
+    "address": "504 Nguyễn Văn Quá, P. Đông Hưng Thuận, TP Hồ Chí Minh"
+  },
+  "banners": {
+    "hero": {
+      "title": "LONG THỊNH",
+      "image": "/slideshow.png",
+      "link": "/"
+    },
+    "sideTop": {
+      "title": "Flash Sale",
+      "image": "/flashsale1.png",
+      "link": "/khuyen-mai"
+    },
+    "sideBottom": {
+      "title": "Catalogue",
+      "image": "/catalogue.png",
+      "link": "/khuyen-mai"
+    }
+  },
+  "showrooms": [
+    {
+      "id": 1,
+      "name": "LONG THỊNH — Trụ sở chính",
+      "address": "504 Nguyễn Văn Quá, P. Đông Hưng Thuận, TP Hồ Chí Minh",
+      "phone": "0906.752.821",
+      "hours": "T2-T7: 8:00-17:30; CN: 8:00-12:00"
+    },
+    {
+      "id": 2,
+      "name": "LONG THỊNH — Showroom Q.12",
+      "address": "504 Nguyễn Văn Quá, P. Đông Hưng Thuận, TP Hồ Chí Minh",
+      "phone": "028.2244.8333",
+      "hours": "T2-T7: 8:00-17:30; CN: 8:00-12:00"
+    },
+    {
+      "id": 3,
+      "name": "LONG THỊNH — Kho & giao hàng",
+      "address": "TP. Hồ Chí Minh và lân cận",
+      "phone": "0933.322.232",
+      "hours": "Giao nội thành 3h — liên hệ hotline"
+    }
+  ],
+  "news": [
+    {
+      "id": 1,
+      "title": "Top 10 bồn cầu TOTO tốt nhất năm 2026",
+      "slug": "top-10-bon-cau-toto-tot-nhat-2026",
+      "excerpt": "Tổng hợp top 10 bồn cầu TOTO chất lượng, phổ biến nhất năm 2026",
+      "thumbnail": "https://placehold.co/800x450/f0f0f0/666666?text=TIN+TUC+TOTO",
+      "category": "Tin tức sản phẩm",
+      "viewCount": 3450,
+      "createdAt": "2026-06-01",
+      "content": "<p>Nội dung bài viết...</p>"
+    },
+    {
+      "id": 2,
+      "title": "Hướng dẫn chọn mua bếp từ Bosch chính hãng",
+      "slug": "huong-dan-chon-mua-bep-tu-bosch-chinh-hang",
+      "excerpt": "Bí quyết chọn mua bếp từ Bosch chính hãng, chất lượng tốt",
+      "thumbnail": "https://placehold.co/800x450/f0f0f0/666666?text=TIN+TUC+BOSCH",
+      "category": "Hướng dẫn mua hàng",
+      "viewCount": 2100,
+      "createdAt": "2026-05-28",
+      "content": "<p>Nội dung bài viết...</p>"
+    },
+    {
+      "id": 3,
+      "title": "Khuyến mãi mùa hè 2026: Giảm sốc đến 50%",
+      "slug": "khuyen-mai-mua-he-2026",
+      "excerpt": "Chương trình khuyến mãi mùa hè 2026 với hàng ngàn sản phẩm giảm giá sốc",
+      "thumbnail": "https://placehold.co/800x450/f0f0f0/666666?text=KHUYEN+MAI",
+      "category": "Khuyến mãi",
+      "viewCount": 5600,
+      "createdAt": "2026-06-05",
+      "content": "<p>Nội dung bài viết...</p>"
+    }
+  ],
+  "socialLinks": [
+    { "id": "fanpage", "label": "Fanpage", "href": "https://www.facebook.com/longthinh.vn", "type": "facebook" },
+    { "id": "messenger", "label": "Messenger", "href": "https://m.me/longthinh.vn", "type": "messenger" },
+    { "id": "maps", "label": "Google Maps", "href": "https://maps.google.com/?q=504+Nguyễn+Văn+Quá,+TP+Hồ+Chí+Minh", "type": "maps" },
+    { "id": "zalo", "label": "Zalo", "href": "https://zalo.me/0906752821", "type": "zalo" },
+    { "id": "website", "label": "Website", "href": "https://longthinh.vn", "type": "website" }
+  ]
+}

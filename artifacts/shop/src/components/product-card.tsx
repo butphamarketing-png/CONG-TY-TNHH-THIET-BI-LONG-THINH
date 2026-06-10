@@ -122,7 +122,9 @@ export function ProductCard({ product }: ProductCardProps) {
 
       <CardContent className="p-3 flex flex-col flex-grow">
         <div className="text-[11px] text-gray-500 mb-1 font-medium uppercase tracking-wide">
-          {product.brandName || "TDM Shop"}
+          {product.brandName && product.brandName !== "UNKNOWN"
+            ? product.brandName
+            : "LONG THỊNH"}
         </div>
         <Link href={productUrl(product.slug)} className="hover:text-red-600 transition-colors">
           <h3 className="font-medium text-sm line-clamp-2 mb-2 leading-snug min-h-[2.4rem]">

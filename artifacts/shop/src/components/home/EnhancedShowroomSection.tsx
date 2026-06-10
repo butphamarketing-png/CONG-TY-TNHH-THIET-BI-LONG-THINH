@@ -2,8 +2,12 @@ import { MapPin, Phone, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SHOWROOMS } from "@/lib/tdm-data";
+import { useSiteContent } from "@/hooks/use-site-content";
 
 export function EnhancedShowroomSection() {
+  const cms = useSiteContent();
+  const showrooms = cms?.showrooms ?? SHOWROOMS;
+
   return (
     <section className="rounded-2xl bg-white border border-gray-100 shadow-sm py-8 md:py-10 px-4 md:px-6">
       <div className="text-center mb-8">
@@ -16,7 +20,7 @@ export function EnhancedShowroomSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-        {SHOWROOMS.slice(0, 3).map((showroom) => (
+        {showrooms.slice(0, 3).map((showroom) => (
           <Card
             key={showroom.id}
             className="overflow-hidden border border-gray-100 hover:shadow-md hover:border-orange-100 transition-all duration-300 group rounded-xl"
