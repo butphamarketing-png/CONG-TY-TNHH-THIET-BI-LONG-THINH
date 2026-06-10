@@ -1,5 +1,5 @@
 import { CATEGORIES, BRANDS } from "@/lib/tdm-data";
-import { getMainGroups, getBrandsForGroup, getDescendantSlugs, findCategoryBySlug } from "@/lib/category-utils";
+import { getTdmMenuGroups, getBrandsForGroup, getDescendantSlugs, findCategoryBySlug } from "@/lib/category-utils";
 import { useCategoryListings } from "@/hooks/use-catalog";
 import { listingToProduct } from "@/lib/catalog-store";
 import { HomeProductSection } from "@/components/home/HomeProductSection";
@@ -7,24 +7,21 @@ import { HeroWithCategoryMenu } from "@/components/home/HeroWithCategoryMenu";
 import { ServiceBenefits } from "@/components/home/ServiceBenefits";
 import { CategoryHeroSection } from "@/components/home/CategoryHeroSection";
 import { BrandShowcase } from "@/components/home/BrandShowcase";
-import { CategoryProductSection } from "@/components/home/CategoryProductSection";
-import { PromotionBanners } from "@/components/home/PromotionBanners";
 import { EnhancedShowroomSection } from "@/components/home/EnhancedShowroomSection";
 import { NewsSection } from "@/components/home/NewsSection";
 import { CTASection } from "@/components/home/CTASection";
 import { Link } from "wouter";
-import { ChevronRight, ShoppingCart, Star, Sparkles, TrendingUp } from "lucide-react";
+import { ChevronRight, ShoppingCart, Star, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { categoryUrl, productUrl } from "@/lib/urls";
 
-/** Homepage industries shown like tdm.vn (5 main groups) */
-const HOMEPAGE_GROUPS = [
-  "thiet-bi-ve-sinh",
-  "thiet-bi-bep",
-  "thiet-bi-nuoc",
-  "thiet-bi-khoa",
-  "thiet-bi-dien",
+const CATEGORY_GROUPS = [
+  { slug: "thiet-bi-ve-sinh", title: "Thiết bị vệ sinh", description: "Bồn cầu, lavabo, vòi sen, bồn tắm chính hãng" },
+  { slug: "thiet-bi-bep", title: "Thiết bị bếp", description: "Bếp từ, máy hút mùi, chậu bếp, vòi bếp cao cấp" },
+  { slug: "thiet-bi-nuoc", title: "Thiết bị nước", description: "Bồn nước, máy nước nóng, máy lọc nước" },
+  { slug: "thiet-bi-khoa", title: "Khóa cửa & Nhà thông minh", description: "Khóa điện tử, khóa cửa chính hãng" },
+  { slug: "thiet-bi-dien", title: "Thiết bị điện", description: "Công tắc, đèn LED, quạt điện, dây cáp" },
 ] as const;
 
 function ProductGrid({
@@ -72,11 +69,6 @@ function ProductGrid({
                     HOT
                   </span>
                 )}
-                {product.isNew && (
-                  <span className="absolute top-3 right-3 bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-lg">
-                    NEW
-                  </span>
-                )}
               </div>
             </Link>
             <CardContent className="p-4">
@@ -117,10 +109,7 @@ function ProductGrid({
 }
 
 export function Home() {
-  const mainGroups = getMainGroups(CATEGORIES);
-  const homepageIndustries = mainGroups.filter((g) =>
-    HOMEPAGE_GROUPS.includes(g.groupSlug as typeof HOMEPAGE_GROUPS[number])
-  );
+  const homepageIndustries = getTdmMenuGroups(CATEGORIES);
 
   const vsCategory = findCategoryBySlug(CATEGORIES, "thiet-bi-ve-sinh")!;
   const vsDescendantSlugs = getDescendantSlugs(vsCategory);
@@ -129,58 +118,34 @@ export function Home() {
     .filter((p) => vsDescendantSlugs.includes(p.categorySlug))
     .map(listingToProduct);
   const featuredProducts = vsProducts.filter((p) => p.isFeatured);
-  const newestProducts = vsProducts.filter((p) => p.isNew);
   const bestSellingProducts = vsProducts.filter((p) => p.isBestSeller);
 
   return (
     <div className="w-full flex flex-col bg-white">
-      {/* SECTION 1-2: HERO AREA WITH CATEGORY MENU */}
       <HeroWithCategoryMenu />
-
-      {/* SECTION 3: SERVICE BENEFITS */}
       <ServiceBenefits />
 
-      {/* SECTION 4: THIẾT BỊ VỆ SINH - Category Hero */}
-      <div className="container mx-auto px-4 py-6">
-        <CategoryHeroSection
-          groupSlug="thiet-bi-ve-sinh"
-          title="Thiết bị vệ sinh"
-          description="Bồn cầu, lavabo, vòi sen, bồn tắm chính hãng"
-          categoryIcons={[
-            { name: "Bồn cầu", slug: "bon-cau", icon: "toilet" },
-            { name: "Lavabo", slug: "chau-lavabo", icon: "sink" },
-            { name: "Vòi lavabo", slug: "voi-lavabo", icon: "faucet" },
-            { name: "Sen tắm", slug: "voi-sen", icon: "shower" },
-            { name: "Bồn tắm", slug: "bon-tam", icon: "bathtub" },
-            { name: "Bồn tiểu", slug: "bon-tieu", icon: "urinal" },
-          ]}
-        />
-      </div>
+      {/* Danh mục cấp 1 — ưu tiên hiển thị trước sản phẩm */}
+      {CATEGORY_GROUPS.map((group) => (
+        <div key={group.slug}>
+          <div className="container mx-auto px-4 pt-4">
+            <CategoryHeroSection
+              groupSlug={group.slug}
+              title={group.title}
+              description={group.description}
+            />
+          </div>
+          <div className="container mx-auto px-4 pb-2">
+            <BrandShowcase
+              brands={getBrandsForGroup(BRANDS, group.slug as any)}
+              title={`Thương hiệu ${group.title.toLowerCase()}`}
+            />
+          </div>
+        </div>
+      ))}
 
-      {/* SECTION 5: THIẾT BỊ VỆ SINH - Brand Showcase */}
-      <div className="container mx-auto px-4 py-2">
-        <BrandShowcase
-          brands={getBrandsForGroup(BRANDS, "thiet-bi-ve-sinh")}
-          title="Thương hiệu thiết bị vệ sinh"
-        />
-      </div>
+      <ProductGrid title="Sản phẩm nổi bật" products={featuredProducts} limit={12} />
 
-      {/* SECTION 6: THIẾT BỊ VỆ SINH - Featured Products */}
-      <ProductGrid
-        title="Sản phẩm nổi bật"
-        products={featuredProducts}
-        limit={12}
-      />
-
-      {/* SECTION 7: THIẾT BỊ VỆ SINH - Newest Products */}
-      <ProductGrid
-        title="Sản phẩm mới"
-        icon={<Sparkles className="w-6 h-6 text-orange-600" />}
-        products={newestProducts}
-        limit={12}
-      />
-
-      {/* SECTION 8: THIẾT BỊ VỆ SINH - Best Selling Products */}
       <ProductGrid
         title="Sản phẩm bán chạy"
         icon={<TrendingUp className="w-6 h-6 text-orange-600" />}
@@ -188,10 +153,6 @@ export function Home() {
         limit={12}
       />
 
-      {/* SECTION 9: THIẾT BỊ VỆ SINH - Promotion Banner (using PromotionBanners) */}
-      <PromotionBanners />
-
-      {/* SECTION 10: THIẾT BỊ VỆ SINH - View All Button */}
       <div className="container mx-auto px-4 pb-12 text-center">
         <Link
           href={categoryUrl("thiet-bi-ve-sinh")}
@@ -202,31 +163,6 @@ export function Home() {
         </Link>
       </div>
 
-      {/* SECTION 7: THIẾT BỊ BẾP */}
-      <div className="container mx-auto px-4 py-6">
-        <CategoryHeroSection
-          groupSlug="thiet-bi-bep"
-          title="Thiết bị bếp"
-          description="Bếp từ, máy hút mùi, chậu bếp, vòi bếp cao cấp"
-          categoryIcons={[
-            { name: "Bếp từ", slug: "bep-tu", icon: "stove" },
-            { name: "Máy hút mùi", slug: "may-hut-mui", icon: "fan" },
-            { name: "Chậu bếp", slug: "chau-rua-chen", icon: "sink" },
-            { name: "Vòi bếp", slug: "voi-rua-chen", icon: "faucet" },
-            { name: "Máy rửa chén", slug: "may-rua-chen", icon: "dishwasher" },
-          ]}
-        />
-      </div>
-
-      {/* SECTION 8: THƯƠNG HIỆU THIẾT BỊ BẾP */}
-      <div className="container mx-auto px-4 py-2">
-        <BrandShowcase
-          brands={getBrandsForGroup(BRANDS, "thiet-bi-bep")}
-          title="Thương hiệu thiết bị bếp"
-        />
-      </div>
-
-      {/* SECTION 9: SẢN PHẨM THIẾT BỊ BẾP */}
       <HomeProductSection
         category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-bep")!}
         categorySlugs={
@@ -235,29 +171,6 @@ export function Home() {
         limit={8}
       />
 
-      {/* SECTION 10: THIẾT BỊ NƯỚC */}
-      <div className="container mx-auto px-4 py-6">
-        <CategoryHeroSection
-          groupSlug="thiet-bi-nuoc"
-          title="Thiết bị nước"
-          description="Bồn nước, máy nước nóng, máy lọc nước"
-          categoryIcons={[
-            { name: "Bồn nước", slug: "bon-nuoc", icon: "water-tank" },
-            { name: "Máy nước nóng", slug: "may-nuoc-nong", icon: "heater" },
-            { name: "Máy lọc nước", slug: "may-loc-nuoc", icon: "filter" },
-          ]}
-        />
-      </div>
-
-      {/* SECTION 11: THƯƠNG HIỆU THIẾT BỊ NƯỚC */}
-      <div className="container mx-auto px-4 py-2">
-        <BrandShowcase
-          brands={getBrandsForGroup(BRANDS, "thiet-bi-nuoc")}
-          title="Thương hiệu thiết bị nước"
-        />
-      </div>
-
-      {/* SECTION 12: SẢN PHẨM THIẾT BỊ NƯỚC */}
       <HomeProductSection
         category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-nuoc")!}
         categorySlugs={
@@ -266,29 +179,6 @@ export function Home() {
         limit={8}
       />
 
-      {/* SECTION 13: KHÓA CỬA & NHÀ THÔNG MINH */}
-      <div className="container mx-auto px-4 py-6">
-        <CategoryHeroSection
-          groupSlug="thiet-bi-khoa"
-          title="Khóa cửa & Nhà thông minh"
-          description="Khóa điện tử, khóa cửa chính hãng"
-          categoryIcons={[
-            { name: "Khóa điện tử", slug: "khoa-dien-tu", icon: "lock" },
-            { name: "Khóa cửa", slug: "khoa-cua-chinh", icon: "door" },
-            { name: "Két sắt", slug: "ket-sat", icon: "safe" },
-          ]}
-        />
-      </div>
-
-      {/* SECTION 14: THƯƠNG HIỆU KHÓA CỬA */}
-      <div className="container mx-auto px-4 py-2">
-        <BrandShowcase
-          brands={getBrandsForGroup(BRANDS, "thiet-bi-khoa")}
-          title="Thương hiệu khóa cửa"
-        />
-      </div>
-
-      {/* SECTION 15: SẢN PHẨM KHÓA CỬA */}
       <HomeProductSection
         category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-khoa")!}
         categorySlugs={
@@ -297,29 +187,6 @@ export function Home() {
         limit={8}
       />
 
-      {/* SECTION 16: THIẾT BỊ ĐIỆN */}
-      <div className="container mx-auto px-4 py-6">
-        <CategoryHeroSection
-          groupSlug="thiet-bi-dien"
-          title="Thiết bị điện"
-          description="Công tắc, đèn LED, quạt điện, dây cáp"
-          categoryIcons={[
-            { name: "Công tắc", slug: "cong-tac", icon: "switch" },
-            { name: "Đèn LED", slug: "den-led", icon: "lightbulb" },
-            { name: "Quạt điện", slug: "quat-dien", icon: "fan" },
-          ]}
-        />
-      </div>
-
-      {/* SECTION 17: THƯƠNG HIỆU THIẾT BỊ ĐIỆN */}
-      <div className="container mx-auto px-4 py-2">
-        <BrandShowcase
-          brands={getBrandsForGroup(BRANDS, "thiet-bi-dien")}
-          title="Thương hiệu thiết bị điện"
-        />
-      </div>
-
-      {/* SECTION 18: SẢN PHẨM THIẾT BỊ ĐIỆN */}
       <HomeProductSection
         category={homepageIndustries.find((g) => g.groupSlug === "thiet-bi-dien")!}
         categorySlugs={
@@ -328,18 +195,11 @@ export function Home() {
         limit={8}
       />
 
-      {/* SECTION 19: PROMOTION BANNERS */}
-      <PromotionBanners />
-
-      {/* SECTION 20: HỆ THỐNG SHOWROOM */}
       <div className="container mx-auto px-4 py-6">
         <EnhancedShowroomSection />
       </div>
 
-      {/* SECTION 14: TIN TỨC NỔI BẬT */}
       <NewsSection />
-
-      {/* SECTION 15: CTA BEFORE FOOTER */}
       <CTASection />
     </div>
   );

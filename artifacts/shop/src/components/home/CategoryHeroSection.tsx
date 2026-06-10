@@ -1,72 +1,72 @@
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { ChevronRight } from "lucide-react";
-import type { CategoryNode } from "@/types/catalog";
 import { getCategoryIconComponent } from "@/lib/category-icons";
 import { categoryUrl } from "@/lib/urls";
 import { CATEGORIES } from "@/lib/tdm-data";
-import { useHomepageListings } from "@/hooks/use-catalog";
+import { getTileThumbnailsForSlugs } from "@/lib/catalog-service";
 import { getHomepageTilesForGroup } from "@/lib/category-utils";
+import { getListingSlugForTile } from "@/lib/homepage-tiles";
 
 interface CategoryHeroSectionProps {
   groupSlug: string;
   title: string;
-  description: string;
-  categoryIcons: Array<{
-    name: string;
-    slug: string;
-    icon: string;
-  }>;
+  description?: string;
 }
 
-function CategoryImageCard({ name, slug, products }: { name: string; slug: string; products: any[] }) {
-  // Find first product in this category to use as image
-  const categoryProduct = products.find((p) => p.categorySlug === slug);
-  const imageUrl = categoryProduct?.thumbnail;
-  const Icon = getCategoryIconComponent(slug);
+function CategoryImageCard({
+  name,
+  tileSlug,
+  imageUrl,
+}: {
+  name: string;
+  tileSlug: string;
+  imageUrl?: string;
+}) {
+  const linkSlug = getListingSlugForTile(tileSlug);
+  const Icon = getCategoryIconComponent(tileSlug);
 
   return (
-    <Link href={categoryUrl(slug)} className="group block">
-      <div className="relative h-36 md:h-44 bg-gradient-to-br from-orange-50 via-orange-100 to-orange-50 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-orange-200 hover:border-orange-400">
+    <Link href={categoryUrl(linkSlug)} className="group block">
+      <div className="relative aspect-[4/5] rounded-sm overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 bg-gradient-to-b from-gray-300 via-gray-400 to-gray-500">
         {imageUrl ? (
           <img
             src={imageUrl}
             alt={name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = "none";
-            }}
+            loading="lazy"
+            className="absolute inset-0 w-full h-[78%] object-contain object-center p-2 group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="text-orange-500 opacity-50">
-              {Icon && <Icon className="w-16 h-16" />}
-            </div>
+          <div className="absolute inset-0 flex items-center justify-center pb-8">
+            {Icon && <Icon className="w-14 h-14 text-white/70" />}
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent opacity-90" />
-        <div className="absolute bottom-0 left-0 right-0 p-3">
-          <span className="text-sm font-semibold text-white line-clamp-1 drop-shadow-md">{name}</span>
+        <div className="absolute bottom-0 left-0 right-0 bg-black px-2 py-2.5 min-h-[22%] flex items-center justify-center">
+          <span className="text-[11px] sm:text-xs font-semibold text-white text-center line-clamp-2 leading-tight">
+            {name}
+          </span>
         </div>
       </div>
     </Link>
   );
 }
 
-export function CategoryHeroSection({
-  groupSlug,
-  title,
-  description,
-  categoryIcons,
-}: CategoryHeroSectionProps) {
+export function CategoryHeroSection({ groupSlug, title, description }: CategoryHeroSectionProps) {
   const subcats = getHomepageTilesForGroup(CATEGORIES, groupSlug as any);
-  const childSlugs = subcats.map((c) => c.slug);
-  const { listings: products } = useHomepageListings(childSlugs.length > 0 ? childSlugs : [groupSlug], 100);
+  const listingSlugs = [...new Set(subcats.map((c) => getListingSlugForTile(c.slug)))];
+  const [thumbnails, setThumbnails] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    if (!listingSlugs.length) return;
+    getTileThumbnailsForSlugs(listingSlugs).then(setThumbnails);
+  }, [listingSlugs.join(",")]);
+
+  if (!subcats.length) return null;
 
   return (
-    <section className="bg-white mb-8">
-      {/* Center aligned large orange title */}
-      <div className="text-center py-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-orange-600 uppercase tracking-wider">
+    <section className="bg-white mb-4">
+      <div className="text-center py-6 md:py-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-orange-600 uppercase tracking-wider italic">
           {title}
         </h2>
         {description && (
@@ -74,20 +74,23 @@ export function CategoryHeroSection({
         )}
       </div>
 
-      {/* Large product image cards grid */}
-      <div className="px-4 md:px-8 pb-8">
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-4">
-          {subcats.slice(0, 8).map((cat) => (
-            <CategoryImageCard key={cat.id} name={cat.name} slug={cat.slug} products={products} />
+      <div className="px-2 md:px-4 pb-6">
+        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 md:gap-3">
+          {subcats.map((cat) => (
+            <CategoryImageCard
+              key={cat.id}
+              name={cat.name}
+              tileSlug={cat.slug}
+              imageUrl={thumbnails[getListingSlugForTile(cat.slug)]}
+            />
           ))}
         </div>
       </div>
 
-      {/* View all link */}
-      <div className="text-center pb-8">
+      <div className="text-center pb-6">
         <Link
           href={categoryUrl(groupSlug)}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg transition-colors duration-300 shadow-md hover:shadow-lg"
+          className="inline-flex items-center gap-2 px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg transition-colors duration-300 shadow-md hover:shadow-lg text-sm"
         >
           Xem tất cả <ChevronRight className="w-4 h-4" />
         </Link>

@@ -239,6 +239,21 @@ export async function getHomepageListings(
   return listings.slice(0, limit);
 }
 
+/** First product thumbnail per listing slug — for homepage category tiles */
+export async function getTileThumbnailsForSlugs(
+  listingSlugs: string[],
+): Promise<Record<string, string>> {
+  const unique = [...new Set(listingSlugs)];
+  const entries = await Promise.all(
+    unique.map(async (slug) => {
+      const products = await loadCategoryListing(slug);
+      const hit = products.find((p) => p.thumbnail);
+      return hit ? ([slug, hit.thumbnail] as const) : null;
+    }),
+  );
+  return Object.fromEntries(entries.filter(Boolean) as [string, string][]);
+}
+
 export async function listProducts(params: ProductListParams = {}): Promise<ProductListResult> {
   const page = params.page ?? 1;
   const limit = params.limit ?? 48;

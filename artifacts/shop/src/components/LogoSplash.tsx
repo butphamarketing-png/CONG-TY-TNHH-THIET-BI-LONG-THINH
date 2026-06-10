@@ -7,8 +7,8 @@ export function LogoSplash({ onComplete }: { onComplete: () => void }) {
   const letters = LOGO_TEXT.split("");
 
   useEffect(() => {
-    const exitTimer = setTimeout(() => setExiting(true), 1800);
-    const doneTimer = setTimeout(onComplete, 2400);
+    const exitTimer = setTimeout(() => setExiting(true), 3800);
+    const doneTimer = setTimeout(onComplete, 4400);
     return () => {
       clearTimeout(exitTimer);
       clearTimeout(doneTimer);
