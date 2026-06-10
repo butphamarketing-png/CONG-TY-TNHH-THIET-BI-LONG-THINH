@@ -3,7 +3,7 @@ import { Link, useLocation } from "wouter";
 import { useCart } from "@/hooks/use-cart";
 import {
   Search, ShoppingCart, Menu, Phone, Mail, MapPin,
-  ChevronRight, Heart, ArrowUp, X, Home, Grid3X3,
+  ChevronRight, Heart, ArrowUp, X, Home, Grid3X3, User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -80,16 +80,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const isActive = (path: string) => location === path;
 
   return (
-    <div className="min-h-[100dvh] flex flex-col font-sans bg-gray-50">
+    <div className="min-h-[100dvh] flex flex-col font-sans bg-[#fafafa]">
       <TopPromoBar />
 
-      <header className="bg-white sticky top-0 z-50 shadow-md">
-        <div className="container mx-auto px-4 py-3 flex flex-wrap items-center gap-3 md:gap-4">
+      <header className="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-100">
+        <div className="container mx-auto px-3 md:px-4 py-2.5 md:py-3 flex items-center gap-2 md:gap-3">
           {/* Mobile Menu */}
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden shrink-0">
-                <Menu className="w-6 h-6" />
+              <Button variant="ghost" size="icon" className="lg:hidden shrink-0 h-9 w-9">
+                <Menu className="w-5 h-5" />
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[320px] p-0 flex flex-col">
@@ -107,17 +107,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Logo */}
           <Link href="/" className="shrink-0 flex items-center">
-            <div className="bg-orange-600 text-white px-3 py-1.5 md:px-4 md:py-2 rounded">
-              <span className="text-lg md:text-2xl font-extrabold tracking-tight">LONG THỊNH</span>
+            <div className="bg-orange-500 text-white px-2.5 py-1 md:px-4 md:py-1.5 rounded-lg shadow-sm">
+              <span className="text-sm md:text-xl font-extrabold tracking-tight">LONG THỊNH</span>
             </div>
           </Link>
 
           {/* Search Bar */}
-          <div className="order-last w-full md:order-none md:flex-grow md:max-w-3xl relative" ref={searchRef}>
+          <div className="flex-1 min-w-0 max-w-3xl relative" ref={searchRef}>
             <form onSubmit={handleSearch} className="relative">
               <Input
-                placeholder="Tìm kiếm sản phẩm, thương hiệu..."
-                className="w-full pl-4 pr-12 rounded-sm border-2 border-gray-200 h-11 text-sm focus-visible:border-orange-500 focus-visible:ring-0"
+                placeholder="Tìm kiếm sản phẩm..."
+                className="w-full pl-3 pr-10 rounded-lg border border-gray-200 h-9 md:h-10 text-xs md:text-sm focus-visible:border-orange-400 focus-visible:ring-1 focus-visible:ring-orange-200 bg-gray-50/50"
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
@@ -127,9 +127,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
               />
               <Button
                 type="submit"
-                className="absolute right-0 top-0 h-11 w-12 rounded-sm bg-orange-600 hover:bg-orange-700"
+                className="absolute right-0 top-0 h-9 md:h-10 w-9 md:w-10 rounded-r-lg bg-orange-500 hover:bg-orange-600"
               >
-                <Search className="w-5 h-5" />
+                <Search className="w-4 h-4" />
               </Button>
             </form>
 
@@ -181,32 +181,39 @@ export function Layout({ children }: { children: React.ReactNode }) {
             )}
           </div>
 
-          {/* Right Actions */}
-          <div className="flex items-center gap-2 md:gap-3 ml-auto md:ml-0">
-            <div className="hidden lg:flex flex-col text-right text-xs leading-tight">
-              <span className="text-gray-500">Tài khoản</span>
-              <span className="text-gray-700">Đăng nhập / Đăng ký</span>
-            </div>
+          {/* Right Actions — cùng hàng với tìm kiếm */}
+          <div className="flex items-center gap-1 md:gap-2 shrink-0">
+            <Link
+              href="/tai-khoan"
+              className="flex items-center gap-1.5 px-1.5 md:px-2 py-1.5 rounded-lg hover:bg-orange-50 transition-colors"
+              title="Tài khoản"
+            >
+              <User className="w-4 h-4 md:w-5 md:h-5 text-gray-600" />
+              <div className="hidden lg:flex flex-col text-left text-xs leading-tight">
+                <span className="text-gray-400">Tài khoản</span>
+                <span className="text-gray-700 font-medium">Đăng nhập</span>
+              </div>
+            </Link>
 
-            <Link href="/yeu-thich" className="hidden md:flex p-2 hover:text-orange-600 transition-colors">
-              <Heart className="w-5 h-5" />
+            <Link href="/yeu-thich" className="hidden sm:flex p-1.5 rounded-lg hover:bg-orange-50 hover:text-orange-600 transition-colors">
+              <Heart className="w-4 h-4 md:w-5 md:h-5 text-gray-600" />
             </Link>
 
             <Link
               href="/gio-hang"
-              className="relative flex items-center gap-2 px-3 py-2 border border-gray-200 hover:border-orange-300 transition-colors rounded-sm"
+              className="relative flex items-center gap-1.5 px-1.5 md:px-2.5 py-1.5 rounded-lg border border-gray-200/80 hover:border-orange-300 hover:bg-orange-50/50 transition-colors"
             >
               <div className="relative">
-                <ShoppingCart className="w-5 h-5 text-gray-700" />
+                <ShoppingCart className="w-4 h-4 md:w-5 md:h-5 text-gray-600" />
                 {cartItemCount > 0 && (
-                  <Badge className="absolute -top-2 -right-2 bg-orange-600 text-white min-w-[18px] h-[18px] flex items-center justify-center p-0 text-[9px] font-bold rounded-full">
+                  <Badge className="absolute -top-2 -right-2 bg-orange-500 text-white min-w-[16px] h-[16px] flex items-center justify-center p-0 text-[9px] font-bold rounded-full border-2 border-white">
                     {cartItemCount > 9 ? "9+" : cartItemCount}
                   </Badge>
                 )}
               </div>
               <div className="hidden md:block leading-tight text-xs">
-                <div className="text-gray-500">Giỏ hàng</div>
-                <div className="font-semibold text-gray-800">{cartItemCount} sp</div>
+                <div className="text-gray-400">Giỏ hàng</div>
+                <div className="font-semibold text-gray-700">{cartItemCount} sp</div>
               </div>
             </Link>
           </div>

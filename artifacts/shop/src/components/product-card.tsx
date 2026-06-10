@@ -62,7 +62,7 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <Card className="group overflow-hidden flex flex-col h-full transition-all duration-300 border-gray-200 hover:border-red-600/30 hover:shadow-lg bg-white">
+    <Card className="group overflow-hidden flex flex-col h-full transition-all duration-300 border-gray-100 hover:border-orange-200 hover:shadow-md bg-white rounded-xl">
       <div className="relative aspect-square overflow-hidden bg-gray-50">
         <Link href={productUrl(product.slug)} className="block w-full h-full">
           <img
