@@ -13,6 +13,7 @@ import { useProductDetail, useRelatedListings, useBrands } from "@/hooks/use-cat
 import { listingToProduct } from "@/lib/catalog-store";
 import { brandUrl, categoryUrl } from "@/lib/urls";
 import { formatCurrency } from "@/lib/format";
+import { normalizeTdmImageUrl } from "@/lib/image-url";
 import type { TdmProduct } from "@/types/product";
 import { useProductVariantSelection } from "@/components/product-detail/useProductVariantSelection";
 import { ProductVariantSelector } from "@/components/product-detail/ProductVariantSelector";
@@ -92,8 +93,8 @@ function ProductDetailContent({ product }: { product: TdmProduct }) {
   }, [product.id, addToViewed]);
 
   const images = product.images?.length
-    ? product.images.map((img) => img.url)
-    : [displayThumbnail];
+    ? product.images.map((img) => normalizeTdmImageUrl(img.url))
+    : [normalizeTdmImageUrl(displayThumbnail)];
 
   const hasDiscount =
     displayOriginalPrice != null && displayOriginalPrice > displayPrice;
@@ -161,9 +162,14 @@ function ProductDetailContent({ product }: { product: TdmProduct }) {
                   </div>
                 )}
                 <img
-                  src={images[selectedImage] || displayThumbnail}
+                  src={images[selectedImage] || normalizeTdmImageUrl(displayThumbnail)}
                   alt={product.name}
+                  referrerPolicy="no-referrer"
                   className="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-300"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src =
+                      "https://placehold.co/480x480/f5f5f5/9ca3af?text=Không+có+hình";
+                  }}
                 />
               </div>
               {images.length > 1 && (

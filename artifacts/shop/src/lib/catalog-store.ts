@@ -2,8 +2,27 @@
  * Scalable catalog data store — all product data loaded on demand via fetch.
  * Nothing here is bundled into the JS build.
  */
+import { normalizeTdmImageUrl } from "@/lib/image-url";
 import type { Brand, SlugEntry } from "@/types/catalog";
 import type { ProductListing, TdmProduct } from "@/types/product";
+
+function normalizeListing(listing: ProductListing): ProductListing {
+  return {
+    ...listing,
+    thumbnail: normalizeTdmImageUrl(listing.thumbnail),
+  };
+}
+
+function normalizeProduct(product: TdmProduct): TdmProduct {
+  return {
+    ...product,
+    thumbnail: normalizeTdmImageUrl(product.thumbnail),
+    images: (product.images ?? []).map((img) => ({
+      ...img,
+      url: normalizeTdmImageUrl(img.url),
+    })),
+  };
+}
 
 const DATA_BASE = "/data";
 
@@ -96,7 +115,7 @@ export async function loadCategoryListing(categorySlug: string): Promise<Product
     return [];
   }
 
-  const products = (await fetchJson<ProductListing[]>(entry.file)) ?? [];
+  const products = ((await fetchJson<ProductListing[]>(entry.file)) ?? []).map(normalizeListing);
   listingChunkCache.set(cacheKey, products);
   return products;
 }
@@ -116,7 +135,8 @@ export async function loadProductDetail(slug: string): Promise<TdmProduct | null
   const entry = registry.products[slug];
   if (!entry) return null;
 
-  const product = await fetchJson<TdmProduct>(entry.detailFile);
+  const raw = await fetchJson<TdmProduct>(entry.detailFile);
+  const product = raw ? normalizeProduct(raw) : null;
   if (product) {
     detailCache.set(slug, product);
   }
@@ -124,9 +144,11 @@ export async function loadProductDetail(slug: string): Promise<TdmProduct | null
 }
 
 export function listingToProduct(listing: ProductListing): TdmProduct {
+  const thumb = normalizeTdmImageUrl(listing.thumbnail);
   return {
     ...listing,
-    images: listing.thumbnail ? [{ url: listing.thumbnail, alt: listing.name }] : [],
+    thumbnail: thumb,
+    images: thumb ? [{ url: thumb, alt: listing.name }] : [],
     tags: [],
     isDiscontinued: false,
     contactForPrice: false,
@@ -145,7 +167,7 @@ export function searchEntryToListing(entry: SearchIndexEntry): ProductListing {
     slug: entry.slug,
     sku: entry.sku,
     price: entry.price,
-    thumbnail: entry.thumbnail,
+    thumbnail: normalizeTdmImageUrl(entry.thumbnail),
     categoryId: 0,
     categorySlug: entry.categorySlug,
     categoryName: entry.categoryName,
