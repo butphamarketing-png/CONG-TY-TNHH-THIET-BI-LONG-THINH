@@ -16,6 +16,14 @@ import {
   getHomepageTilesForGroup,
 } from "@/lib/category-utils";
 import { buildSlugRegistry, RESERVED_SLUGS } from "@/lib/slug-registry";
+import { getMegaMenuBrandSlugs, getMegaMenuCategorySlugs } from "@/lib/mega-menu-config";
+import {
+  expandCategorySlugs,
+  getAllResolvableCategorySlugs,
+  isTdmLiveSlug,
+  toCanonicalTdmSlug,
+  TDM_CANONICAL_ALIASES,
+} from "@/lib/tdm-slug-aliases";
 import {
   loadBrands,
   loadCategoryListing,
@@ -191,18 +199,22 @@ export async function getProductListingsForCategory(
   categorySlug: string,
   includeDescendants = true,
 ): Promise<ProductListing[]> {
+  const canonical = toCanonicalTdmSlug(categorySlug);
+  const aliasSlugs = expandCategorySlugs(categorySlug);
+
   if (includeDescendants) {
-    const node = findCategoryBySlug(categories, categorySlug);
+    const node = findCategoryBySlug(categories, canonical) ?? findCategoryBySlug(categories, categorySlug);
     if (node) {
       const slugs = getDescendantSlugs(node);
       const leafSlugs = slugs.filter((s) => {
         const n = findCategoryBySlug(categories, s);
         return !n?.children?.length;
       });
-      return loadCategoryListings(leafSlugs.length > 0 ? leafSlugs : [categorySlug]);
+      const merged = [...new Set([...leafSlugs, ...aliasSlugs])];
+      return loadCategoryListings(merged.length > 0 ? merged : aliasSlugs);
     }
   }
-  return loadCategoryListing(categorySlug);
+  return loadCategoryListings(aliasSlugs);
 }
 
 export async function getHomepageListings(
@@ -307,7 +319,53 @@ export async function getSlugRegistry(): Promise<Map<string, SlugEntry>> {
   return ensureSlugRegistry();
 }
 
+/** Find category node slug in tree, following TDM alias map (e.g. ban-cau-2-khoi → bon-cau-2-khoi). */
+function resolveCategorySlugInTree(slug: string): string | undefined {
+  const canonical = toCanonicalTdmSlug(slug);
+  const direct =
+    findCategoryBySlug(categories, slug) ?? findCategoryBySlug(categories, canonical);
+  if (direct) return direct.slug;
+
+  const aliases = TDM_CANONICAL_ALIASES[canonical] ?? [];
+  for (const alias of aliases) {
+    const node = findCategoryBySlug(categories, alias);
+    if (node) return node.slug;
+  }
+  return undefined;
+}
+
+/** Sync resolution for categories + known brand slugs (mega menu). Products require async. */
+export function resolveCatalogSlugSync(slug: string): SlugEntry | undefined {
+  if (!slug || RESERVED_SLUGS.has(slug)) return undefined;
+
+  const canonical = toCanonicalTdmSlug(slug);
+  const treeSlug = resolveCategorySlugInTree(slug);
+  if (treeSlug) return { type: "category", slug: treeSlug };
+
+  if (
+    getMegaMenuCategorySlugs().has(canonical) ||
+    getMegaMenuCategorySlugs().has(slug) ||
+    getAllResolvableCategorySlugs().has(slug) ||
+    getAllResolvableCategorySlugs().has(canonical) ||
+    isTdmLiveSlug(slug) ||
+    isTdmLiveSlug(canonical)
+  ) {
+    const resolved = resolveCategorySlugInTree(canonical) ?? resolveCategorySlugInTree(slug);
+    if (resolved) return { type: "category", slug: resolved };
+    return { type: "category", slug: canonical };
+  }
+
+  if (getMegaMenuBrandSlugs().includes(canonical) || getMegaMenuBrandSlugs().includes(slug)) {
+    return { type: "brand", slug: canonical };
+  }
+
+  return undefined;
+}
+
 export async function resolveCatalogSlug(slug: string): Promise<SlugEntry | undefined> {
+  const sync = resolveCatalogSlugSync(slug);
+  if (sync) return sync;
+
   if (RESERVED_SLUGS.has(slug)) return undefined;
   const registry = await ensureSlugRegistry();
   return registry.get(slug);

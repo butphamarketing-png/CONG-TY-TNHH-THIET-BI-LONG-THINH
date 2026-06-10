@@ -1,14 +1,24 @@
+import { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { ChevronRight, Star, Flame } from "lucide-react";
 import { NEWS } from "@/lib/tdm-data";
 import { ProductCard } from "@/components/product-card";
+import { CategoryPagination } from "@/components/category/CategoryPagination";
 import { useBrand, useBrandListings } from "@/hooks/use-catalog";
 import { listingToProduct } from "@/lib/catalog-store";
 
+const ITEMS_PER_PAGE = 48;
+
 export function BrandPage({ params }: { params: { slug: string } }) {
+  const [page, setPage] = useState(1);
   const { brand, loading: brandLoading } = useBrand(params.slug);
   const { listings, loading: productsLoading } = useBrandListings(params.slug);
   const products = listings.map(listingToProduct);
+  const totalPages = Math.ceil(products.length / ITEMS_PER_PAGE) || 1;
+  const paginatedProducts = useMemo(
+    () => products.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE),
+    [products, page],
+  );
   const bestSellers = [...products].sort((a, b) => b.soldCount - a.soldCount).slice(0, 6);
   const featuredProductIds = brand?.featuredProducts || [];
   const featuredProducts = products.filter((p) => featuredProductIds.includes(p.id));
@@ -135,11 +145,20 @@ export function BrandPage({ params }: { params: { slug: string } }) {
           {productsLoading ? (
             <div className="text-center py-12">Đang tải sản phẩm...</div>
           ) : products.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                {paginatedProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+              {totalPages > 1 && (
+                <CategoryPagination
+                  page={page}
+                  totalPages={totalPages}
+                  onPageChange={setPage}
+                />
+              )}
+            </>
           ) : (
             <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
               <h3 className="font-semibold text-lg mb-2">

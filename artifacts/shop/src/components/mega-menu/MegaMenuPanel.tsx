@@ -1,43 +1,74 @@
 import { Link } from "wouter";
-import type { CategoryNode } from "@/types/catalog";
-import type { Brand } from "@/types/catalog";
-import { MegaMenuBrandStrip } from "./MegaMenuBrandStrip";
+import { MEGA_MENU_COLUMNS } from "@/lib/mega-menu-config";
+import type { TdmMenuGroup } from "@/types/catalog";
 import { categoryUrl } from "@/lib/urls";
 
 interface MegaMenuPanelProps {
-  group: CategoryNode;
-  brands: Brand[];
+  groupSlug: TdmMenuGroup;
 }
 
-export function MegaMenuPanel({ group, brands }: MegaMenuPanelProps) {
-  const columns = group.children ?? [];
+function MenuGroupBlock({
+  heading,
+  headingSlug,
+  links,
+}: {
+  heading: string;
+  headingSlug: string;
+  links: { name: string; slug: string }[];
+}) {
+  return (
+    <div className="mb-5 last:mb-0">
+      <Link
+        href={categoryUrl(headingSlug)}
+        className="block font-bold text-[#f37021] text-sm mb-2 hover:underline"
+      >
+        {heading}
+      </Link>
+      {links.length > 0 && (
+        <div className="space-y-1">
+          {links.map((link) => (
+            <Link
+              key={link.slug}
+              href={categoryUrl(link.slug)}
+              className="block text-[13px] text-gray-700 hover:text-[#f37021] leading-snug transition-colors"
+            >
+              {link.name}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** TDM column layout: each column stacks multiple L2 groups vertically */
+export function MegaMenuPanel({ groupSlug }: MegaMenuPanelProps) {
+  const columns = MEGA_MENU_COLUMNS[groupSlug] ?? [];
+  const colCount = columns.length;
 
   return (
-    <div className="flex-1 flex flex-col min-w-0">
-      <div className="p-4 grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-3 max-h-[420px] overflow-y-auto">
-        {columns.map((col) => (
-          <div key={col.id} className="min-w-0">
-            <Link
-              href={categoryUrl(col.slug)}
-              className="block font-semibold text-gray-800 hover:text-orange-600 text-sm pb-1.5 mb-1.5 border-b border-gray-100"
-            >
-              {col.name}
-            </Link>
-            <div className="space-y-0.5">
-              {(col.children ?? []).map((item) => (
-                <Link
-                  key={item.id}
-                  href={categoryUrl(item.slug)}
-                  className="block py-1 text-[13px] text-gray-600 hover:text-orange-600 hover:pl-0.5 transition-all truncate"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
+    <div className="flex-1 bg-white min-w-0 overflow-hidden">
+      <div
+        className="flex max-h-[480px] overflow-y-auto"
+        style={{ minHeight: 360 }}
+      >
+        {columns.map((col, colIdx) => (
+          <div
+            key={colIdx}
+            className="flex-1 min-w-0 px-5 py-4 border-r border-gray-100 last:border-r-0"
+            style={{ flexBasis: `${100 / colCount}%` }}
+          >
+            {col.groups.map((group) => (
+              <MenuGroupBlock
+                key={group.headingSlug}
+                heading={group.heading}
+                headingSlug={group.headingSlug}
+                links={group.links}
+              />
+            ))}
           </div>
         ))}
       </div>
-      <MegaMenuBrandStrip brands={brands} />
     </div>
   );
 }

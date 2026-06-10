@@ -33,7 +33,6 @@ function Router() {
         <Route path="/danh-muc/:slug" component={LegacyCategoryRedirect} />
         <Route path="/san-pham/:slug" component={LegacyProductRedirect} />
         <Route path="/thuong-hieu/:slug" component={LegacyBrandRedirect} />
-        <Route path="/:slug" component={CatalogSlugPage} />
         <Route path="/showroom" component={ShowroomPage} />
         <Route path="/tim-kiem" component={SearchPage} />
         <Route path="/gio-hang" component={CartPage} />
@@ -43,6 +42,8 @@ function Router() {
         <Route path="/tin-tuc" component={NewsListPage} />
         <Route path="/tin-tuc/:slug" component={NewsDetailPage} />
         <Route path="/yeu-thich" component={WishlistPage} />
+        <Route path="/:slug.html" component={CatalogSlugPage} />
+        <Route path="/:slug" component={CatalogSlugPage} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
