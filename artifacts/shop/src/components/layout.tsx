@@ -84,7 +84,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <TopPromoBar />
 
       <header className="bg-white sticky top-0 z-50 shadow-md">
-        <div className="container mx-auto px-4 py-3 flex items-center gap-4">
+        <div className="container mx-auto px-4 py-3 flex flex-wrap items-center gap-3 md:gap-4">
           {/* Mobile Menu */}
           <Sheet>
             <SheetTrigger asChild>
@@ -107,13 +107,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
           {/* Logo */}
           <Link href="/" className="shrink-0 flex items-center">
-            <div className="bg-orange-600 text-white px-4 py-2 rounded">
-              <span className="text-xl md:text-2xl font-extrabold tracking-tight">LONG THỊNH</span>
+            <div className="bg-orange-600 text-white px-3 py-1.5 md:px-4 md:py-2 rounded">
+              <span className="text-lg md:text-2xl font-extrabold tracking-tight">LONG THỊNH</span>
             </div>
           </Link>
 
           {/* Search Bar */}
-          <div className="flex-grow max-w-3xl relative" ref={searchRef}>
+          <div className="order-last w-full md:order-none md:flex-grow md:max-w-3xl relative" ref={searchRef}>
             <form onSubmit={handleSearch} className="relative">
               <Input
                 placeholder="Tìm kiếm sản phẩm, thương hiệu..."
@@ -182,7 +182,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex items-center gap-2 md:gap-3 ml-auto md:ml-0">
             <div className="hidden lg:flex flex-col text-right text-xs leading-tight">
               <span className="text-gray-500">Tài khoản</span>
               <span className="text-gray-700">Đăng nhập / Đăng ký</span>
