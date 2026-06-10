@@ -7,6 +7,7 @@
     "dev": "vite --config vite.config.ts --host 0.0.0.0",
     "import:products": "pnpm --filter @workspace/scripts import:products",
     "build": "vite build --config vite.config.ts && node scripts/strip-deploy-assets.js",
+    "fetch:category-tiles": "node scripts/fetch-category-tile-images.js",
     "strip-deploy-assets": "node scripts/strip-deploy-assets.js",
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit"
