@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { Flame, ChevronRight } from "lucide-react";
 import { loadSearchIndex, listingToProduct } from "@/lib/catalog-store";
@@ -10,6 +10,7 @@ import { SectionPagination } from "@/components/home/SectionPagination";
 const PER_PAGE = 8;
 
 export function FlashSaleSection() {
+  const sectionRef = useRef<HTMLElement>(null);
   const [products, setProducts] = useState<TdmProduct[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -44,14 +45,20 @@ export function FlashSaleSection() {
     });
   }, []);
 
+  const totalPages = Math.max(1, Math.ceil(products.length / PER_PAGE));
+
+  useEffect(() => {
+    if (page > totalPages) setPage(1);
+  }, [page, totalPages]);
+
   if (loading) return null;
   if (!products.length) return null;
 
-  const totalPages = Math.ceil(products.length / PER_PAGE) || 1;
-  const pageProducts = products.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+  const safePage = Math.min(Math.max(1, page), totalPages);
+  const pageProducts = products.slice((safePage - 1) * PER_PAGE, safePage * PER_PAGE);
 
   return (
-    <section className="container mx-auto px-4 py-6 md:py-8">
+    <section ref={sectionRef} className="container mx-auto px-4 py-6 md:py-8">
       <div className="rounded-2xl overflow-hidden bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500 p-5 md:p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
           <div className="flex items-center gap-3">
@@ -76,7 +83,12 @@ export function FlashSaleSection() {
           ))}
         </div>
 
-        <SectionPagination page={page} totalPages={totalPages} onPageChange={setPage} />
+        <SectionPagination
+          page={safePage}
+          totalPages={totalPages}
+          onPageChange={setPage}
+          scrollTargetRef={sectionRef}
+        />
 
         <div className="text-center mt-4">
           <Link

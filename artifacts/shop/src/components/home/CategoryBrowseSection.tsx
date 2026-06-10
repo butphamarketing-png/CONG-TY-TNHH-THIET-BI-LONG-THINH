@@ -74,6 +74,7 @@ function CategoryTileButton({
 export function CategoryBrowseSection({ groupSlug, title }: CategoryBrowseSectionProps) {
   const tiles = getHomepageTilesForGroup(CATEGORIES, groupSlug);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const productsRef = useRef<HTMLDivElement>(null);
 
   const [selectedTileSlug, setSelectedTileSlug] = useState(tiles[0]?.slug ?? "");
   const [productPage, setProductPage] = useState(1);
@@ -102,12 +103,18 @@ export function CategoryBrowseSection({ groupSlug, title }: CategoryBrowseSectio
     });
   }, [selectedTileSlug]);
 
+  const totalPages = Math.max(1, Math.ceil(products.length / PRODUCTS_PER_PAGE));
+
+  useEffect(() => {
+    if (productPage > totalPages) setProductPage(1);
+  }, [productPage, totalPages]);
+
   if (!tiles.length) return null;
 
-  const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE) || 1;
+  const safePage = Math.min(Math.max(1, productPage), totalPages);
   const pageProducts = products.slice(
-    (productPage - 1) * PRODUCTS_PER_PAGE,
-    productPage * PRODUCTS_PER_PAGE,
+    (safePage - 1) * PRODUCTS_PER_PAGE,
+    safePage * PRODUCTS_PER_PAGE,
   );
 
   const scrollTiles = (dir: "left" | "right") => {
@@ -175,7 +182,7 @@ export function CategoryBrowseSection({ groupSlug, title }: CategoryBrowseSectio
         </div>
 
         {selectedTile && (
-          <div className="mt-6 pt-5 border-t border-gray-100">
+          <div ref={productsRef} className="mt-6 pt-5 border-t border-gray-100">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm md:text-base font-semibold text-gray-700">
                 Sản phẩm{" "}
@@ -203,9 +210,10 @@ export function CategoryBrowseSection({ groupSlug, title }: CategoryBrowseSectio
                   ))}
                 </div>
                 <SectionPagination
-                  page={productPage}
+                  page={safePage}
                   totalPages={totalPages}
                   onPageChange={setProductPage}
+                  scrollTargetRef={productsRef}
                 />
               </>
             ) : (
