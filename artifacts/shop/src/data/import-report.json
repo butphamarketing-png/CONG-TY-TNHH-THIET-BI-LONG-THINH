@@ -1,7 +1,9 @@
 {
-  "timestamp": "2026-06-09T17:51:47.382Z",
-  "previousCount": 1211,
-  "newImported": 1655,
-  "totalProducts": 2866,
-  "totalBrands": 10
+  "timestamp": "2026-06-10T01:34:56.528Z",
+  "mode": "full-remigrate",
+  "previousCount": null,
+  "newImported": 11207,
+  "totalProducts": 11207,
+  "totalCategories": 29,
+  "totalBrands": 18
 }

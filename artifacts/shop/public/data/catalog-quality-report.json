@@ -1,126 +1,199 @@
 {
-  "timestamp": "2026-06-09T17:52:26.312Z",
-  "productsImported": 2866,
-  "totalImages": 9144,
-  "totalSpecifications": 86669,
-  "totalBrands": 10,
-  "totalCategories": 22,
-  "productsMissingImages": 0,
-  "productsMissingSpecifications": 0,
-  "missingImagesSample": [],
-  "missingSpecsSample": [],
-  "duplicateSkus": 995,
-  "duplicateSlugs": 1013,
-  "duplicateUrls": 0,
-  "duplicateSkuDetails": [
+  "timestamp": "2026-06-10T01:35:52.442Z",
+  "productsImported": 11207,
+  "totalImages": 41663,
+  "totalSpecifications": 1643398,
+  "totalBrands": 18,
+  "totalCategories": 29,
+  "productsMissingImages": 9,
+  "productsMissingSpecifications": 6468,
+  "missingImagesSample": [
     {
-      "field": "sku",
-      "value": "UT508TXW",
-      "ids": [
-        854,
-        855
-      ]
+      "sku": "ACC2104",
+      "slug": "vong-treo-khan-moen-acc2104",
+      "name": "Vòng treo khăn Moen ACC2104 phụ kiện phòng tắm - Tuấn Đức"
     },
     {
-      "field": "sku",
-      "value": "UT570TXW",
-      "ids": [
-        856,
-        857
-      ]
+      "sku": "LD-VTN",
+      "slug": "lap-dat-van-tieu-nam-duong-tuong",
+      "name": "Dịch vụ lắp đặt van tiểu nam dương tường - TDM Tuấn Đức"
     },
     {
-      "field": "sku",
-      "value": "UT557TXW",
-      "ids": [
-        858,
-        859
-      ]
+      "sku": "TG-BC1K",
+      "slug": "thao-go-bon-cau-1-khoi",
+      "name": "Dịch vụ tháo gỡ bồn cầu 1 khối tại nhà - TDM Tuấn Đức"
     },
     {
-      "field": "sku",
-      "value": "UT560TXW",
-      "ids": [
-        860,
-        861
-      ]
+      "sku": "TG-BC2K",
+      "slug": "thao-go-bon-cau-hai-khoi",
+      "name": "Dịch vụ tháo gỡ bồn cầu 2 khối tại nhà - Tuấn Đức"
     },
     {
-      "field": "sku",
-      "value": "UT447HRW",
-      "ids": [
-        862,
-        863
-      ]
+      "sku": "LD-DD",
+      "slug": "lap-dat-day-dien-noi-duoi-4m-va-o-cam",
+      "name": "Dịch vụ lắp đặt dây điện nổi dưới 4m và ổ cắm - Tuấn Đức"
     },
     {
-      "field": "sku",
-      "value": "UT447S",
-      "ids": [
-        864,
-        865
-      ]
+      "sku": "CPMT-XLBCC",
+      "slug": "chi-phi-moi-truong-xu-ly-bon-cau-cu",
+      "name": "Chi phí môi trường khi xử lý bồn cầu cũ tại nhà cho khách - TDM Tuấn Đức"
     },
     {
-      "field": "sku",
-      "value": "UT57SW",
-      "ids": [
-        866,
-        867
-      ]
+      "sku": "TGCR-LVB",
+      "slug": "thao-go-chau-rua-lavabo",
+      "name": "Dịch vụ tháo gỡ chậu rửa lavabo tại nhà - TDM Tuấn Đức"
     },
     {
-      "field": "sku",
-      "value": "DUE137PBK",
-      "ids": [
-        868,
-        869
-      ]
+      "sku": "TG-ST",
+      "slug": "thao-go-sen-tam",
+      "name": "Dịch Vụ Tháo Gỡ Sen Tắm Vòi Hoa Sen Cũ - Tuấn Đức"
     },
     {
-      "field": "sku",
-      "value": "TS402S",
-      "ids": [
-        870,
-        871
-      ]
-    },
-    {
-      "field": "sku",
-      "value": "TS402P",
-      "ids": [
-        872,
-        873
-      ]
+      "sku": "TD-BTN",
+      "slug": "thao-do-bon-tam-nam",
+      "name": "Dịch vụ tháo dỡ bồn tắm nằm tại nhà - TDM Tuấn Đức"
     }
   ],
+  "missingSpecsSample": [
+    {
+      "sku": "15142H",
+      "slug": "bo-sen-cay-moen-15142h-m22032-2277",
+      "name": "Bộ sen cây Moen 15142H + M22032 + 2277 nóng lạnh tắm đứng - Tuấn Đức"
+    },
+    {
+      "sku": "HK91016ECP",
+      "slug": "bo-sen-cay-moen-hk91016ecp",
+      "name": "Bộ sen cây Moen HK91016ECP nóng lạnh tắm đứng - Tuấn Đức"
+    },
+    {
+      "sku": "SW6184SP",
+      "slug": "be-tieu-nam-treo-tuong-Moen-sw6184sp",
+      "name": "Bồn tiểu nam Moen SW6184SP - Bệ chậu tiểu treo tường - Tuấn Đức"
+    },
+    {
+      "sku": "90013",
+      "slug": "van-xa-nhan-bon-tieu-moen-90013",
+      "name": "Van xả nhấn Moen 90013 dùng cấp nước bồn tiểu nam - Tuấn Dức"
+    },
+    {
+      "sku": "SW6182SS",
+      "slug": "bon-tieu-nam-moen-dat-san-sw6182ss",
+      "name": "Bệ Tiểu Nam Moen SW6182SS Đặt Sàn - Tuấn Đức"
+    },
+    {
+      "sku": "AL-299V/BW1",
+      "slug": "lavabo-inax-al-299v",
+      "name": "Chậu rửa mặt lavabo Inax AL-299V (AL299V) đặt bàn chữ nhật 580 x 380"
+    },
+    {
+      "sku": "L-345VFC/BW1",
+      "slug": "lavabo-inax-l-345v",
+      "name": "Chậu rửa mặt lavabo Inax L-345V (L345V) bán âm bàn - Tuấn Đức"
+    },
+    {
+      "sku": "WF-4956",
+      "slug": "sen-cay-american-wf-4956",
+      "name": "Bộ Sen Cây Cảm Biến Nhiệt American Standard WF-4956 (WF4956) EasySET"
+    },
+    {
+      "sku": "WF-T823",
+      "slug": "voi-lanh-american-wf-t823",
+      "name": "Vòi lavabo American Standard WF-T823 (WFT823) nước lạnh nút nhấn"
+    },
+    {
+      "sku": "WF-T825",
+      "slug": "voi-sen-lanh-american-wf-t825",
+      "name": "Vòi Sen Lạnh American Standard EasyFLO WF-T825 (WFT825) - Tuấn Đức"
+    },
+    {
+      "sku": "WF-0715A-0017",
+      "slug": "sen-tam-american-wf-0715-a-0017",
+      "name": "Vòi hoa sen tắm American Standard WF-0715 + A-0017 Neo Modern nóng lạnh - Tuấn Đức"
+    },
+    {
+      "sku": "WF-0715WF-B211H",
+      "slug": "sen-tam-american-wf-0715-a-b211",
+      "name": "Vòi hoa sen tắm American Standard WF-0715 + WF-B211H Neo Modern nóng lạnh"
+    },
+    {
+      "sku": "WF-0715FFASS506",
+      "slug": "sen-tam-american-wf-0715-ffass506",
+      "name": "Vòi hoa sen tắm American Standard WF-0715 + FFASS506 Neo Modern nóng lạnh"
+    },
+    {
+      "sku": "WF-0715WA-0017",
+      "slug": "sen-tam-american-wf-0715w-a-0017",
+      "name": "Vòi hoa sen tắm American Standard WF-0715W + A-0017 Neo Modern nóng lạnh"
+    },
+    {
+      "sku": "WF-0715WWF-B211H",
+      "slug": "sen-tam-american-wf-0715w-a-b211",
+      "name": "Vòi hoa sen tắm American Standard WF-0715W + WF-B211H Neo Modern nóng lạnh - Tuấn Đức"
+    },
+    {
+      "sku": "WF-0715WFFASS506",
+      "slug": "sen-tam-american-wf-0715w-ffass506",
+      "name": "Vòi hoa sen tắm American Standard WF-0715W + FFASS506 Neo Modern nóng lạnh"
+    },
+    {
+      "sku": "SF-NB454SX-J",
+      "slug": "voi-bep-cam-ung-inax-jf-nb4545sx",
+      "name": "Vòi rửa chén bát INAX SF-NB454SX-J (SFNB454SXJ) cảm ứng dùng Pin"
+    },
+    {
+      "sku": "TBW02003A/TBG10303V/TBN01001B",
+      "slug": "sen-tam-toto-tbw02003a-tbg10303v-tbn01001b,html",
+      "name": "Bộ vòi hoa sen TOTO TBW02003A/TBG10303V/TBN01001B âm tường 1 đường nước"
+    },
+    {
+      "sku": "TBW02003A/TBG10304VA/TBW02005V/TBW01015B",
+      "slug": "sen-tam-toto-tbw02003a-tbg10304v-tbw02005a-tbw01015b-tbw02013b",
+      "name": "Sen âm tường TOTO TBW02003A TBG10304VA TBW02005V TBW01015B TBW02013B"
+    },
+    {
+      "sku": "TBW02003A/TBG10304VA/TBG10001B",
+      "slug": "sen-tam-toto-tbw02003a-tbg10304v-tbg10001b",
+      "name": "Bộ vòi sen âm tường TOTO TBW02003A TBG10304VA TBG10001B 2 đường nước"
+    }
+  ],
+  "duplicateSkus": 0,
+  "duplicateSlugs": 162,
+  "duplicateUrls": 0,
+  "duplicateSkuDetails": [],
   "categoryCounts": {
-    "voi-cam-ung": 28,
-    "bon-cau": 359,
-    "chau-lavabo": 643,
-    "bon-tieu": 84,
-    "uncategorized": 194,
-    "bon-tam": 136,
-    "voi-sen": 269,
-    "sen-cay": 41,
-    "voi-chau": 11,
-    "voi-rua-chen": 61,
-    "phu-kien": 2,
-    "bon-inox": 87,
-    "voi-nuoc": 38,
-    "bon-nhua": 36,
-    "thiet-bi-ve-sinh": 381,
-    "voi-lavabo": 168,
-    "phu-kien-phong-tam": 155,
-    "voi-xit-ve-sinh": 19,
-    "bon-cau-thong-minh": 77,
-    "may-nuoc-nong": 68,
-    "sen-am-tuong": 2,
-    "khoa-cua": 7
+    "voi-rua-cam-ung": 34,
+    "bon-cau-bet-ve-sinh": 1442,
+    "chau-rua-lavabo": 1575,
+    "bon-tieu-nam-nu": 132,
+    "thiet-bi-ve-sinh": 4069,
+    "bon-tam": 414,
+    "voi-sen-cay": 883,
+    "voi-lavabo": 836,
+    "voi-bep-voi-rua-chen": 194,
+    "phu-kien-phong-tam": 275,
+    "bon-nuoc-inox": 72,
+    "voi-nuoc": 107,
+    "bon-nuoc-nhua": 45,
+    "voi-xit-ve-sinh": 56,
+    "bon-cau-thong-minh": 170,
+    "may-nuoc-nong": 126,
+    "voi-sen-tam-am-tuong": 69,
+    "thiet-bi-khoa-cua": 23,
+    "may-loc-nuoc": 23,
+    "bon-tu-hoai": 13,
+    "bep-dien-tu": 97,
+    "may-hut-mui": 212,
+    "lo-nuong-da-nang": 94,
+    "may-rua-chen-bat": 98,
+    "tu-lanh": 45,
+    "lo-vi-song": 41,
+    "bep-gas": 15,
+    "van-xa-tieu": 31,
+    "khoa-dien-tu": 16
   },
   "categoryCoverage": {
     "thiet-bi-ve-sinh": {
-      "productCount": 381,
+      "productCount": 4069,
       "hasProducts": true
     },
     "thiet-bi-bep": {
@@ -140,14 +213,14 @@
       "hasProducts": false
     },
     "phu-kien": {
-      "productCount": 2,
-      "hasProducts": true
+      "productCount": 0,
+      "hasProducts": false
     },
     "gach-op-lat": {
       "productCount": 0,
       "hasProducts": false
     }
   },
-  "priorityCategoriesFilled": 2,
+  "priorityCategoriesFilled": 1,
   "priorityCategoriesTotal": 7
 }
