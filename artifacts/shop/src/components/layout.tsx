@@ -106,13 +106,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </Sheet>
 
           {/* Logo */}
-          <Link href="/" className="shrink-0 flex items-center gap-2">
+          <Link href="/" className="shrink-0 flex items-center">
             <div className="bg-orange-600 text-white px-4 py-2 rounded">
               <span className="text-xl md:text-2xl font-extrabold tracking-tight">LONG THỊNH</span>
             </div>
-            <span className="hidden lg:block text-xs text-gray-500 leading-tight">
-              THIẾT BỊ
-            </span>
           </Link>
 
           {/* Search Bar */}

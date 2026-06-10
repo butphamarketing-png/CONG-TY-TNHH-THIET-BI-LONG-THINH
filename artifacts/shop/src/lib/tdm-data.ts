@@ -22,11 +22,37 @@ export const SHOWROOMS = [
   { id: 6, name: "TDM Bình Tân", address: "426 Trần Văn Giàu, P. Tân Tạo, TPHCM", phone: "028.2224.2232", hours: "T2-T7: 7:30-17:00; CN: 8:00-11:00 & 14:00-16:30" },
 ];
 
-export const BANNERS = [
-  { id: 1, title: "LONG THỊNH", subtitle: "", image: "/long-thinh-banner.png", link: "/", buttonText: "", isActive: true, sortOrder: 1 },
-  { id: 2, title: "TẤT TẤT SẢN PHẨM TOTO", subtitle: "Bảo hành 5 năm - Giá tốt nhất thị trường", image: "https://placehold.co/1600x500/0066CC/white?text=TOTO+PROMO", link: brandUrl("toto"), buttonText: "Khám phá", isActive: true, sortOrder: 2 },
-  { id: 3, title: "BẾP TỪ BOSCH - GIẢM 20%", subtitle: "Sản phẩm chính hãng - Bảo hành 2 năm", image: "https://placehold.co/1600x500/CC0000/white?text=BOSCH+DEAL", link: categoryUrl("bep-dien-tu"), buttonText: "Mua ngay", isActive: true, sortOrder: 3 },
+export type ImageBanner = {
+  id: number;
+  title: string;
+  image: string;
+  link: string;
+};
+
+/** Banner trung tâm — carousel full ảnh, có thể thêm slide và chỉnh link tại đây */
+export const HERO_SLIDES: ImageBanner[] = [
+  { id: 1, title: "LONG THỊNH", image: "/slideshow.png", link: "/" },
+  { id: 2, title: "Flash Sale", image: "/flashsale.png", link: "/khuyen-mai" },
 ];
+
+/** Banner cột phải trên / dưới — full ảnh + link */
+export const SIDE_BANNERS = {
+  top: { id: 3, title: "Flash Sale", image: "/flashsale1.png", link: "/khuyen-mai" } satisfies ImageBanner,
+  bottom: { id: 4, title: "Catalogue 2024", image: "/catalogue.png", link: "/khuyen-mai" } satisfies ImageBanner,
+};
+
+/** @deprecated Dùng HERO_SLIDES + SIDE_BANNERS — giữ tương thích các section cũ */
+export const BANNERS = [
+  ...HERO_SLIDES,
+  SIDE_BANNERS.top,
+  SIDE_BANNERS.bottom,
+].map((b, i) => ({
+  ...b,
+  subtitle: "",
+  buttonText: "",
+  isActive: true,
+  sortOrder: i + 1,
+}));
 
 export const PROMOTIONS = [
   { id: 1, title: "Giảm giá sốc TOTO lên đến 30%", endDate: "2026-07-15", image: "https://placehold.co/600x400/dc2626/white?text=PROMO+TOTO", products: [1, 2, 4, 5], badge: "HOT" },

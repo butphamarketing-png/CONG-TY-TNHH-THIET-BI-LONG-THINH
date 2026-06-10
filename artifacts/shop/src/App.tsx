@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Layout } from "@/components/layout";
+import { LogoSplash } from "@/components/LogoSplash";
 import { Home } from "@/pages/home";
 import { SearchPage } from "@/pages/search";
 import { CartPage } from "@/pages/cart";
@@ -51,9 +53,12 @@ function Router() {
 }
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        {showSplash && <LogoSplash onComplete={() => setShowSplash(false)} />}
         <WouterRouter base={(import.meta.env.BASE_URL || "/").replace(/\/$/, "")}>
           <Router />
         </WouterRouter>

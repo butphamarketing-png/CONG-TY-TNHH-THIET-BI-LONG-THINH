@@ -336,3 +336,40 @@
     inset: -1px;
   }
 }
+
+@keyframes logo-letter-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) scale(0.6) rotate(-8deg);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(-6px) scale(1.08) rotate(2deg);
+  }
+  75% {
+    transform: translateY(3px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes logo-loading-bar {
+  0% {
+    width: 0%;
+    opacity: 0.6;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+.logo-letter-pop {
+  animation: logo-letter-pop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.logo-loading-bar {
+  animation: logo-loading-bar 1.6s ease-out forwards;
+}
