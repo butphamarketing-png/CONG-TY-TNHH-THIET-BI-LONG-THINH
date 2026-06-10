@@ -40,20 +40,20 @@ export const HERO_MAIN_BANNER: ImageBanner = {
 /** @deprecated Dùng HERO_MAIN_BANNER */
 export const HERO_SLIDES: ImageBanner[] = [HERO_MAIN_BANNER];
 
-/** Banner vuông bên phải — full ảnh + link */
-export const SIDE_SQUARE_BANNERS: ImageBanner[] = [
-  { id: 4, title: "Catalogue 2024", image: "/catalogue.png", link: "/khuyen-mai" },
-];
-
-/** @deprecated Dùng SIDE_SQUARE_BANNERS */
+/** Banner vuông bên phải — trên: flashsale1, dưới: catalogue */
 export const SIDE_BANNERS = {
-  bottom: SIDE_SQUARE_BANNERS[0],
-} as const;
+  top: { id: 3, title: "Flash Sale", image: "/flashsale1.png", link: "/khuyen-mai" } satisfies ImageBanner,
+  bottom: { id: 4, title: "Catalogue 2024", image: "/catalogue.png", link: "/khuyen-mai" } satisfies ImageBanner,
+};
 
-/** @deprecated Dùng HERO_MAIN_BANNER + SIDE_SQUARE_BANNERS */
+/** @deprecated Dùng SIDE_BANNERS */
+export const SIDE_SQUARE_BANNERS: ImageBanner[] = [SIDE_BANNERS.top, SIDE_BANNERS.bottom];
+
+/** @deprecated Dùng HERO_MAIN_BANNER + SIDE_BANNERS */
 export const BANNERS = [
   HERO_MAIN_BANNER,
-  ...SIDE_SQUARE_BANNERS,
+  SIDE_BANNERS.top,
+  SIDE_BANNERS.bottom,
 ].map((b, i) => ({
   ...b,
   subtitle: "",

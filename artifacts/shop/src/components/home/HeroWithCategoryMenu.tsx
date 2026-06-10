@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { HERO_MAIN_BANNER, SIDE_SQUARE_BANNERS } from "@/lib/tdm-data";
+import { HERO_MAIN_BANNER, SIDE_BANNERS } from "@/lib/tdm-data";
 
 function FullImageBanner({
   href,
@@ -29,32 +29,37 @@ function FullImageBanner({
   );
 }
 
-/** Hero: 1 banner chữ nhật (slideshow) + banner vuông bên phải (catalogue) */
+/** Hero: slideshow chữ nhật trái + flashsale1 & catalogue vuông phải */
 export function HeroWithCategoryMenu() {
-  const sideBanner = SIDE_SQUARE_BANNERS[0];
-
   return (
     <section className="bg-gradient-to-b from-white to-gray-50/80">
       <div className="container mx-auto px-4 md:px-6 py-5 md:py-6">
-        {/* Desktop: rectangle trái + vuông phải */}
-        <div className="hidden lg:flex lg:gap-4 lg:items-start">
-          <div className="flex-1 min-w-0 overflow-hidden rounded-2xl shadow-md hover:shadow-xl ring-1 ring-black/5 transition-shadow duration-300 aspect-[16/7]">
+        {/* Desktop */}
+        <div className="hidden lg:grid lg:grid-cols-[minmax(0,1fr)_280px] xl:grid-cols-[minmax(0,1fr)_300px] lg:grid-rows-[280px_280px] xl:grid-rows-[300px_300px] lg:gap-4">
+          <div className="lg:row-span-2 lg:col-start-1 overflow-hidden rounded-2xl shadow-md hover:shadow-xl ring-1 ring-black/5 transition-shadow duration-300">
             <FullImageBanner
               href={HERO_MAIN_BANNER.link}
               image={HERO_MAIN_BANNER.image}
               title={HERO_MAIN_BANNER.title}
+              className="h-full min-h-[576px] xl:min-h-[616px]"
             />
           </div>
 
-          {sideBanner && (
-            <div className="w-[280px] xl:w-[300px] shrink-0 aspect-square overflow-hidden rounded-2xl shadow-md hover:shadow-xl ring-1 ring-black/5 transition-shadow duration-300">
-              <FullImageBanner
-                href={sideBanner.link}
-                image={sideBanner.image}
-                title={sideBanner.title}
-              />
-            </div>
-          )}
+          <div className="lg:col-start-2 lg:row-start-1 overflow-hidden rounded-2xl shadow-md hover:shadow-xl ring-1 ring-black/5 transition-shadow duration-300 h-[280px] xl:h-[300px]">
+            <FullImageBanner
+              href={SIDE_BANNERS.top.link}
+              image={SIDE_BANNERS.top.image}
+              title={SIDE_BANNERS.top.title}
+            />
+          </div>
+
+          <div className="lg:col-start-2 lg:row-start-2 overflow-hidden rounded-2xl shadow-md hover:shadow-xl ring-1 ring-black/5 transition-shadow duration-300 h-[280px] xl:h-[300px]">
+            <FullImageBanner
+              href={SIDE_BANNERS.bottom.link}
+              image={SIDE_BANNERS.bottom.image}
+              title={SIDE_BANNERS.bottom.title}
+            />
+          </div>
         </div>
 
         {/* Mobile / tablet */}
@@ -67,15 +72,22 @@ export function HeroWithCategoryMenu() {
             />
           </div>
 
-          {sideBanner && (
-            <div className="overflow-hidden rounded-xl shadow-sm ring-1 ring-black/5 w-full max-w-[320px] mx-auto aspect-square">
+          <div className="grid grid-cols-2 gap-3.5">
+            <div className="overflow-hidden rounded-xl shadow-sm ring-1 ring-black/5 aspect-square">
               <FullImageBanner
-                href={sideBanner.link}
-                image={sideBanner.image}
-                title={sideBanner.title}
+                href={SIDE_BANNERS.top.link}
+                image={SIDE_BANNERS.top.image}
+                title={SIDE_BANNERS.top.title}
               />
             </div>
-          )}
+            <div className="overflow-hidden rounded-xl shadow-sm ring-1 ring-black/5 aspect-square">
+              <FullImageBanner
+                href={SIDE_BANNERS.bottom.link}
+                image={SIDE_BANNERS.bottom.image}
+                title={SIDE_BANNERS.bottom.title}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>
