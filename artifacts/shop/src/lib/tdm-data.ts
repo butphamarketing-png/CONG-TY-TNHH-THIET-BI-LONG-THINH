@@ -29,11 +29,16 @@ export type ImageBanner = {
   link: string;
 };
 
-/** Banner trung tâm — carousel full ảnh, có thể thêm slide và chỉnh link tại đây */
-export const HERO_SLIDES: ImageBanner[] = [
-  { id: 1, title: "LONG THỊNH", image: "/slideshow.png", link: "/" },
-  { id: 2, title: "Flash Sale", image: "/flashsale.png", link: "/khuyen-mai" },
-];
+/** Banner chính — full ảnh + link (chỉnh tại đây) */
+export const HERO_MAIN_BANNER: ImageBanner = {
+  id: 1,
+  title: "LONG THỊNH",
+  image: "/slideshow.png",
+  link: "/",
+};
+
+/** @deprecated Dùng HERO_MAIN_BANNER */
+export const HERO_SLIDES: ImageBanner[] = [HERO_MAIN_BANNER];
 
 /** Banner cột phải trên / dưới — full ảnh + link */
 export const SIDE_BANNERS = {
