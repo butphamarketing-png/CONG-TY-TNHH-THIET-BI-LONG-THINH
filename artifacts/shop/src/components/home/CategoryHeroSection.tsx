@@ -1,8 +1,10 @@
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { ChevronRight } from "lucide-react";
 import { getCategoryIconComponent } from "@/lib/category-icons";
 import { categoryUrl } from "@/lib/urls";
 import { CATEGORIES } from "@/lib/tdm-data";
+import { getTileThumbnailsForSlugs } from "@/lib/catalog-service";
 import { getHomepageTilesForGroup } from "@/lib/category-utils";
 import { getListingSlugForTile } from "@/lib/homepage-tiles";
 import { getCategoryTileImage } from "@/lib/category-tile-images";
@@ -13,9 +15,16 @@ interface CategoryHeroSectionProps {
   description?: string;
 }
 
-function CategoryImageCard({ name, tileSlug }: { name: string; tileSlug: string }) {
+function CategoryImageCard({
+  name,
+  tileSlug,
+  imageUrl,
+}: {
+  name: string;
+  tileSlug: string;
+  imageUrl?: string;
+}) {
   const linkSlug = getListingSlugForTile(tileSlug);
-  const imageUrl = getCategoryTileImage(tileSlug);
   const Icon = getCategoryIconComponent(tileSlug);
 
   return (
@@ -45,6 +54,17 @@ function CategoryImageCard({ name, tileSlug }: { name: string; tileSlug: string 
 
 export function CategoryHeroSection({ groupSlug, title, description }: CategoryHeroSectionProps) {
   const subcats = getHomepageTilesForGroup(CATEGORIES, groupSlug as any);
+  const missingSlugs = subcats
+    .filter((c) => !getCategoryTileImage(c.slug))
+    .map((c) => getListingSlugForTile(c.slug));
+  const uniqueMissing = [...new Set(missingSlugs)];
+
+  const [fallbackThumbs, setFallbackThumbs] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    if (!uniqueMissing.length) return;
+    getTileThumbnailsForSlugs(uniqueMissing).then(setFallbackThumbs);
+  }, [uniqueMissing.join(",")]);
 
   if (!subcats.length) return null;
 
@@ -61,9 +81,19 @@ export function CategoryHeroSection({ groupSlug, title, description }: CategoryH
 
       <div className="px-1 sm:px-2 md:px-4 pb-4">
         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-1.5 sm:gap-2 md:gap-2.5 max-w-[1400px] mx-auto">
-          {subcats.map((cat) => (
-            <CategoryImageCard key={cat.id} name={cat.name} tileSlug={cat.slug} />
-          ))}
+          {subcats.map((cat) => {
+            const listingSlug = getListingSlugForTile(cat.slug);
+            const imageUrl =
+              getCategoryTileImage(cat.slug) ?? fallbackThumbs[listingSlug];
+            return (
+              <CategoryImageCard
+                key={cat.id}
+                name={cat.name}
+                tileSlug={cat.slug}
+                imageUrl={imageUrl}
+              />
+            );
+          })}
         </div>
       </div>
 
