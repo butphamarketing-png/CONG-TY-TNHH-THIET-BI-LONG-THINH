@@ -16,6 +16,13 @@ import {
   getHomepageTilesForGroup,
 } from "@/lib/category-utils";
 import { buildSlugRegistry, RESERVED_SLUGS } from "@/lib/slug-registry";
+import {
+  applyLeafCategoryFilter,
+  buildVirtualCategory,
+  filterListingsForCategory,
+  hasLeafCategoryFilter,
+  resolveListingChunkSlugs,
+} from "@/lib/category-listing-resolver";
 import { getMegaMenuBrandSlugs, getMegaMenuCategorySlugs } from "@/lib/mega-menu-config";
 import {
   expandCategorySlugs,
@@ -33,6 +40,7 @@ import {
   loadSearchIndex,
   loadSlugRegistry,
   listingToProduct,
+  searchEntryToListing,
   searchListings,
   getBrandListings,
   getTotalProductCount,
@@ -137,9 +145,16 @@ export function getCategories(): CategoryNode[] {
 }
 
 export function getCategoryBySlug(slug: string): CategoryNode | undefined {
-  const node = findCategoryBySlug(categories, slug);
-  if (!node) return undefined;
-  return enrichCategory(node);
+  const canonical = toCanonicalTdmSlug(slug);
+  const node =
+    findCategoryBySlug(categories, slug) ??
+    findCategoryBySlug(categories, canonical);
+  if (node) return enrichCategory(node);
+
+  const virtual = buildVirtualCategory(canonical);
+  if (virtual) return enrichCategory(virtual);
+
+  return undefined;
 }
 
 export function getCategoryBreadcrumb(slug: string): CategoryNode[] {
@@ -199,22 +214,21 @@ export async function getProductListingsForCategory(
   categorySlug: string,
   includeDescendants = true,
 ): Promise<ProductListing[]> {
-  const canonical = toCanonicalTdmSlug(categorySlug);
-  const aliasSlugs = expandCategorySlugs(categorySlug);
+  const chunkSlugs = await resolveListingChunkSlugs(categorySlug, includeDescendants);
+  if (!chunkSlugs.length) return [];
 
-  if (includeDescendants) {
-    const node = findCategoryBySlug(categories, canonical) ?? findCategoryBySlug(categories, categorySlug);
-    if (node) {
-      const slugs = getDescendantSlugs(node);
-      const leafSlugs = slugs.filter((s) => {
-        const n = findCategoryBySlug(categories, s);
-        return !n?.children?.length;
-      });
-      const merged = [...new Set([...leafSlugs, ...aliasSlugs])];
-      return loadCategoryListings(merged.length > 0 ? merged : aliasSlugs);
-    }
+  const listings = await loadCategoryListings(chunkSlugs);
+  let filtered = filterListingsForCategory(listings, categorySlug, includeDescendants);
+
+  if (filtered.length === 0 && hasLeafCategoryFilter(categorySlug)) {
+    const searchIndex = await loadSearchIndex();
+    filtered = applyLeafCategoryFilter(
+      searchIndex.map(searchEntryToListing),
+      categorySlug,
+    );
   }
-  return loadCategoryListings(aliasSlugs);
+
+  return filtered;
 }
 
 export async function getHomepageListings(
